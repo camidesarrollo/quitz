@@ -26,6 +26,7 @@ export interface Question {
   options: string[];
   correctAnswer: string;
   correctAnswers?: string[]; // multi-answer questions
+  explaination?: string;
 }
 
 export interface Answer {

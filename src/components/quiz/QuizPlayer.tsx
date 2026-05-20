@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, XCircle, CheckSquare } from "lucide-react";
+import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
@@ -18,6 +18,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const router = useRouter();
   const { session, submitAnswer, advanceQuestion } = useQuizStore();
   const [pendingSelections, setPendingSelections] = useState<string[]>([]);
+  const [showExplanation, setShowExplanation] = useState(false);
 
   useEffect(() => {
     if (!session || session.id !== sessionId) {
@@ -29,9 +30,10 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     }
   }, [session, sessionId, router]);
 
-  // Reset pending selections when the question changes
+  // Reset pending selections and explanation toggle when the question changes
   useEffect(() => {
     setPendingSelections([]);
+    setShowExplanation(false);
   }, [session?.currentIndex]);
 
   if (!session || session.id !== sessionId || session.status === "completed") {
@@ -203,7 +205,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
               ) : (
                 <XCircle className="text-red-500 shrink-0 mt-0.5" size={18} />
               )}
-              <div>
+              <div className="flex-1 min-w-0">
                 <p
                   className={cn(
                     "font-semibold text-sm",
@@ -239,6 +241,40 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                         <span className="font-medium">{question.correctAnswer}</span>
                       </p>
                     )}
+                  </div>
+                )}
+                {question.explaination && (
+                  <div className="mt-2">
+                    {answer.isCorrect && (
+                      <button
+                        type="button"
+                        onClick={() => setShowExplanation((v) => !v)}
+                        className="text-xs text-green-700 dark:text-green-400 font-medium flex items-center gap-1 hover:underline"
+                      >
+                        <ChevronDown
+                          size={12}
+                          className={cn(
+                            "transition-transform duration-200",
+                            showExplanation && "rotate-180"
+                          )}
+                        />
+                        {showExplanation ? "Ocultar explicación" : "Ver explicación"}
+                      </button>
+                    )}
+                    <AnimatePresence initial={false}>
+                      {(!answer.isCorrect || showExplanation) && (
+                        <motion.p
+                          key="expl"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed overflow-hidden"
+                        >
+                          {question.explaination}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                   </div>
                 )}
               </div>

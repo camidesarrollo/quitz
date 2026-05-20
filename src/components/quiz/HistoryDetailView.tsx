@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   Clock,
@@ -10,6 +10,7 @@ import {
   BookOpen,
   CheckCircle2,
   XCircle,
+  ChevronDown,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { ScoreRing } from "./ScoreRing";
@@ -76,6 +77,7 @@ function QuestionReview({
   answer: Answer | undefined;
   index: number;
 }) {
+  const [showExplanation, setShowExplanation] = useState(false);
   const correct = answer?.isCorrect ?? false;
   const selectedOptions = answer?.selectedOptions ?? (answer?.selectedOption ? [answer.selectedOption] : []);
   const correctOptions =
@@ -133,6 +135,40 @@ function QuestionReview({
               );
             })}
           </div>
+          {question.explaination && (
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700/60">
+              {correct && (
+                <button
+                  type="button"
+                  onClick={() => setShowExplanation((v) => !v)}
+                  className="text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1 hover:underline mb-1"
+                >
+                  <ChevronDown
+                    size={12}
+                    className={cn(
+                      "transition-transform duration-200",
+                      showExplanation && "rotate-180"
+                    )}
+                  />
+                  {showExplanation ? "Ocultar explicación" : "Ver explicación"}
+                </button>
+              )}
+              <AnimatePresence initial={false}>
+                {(!correct || showExplanation) && (
+                  <motion.p
+                    key="expl"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed overflow-hidden"
+                  >
+                    {question.explaination}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
