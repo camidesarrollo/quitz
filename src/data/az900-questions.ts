@@ -1,4 +1,4 @@
-import type { Question } from "@/types/quiz";
+﻿import type { Question } from "@/types/quiz";
 
 export const az900Questions: Question[] = [
   {
@@ -3150,6 +3150,7 @@ export const az900Questions: Question[] = [
     "text": "¿El tráfico de datos saliente desde Azure a una red local siempre es gratuito?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Azure normalmente cobra por el tráfico de salida (egress) desde Azure hacia redes locales o internet."
   },
   {
@@ -3157,6 +3158,7 @@ export const az900Questions: Question[] = [
     "text": "¿El tráfico de datos entre servicios de Azure dentro de la misma región de Azure siempre es gratuito?",
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
+    "categoryId": "azure-management",
     "explaination": "La transferencia de datos entre servicios de Azure dentro de la misma región generalmente no tiene costo."
   },
   {
@@ -3165,6 +3167,7 @@ export const az900Questions: Question[] = [
     "options": ["Las interfaces de red", "Las direcciones IP públicas", "Los grupos de Entra ID", "Las cuentas de usuario de Entra ID"],
     "correctAnswer": "Las direcciones IP públicas",
     "correctAnswers": ["Las interfaces de red", "Las direcciones IP públicas"],
+    "categoryId": "azure-management",
     "explaination": "Las direcciones IP públicas y las interfaces de red pueden generar costos aunque no estén en uso."
   },
   {
@@ -3172,6 +3175,7 @@ export const az900Questions: Question[] = [
     "text": "Si una VM de Azure tiene el estado Detenida (desasignada), ¿por qué seguirá pagando?",
     "options": ["Capacidad de cómputo", "Operaciones de E/S", "Redes", "Almacenamiento"],
     "correctAnswer": "Almacenamiento",
+    "categoryId": "azure-management",
     "explaination": "Aunque la VM esté desasignada, los discos asociados continúan almacenados y generan costos."
   },
   {
@@ -3179,6 +3183,7 @@ export const az900Questions: Question[] = [
     "text": "¿Almacenar 1 TB de datos en Azure Blob Storage siempre tendrá el mismo costo, independientemente de la región?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Los precios de Azure Storage varían según la región seleccionada."
   },
   {
@@ -3186,6 +3191,7 @@ export const az900Questions: Question[] = [
     "text": "¿Al usar una cuenta de Azure Storage v2 de uso general, solo se cobra por los datos almacenados y las operaciones de lectura/escritura son gratuitas?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Azure Storage cobra tanto por almacenamiento como por operaciones y transferencia de datos."
   },
   {
@@ -3193,6 +3199,7 @@ export const az900Questions: Question[] = [
     "text": "¿La transferencia de datos entre cuentas de Azure Storage en diferentes regiones de Azure es gratuita?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "La transferencia de datos entre regiones normalmente tiene costos asociados."
   },
   {
@@ -3200,6 +3207,7 @@ export const az900Questions: Question[] = [
     "text": "¿En Microsoft Entra ID Premium P2, se garantiza una disponibilidad de al menos el 99,9%?",
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
+    "categoryId": "azure-management",
     "explaination": "Microsoft garantiza un SLA de al menos 99,9% para Entra ID Premium P2."
   },
   {
@@ -3207,6 +3215,7 @@ export const az900Questions: Question[] = [
     "text": "¿El SLA para Microsoft Entra ID Premium P2 es el mismo que el SLA para Microsoft Entra ID Free?",
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
+    "categoryId": "azure-management",
     "explaination": "El SLA de disponibilidad es el mismo para ambas ediciones."
   },
   {
@@ -3214,6 +3223,7 @@ export const az900Questions: Question[] = [
     "text": "¿Todos los clientes de Azure que pagan reciben un crédito si su tiempo de actividad mensual es inferior a la cantidad garantizada en el SLA?",
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
+    "categoryId": "azure-management",
     "explaination": "Azure ofrece créditos de servicio cuando no se cumplen los SLA establecidos."
   },
   {
@@ -3221,6 +3231,7 @@ export const az900Questions: Question[] = [
     "text": "¿Agregar grupos de recursos a una suscripción de Azure genera costos adicionales?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Los grupos de recursos son contenedores lógicos y no generan costos."
   },
   {
@@ -3228,6 +3239,7 @@ export const az900Questions: Question[] = [
     "text": "¿Copiar 10 GB de datos a Azure desde una red local a través de una VPN genera costos adicionales de transferencia en Azure?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "La transferencia de datos entrante hacia Azure generalmente es gratuita."
   },
   {
@@ -3235,6 +3247,7 @@ export const az900Questions: Question[] = [
     "text": "¿Copiar 10 GB de datos de Azure a una red local a través de una VPN genera costos adicionales de transferencia de Azure?",
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
+    "categoryId": "azure-management",
     "explaination": "La transferencia de datos saliente desde Azure normalmente tiene costo."
   },
   {
@@ -3242,6 +3255,7 @@ export const az900Questions: Question[] = [
     "text": "¿Cada suscripción de Azure puede contener varios administradores de cuenta?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Cada suscripción tiene un único administrador de cuenta, aunque puede tener varios administradores y roles RBAC."
   },
   {
@@ -3249,6 +3263,7 @@ export const az900Questions: Question[] = [
     "text": "¿Cada suscripción a Azure solo puede administrarse mediante una cuenta de Microsoft?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Las suscripciones pueden administrarse usando cuentas de Microsoft o identidades organizacionales de Entra ID."
   },
   {
@@ -3256,6 +3271,7 @@ export const az900Questions: Question[] = [
     "text": "¿Un grupo de recursos de Azure contiene varias suscripciones de Azure?",
     "options": ["Sí", "No"],
     "correctAnswer": "No",
+    "categoryId": "azure-management",
     "explaination": "Un grupo de recursos pertenece únicamente a una suscripción."
   },
   {
@@ -3263,6 +3279,7 @@ export const az900Questions: Question[] = [
     "text": "Los datos en el nivel de acceso de archivo de una cuenta de Azure Storage [...].",
     "options": ["Se puede acceder en cualquier momento mediante azcopy.exe", "Solo se puede leer mediante Azure Backup", "Deben restaurarse antes de poder acceder a los datos", "Deben rehidratarse antes de poder acceder a los datos"],
     "correctAnswer": "Deben rehidratarse antes de poder acceder a los datos",
+    "categoryId": "azure-services",
     "explaination": "Los blobs archivados deben rehidratarse antes de poder leerse."
   },
   {
@@ -3270,6 +3287,7 @@ export const az900Questions: Question[] = [
     "text": "Azure Cosmos DB es un ejemplo de una oferta [...].",
     "options": ["Plataforma como servicio (PaaS)", "Infraestructura como servicio (IaaS)", "Sin servidor", "Software como servicio (SaaS)"],
     "correctAnswer": "Plataforma como servicio (PaaS)",
+    "categoryId": "azure-services",
     "explaination": "Azure Cosmos DB es un servicio administrado de base de datos PaaS."
   },
   {
@@ -4009,7 +4027,7 @@ export const az900Questions: Question[] = [
     ],
     "correctAnswer": "Un ataque de denegación de servicio que envía demasiado tráfico a una red",
     "explaination": "Un ataque DDoS busca saturar un sistema o red con tráfico masivo proveniente de múltiples fuentes, haciendo que los usuarios legítimos no puedan acceder al servicio.",
-    "categoryId": "azure-security"
+    "categoryId": "azure-management"
   },
   {
     "id": 483,
@@ -4034,7 +4052,7 @@ export const az900Questions: Question[] = [
     ],
     "correctAnswer": "Ataques de capa de aplicación L7",
     "explaination": "Azure DDoS Protection protege principalmente contra ataques de red y transporte (L3 y L4). Los ataques de capa de aplicación (L7) requieren protección adicional, como un Web Application Firewall (WAF).",
-    "categoryId": "azure-security"
+    "categoryId": "azure-management"
   },
   {
     "id": 485,
@@ -4066,7 +4084,7 @@ export const az900Questions: Question[] = [
     ],
     "correctAnswer": "Azure es responsable de proteger los centros de datos físicos",
     "explaination": "En el modelo de responsabilidad compartida, Microsoft Azure protege la infraestructura física, mientras que los clientes protegen sus datos, aplicaciones y configuraciones.",
-    "categoryId": "azure-security"
+    "categoryId": "azure-management"
   },
   {
     "id": 488,
