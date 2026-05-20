@@ -11,11 +11,14 @@ import {
   Clock,
   LayoutGrid,
   ChevronRight,
+  XCircle,
+  ArrowRight,
+  Trash2,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { getCategoryCount } from "@/lib/repositories/QuestionRepository";
 import { formatDate, formatDuration } from "@/lib/utils";
-import { isPassing, PASS_THRESHOLD } from "@/lib/quiz-utils";
+import { isPassing, PASS_THRESHOLD, getWrongQuestionsFromHistory } from "@/lib/quiz-utils";
 import { cn } from "@/lib/utils";
 import type { QuizConfig, QuizMode } from "@/types/quiz";
 import { AZ900 } from "@/data/courses";
@@ -33,7 +36,8 @@ function buildCountOptions(poolSize: number): number[] {
 
 export function QuizMenu() {
   const router = useRouter();
-  const { history, startSession, clearSession } = useQuizStore();
+  const { history, startSession, startSessionWithQuestions, clearSession, clearHistory } = useQuizStore();
+  const wrongQuestions = getWrongQuestionsFromHistory(history);
 
   const [domain, setDomain] = useState<DomainOption>("simulacro");
   const [mode, setMode] = useState<QuizMode>("random");
@@ -88,6 +92,19 @@ export function QuizMenu() {
       setCustomInput("");
       setIsCustom(false);
     }
+  }
+
+  function handleStartWrongReview() {
+    if (wrongQuestions.length === 0) return;
+    clearSession();
+    const config: QuizConfig = {
+      courseId: COURSE.id,
+      questionCount: wrongQuestions.length,
+      mode,
+      label: `Repaso de errores · ${wrongQuestions.length} preg.`,
+    };
+    const sessionId = startSessionWithQuestions(config, wrongQuestions);
+    router.push(`/quiz/${sessionId}`);
   }
 
   function handleStart() {
@@ -275,12 +292,49 @@ export function QuizMenu() {
           </button>
         </div>
 
+        {/* Wrong answers review */}
+        {wrongQuestions.length > 0 && (
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-red-200 dark:border-red-900/60 p-5 mb-4">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-red-100 dark:bg-red-900/40 flex items-center justify-center shrink-0">
+                <XCircle size={18} className="text-red-500 dark:text-red-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                  Repasar errores
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {wrongQuestions.length} pregunta{wrongQuestions.length !== 1 ? "s" : ""} incorrecta{wrongQuestions.length !== 1 ? "s" : ""} únicas de todo tu historial
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleStartWrongReview}
+              className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-semibold transition-colors text-sm"
+            >
+              Comenzar repaso
+              <ArrowRight size={15} />
+            </button>
+          </div>
+        )}
+
         {/* History */}
         {history.length > 0 && (
           <div>
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
-              Historial reciente
-            </p>
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+                Historial reciente
+              </p>
+              <button
+                type="button"
+                onClick={clearHistory}
+                className="flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+              >
+                <Trash2 size={11} />
+                Borrar
+              </button>
+            </div>
             <div className="space-y-2">
               {history.slice(0, 5).map((s) => (
                 <button

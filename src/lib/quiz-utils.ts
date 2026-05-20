@@ -1,4 +1,4 @@
-import type { Question, CategoryWeight } from "@/types/quiz";
+import type { Question, CategoryWeight, CompletedSession } from "@/types/quiz";
 
 export function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -44,6 +44,21 @@ export function getWeightedQuestions(
   });
 
   return shuffleArray(result);
+}
+
+export function getWrongQuestionsFromHistory(history: CompletedSession[]): Question[] {
+  const seen = new Set<number>();
+  const wrong: Question[] = [];
+  for (const session of history) {
+    if (!session.questions) continue;
+    session.questions.forEach((q, i) => {
+      if (!session.answers[i]?.isCorrect && !seen.has(q.id)) {
+        seen.add(q.id);
+        wrong.push(q);
+      }
+    });
+  }
+  return wrong;
 }
 
 export function getOptionLabel(index: number): string {

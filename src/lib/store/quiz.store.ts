@@ -5,6 +5,7 @@ import { persist } from "zustand/middleware";
 import type {
   QuizSession,
   QuizConfig,
+  Question,
   Answer,
   CompletedSession,
 } from "@/types/quiz";
@@ -14,6 +15,7 @@ import {
   getRandomQuestions,
   getSequentialQuestions,
   getWeightedQuestions,
+  shuffleArray,
 } from "@/lib/quiz-utils";
 
 interface QuizStore {
@@ -21,10 +23,12 @@ interface QuizStore {
   history: CompletedSession[];
 
   startSession: (config: QuizConfig) => string;
+  startSessionWithQuestions: (config: QuizConfig, questions: Question[]) => string;
   submitAnswer: (questionIndex: number, selected: string | string[]) => void;
   advanceQuestion: () => void;
   completeSession: () => void;
   clearSession: () => void;
+  clearHistory: () => void;
 }
 
 export const useQuizStore = create<QuizStore>()(
@@ -32,6 +36,22 @@ export const useQuizStore = create<QuizStore>()(
     (set, get) => ({
       session: null,
       history: [],
+
+      startSessionWithQuestions: (config, questions) => {
+        const sessionId = crypto.randomUUID();
+        const ordered = config.mode === "sequential" ? questions : shuffleArray(questions);
+        const session: QuizSession = {
+          id: sessionId,
+          questions: ordered,
+          currentIndex: 0,
+          answers: {},
+          status: "active",
+          config,
+          startedAt: Date.now(),
+        };
+        set({ session });
+        return sessionId;
+      },
 
       startSession: (config) => {
         const sessionId = crypto.randomUUID();
@@ -135,6 +155,7 @@ export const useQuizStore = create<QuizStore>()(
       },
 
       clearSession: () => set({ session: null }),
+      clearHistory: () => set({ history: [] }),
     }),
     {
       name: "quitz-storage",
