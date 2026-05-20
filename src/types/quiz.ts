@@ -1,7 +1,27 @@
 // Domain entities
 
+export interface Category {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+export interface CategoryWeight {
+  categoryId: string;
+  weight: number; // percentage 0-100
+}
+
+export interface Course {
+  id: string;
+  code: string;
+  name: string;
+  categories: Category[];
+  defaultWeights: CategoryWeight[];
+}
+
 export interface Question {
   id: number;
+  categoryId?: string;
   text: string;
   options: string[];
   correctAnswer: string;
@@ -19,6 +39,9 @@ export type QuizMode = "random" | "sequential";
 export type QuizStatus = "active" | "completed";
 
 export interface QuizConfig {
+  courseId: string;
+  categoryId?: string;             // single-category quiz
+  categoryWeights?: CategoryWeight[]; // simulacro: weighted multi-category
   questionCount: number;
   mode: QuizMode;
   label: string;

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, XCircle, CheckSquare } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { OptionButton } from "./OptionButton";
+import { QuizHeader } from "./QuizHeader";
 import { getOptionLabel } from "@/lib/quiz-utils";
 import { cn } from "@/lib/utils";
 
@@ -90,6 +91,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] flex flex-col">
+      <QuizHeader config={session.config} />
       {/* Progress bar */}
       <div className="h-0.5 bg-slate-100 dark:bg-slate-800">
         <motion.div
@@ -269,3 +271,5 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     </div>
   );
 }
+
+

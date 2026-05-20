@@ -9,8 +9,12 @@ import type {
   CompletedSession,
 } from "@/types/quiz";
 import { isAnswerCorrect, getSessionScore } from "@/types/quiz";
-import { getAllQuestions } from "@/lib/repositories/QuestionRepository";
-import { getRandomQuestions } from "@/lib/quiz-utils";
+import { getAllQuestions, getQuestionsByCategory } from "@/lib/repositories/QuestionRepository";
+import {
+  getRandomQuestions,
+  getSequentialQuestions,
+  getWeightedQuestions,
+} from "@/lib/quiz-utils";
 
 interface QuizStore {
   session: QuizSession | null;
@@ -31,8 +35,24 @@ export const useQuizStore = create<QuizStore>()(
 
       startSession: (config) => {
         const sessionId = crypto.randomUUID();
-        const all = getAllQuestions();
-        const questions = getRandomQuestions(all, config.questionCount);
+
+        let questions;
+        if (config.categoryWeights && !config.categoryId) {
+          // Simulacro: distribute all questions by exam category weights
+          questions = getWeightedQuestions(
+            getAllQuestions(),
+            config.questionCount,
+            config.categoryWeights
+          );
+        } else {
+          const pool = config.categoryId
+            ? getQuestionsByCategory(config.categoryId)
+            : getAllQuestions();
+          questions =
+            config.mode === "sequential"
+              ? getSequentialQuestions(pool, config.questionCount)
+              : getRandomQuestions(pool, config.questionCount);
+        }
 
         const session: QuizSession = {
           id: sessionId,
