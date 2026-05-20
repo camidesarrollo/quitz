@@ -1218,7 +1218,7 @@ export const az900Questions: Question[] = [
   {
     "id": 144,
     "text": "Relaciona los servicios de Azure con las descripciones correctas (virtualización OS, entorno portátil, crear/escalar apps web, plataforma código sin servidor):",
-    "options": ["VMs: virtualización OS; Containers: portátil; App Service: apps web; Functions: sin servidor", "Functions: virtualización OS; VMs: portátil; Containers: apps web; App Service: sin servidor", "VMs: virtualización OS; Containers: portátil; App Service: apps web; Functions: sin servidor", "VMs: virtualización OS; Functions: portátil; App Service: apps web; Containers: sin servidor"],
+    "options": ["VMs: virtualización OS; Containers: portátil; App Service: apps web; Functions: sin servidor", "Functions: virtualización OS; VMs: portátil; Containers: apps web; App Service: sin servidor", "Containers: virtualización OS; VMs: portátil; App Service: apps web; Functions: sin servidor", "VMs: virtualización OS; Functions: portátil; App Service: apps web; Containers: sin servidor"],
     "correctAnswer": "VMs: virtualización OS; Containers: portátil; App Service: apps web; Functions: sin servidor",
     "categoryId": "azure-services",
     "explaination": "Las VMs de Azure proporcionan virtualización del sistema operativo, los contenedores ofrecen un entorno portátil para aplicaciones, Azure App Service permite crear y escalar aplicaciones web, y Azure Functions es una plataforma de código sin servidor para ejecutar funciones en respuesta a eventos."
@@ -4165,4 +4165,542 @@ export const az900Questions: Question[] = [
     "explaination": "Azure SQL Database es un servicio PaaS completamente administrado que proporciona capacidades de SQL Server en la nube sin administrar infraestructura física.",
     "categoryId": "azure-services"
   },
+   {
+    "id": 494,
+    "text": "¿Qué característica de Azure Active Directory requiere que los usuarios tengan su teléfono móvil para poder iniciar sesión?",
+    "options": [
+      "Azure Information Protection",
+      "Advanced Threat Protection",
+      "Microsoft Defender for Cloud",
+      "Autenticación multifactor"
+    ],
+    "correctAnswer": "Autenticación multifactor",
+    "explaination": "La autenticación multifactor de Azure AD agrega una capa adicional de seguridad solicitando dos o más métodos de verificación, como contraseña y teléfono móvil mediante SMS, llamada o aplicación autenticadora.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 495,
+    "text": "¿Quién es responsable de la seguridad de las claves de acceso de una cuenta de almacenamiento de Azure?",
+    "options": [
+      "Azure es responsable de asegurar las claves de acceso",
+      "Yo soy responsable de asegurar las claves de acceso"
+    ],
+    "correctAnswer": "Yo soy responsable de asegurar las claves de acceso",
+    "explaination": "Aunque Azure proporciona herramientas para proteger las claves de acceso, el cliente es responsable de administrarlas y protegerlas adecuadamente utilizando prácticas como rotación de claves y Azure Key Vault.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 496,
+    "text": "¿Cuál de las siguientes acciones puede realizar actualmente Azure Cognitive Services?",
+    "options": [
+      "Traducir texto de un idioma a otro",
+      "Reconocer texto en una imagen",
+      "Convertir audio en texto",
+      "Generar voz realista a partir de texto",
+      "Todas las anteriores"
+    ],
+    "correctAnswer": "Todas las anteriores",
+    "explaination": "Azure Cognitive Services incluye APIs de inteligencia artificial capaces de traducir texto, reconocer texto en imágenes, convertir voz a texto y generar voz sintética realista.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 497,
+    "text": "¿Es posible dar acceso a otra persona a una suscripción de Azure sin compartir el nombre de usuario y contraseña?",
+    "options": [
+      "Sí",
+      "No"
+    ],
+    "correctAnswer": "Sí",
+    "explaination": "Azure permite otorgar acceso mediante RBAC (Role-Based Access Control), asignando roles específicos a usuarios sin compartir credenciales.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 498,
+    "text": "¿Cómo se denomina el modelo de nube en el que Azure se utiliza como extensión de un centro de datos local?",
+    "options": [
+      "Nube privada",
+      "Nube híbrida",
+      "Nube pública"
+    ],
+    "correctAnswer": "Nube híbrida",
+    "explaination": "La nube híbrida combina infraestructura local con servicios en la nube, permitiendo usar Azure como extensión del centro de datos para almacenamiento, respaldo o capacidad adicional.",
+    "categoryId": "cloud-concepts"
+  },
+  {
+    "id": 499,
+    "text": "¿Qué característica de Azure entrega recomendaciones para reducir costos en una cuenta?",
+    "options": [
+      "Azure Dashboard",
+      "Azure Service Health",
+      "Azure Advisor",
+      "Microsoft Defender for Cloud"
+    ],
+    "correctAnswer": "Azure Advisor",
+    "explaination": "Azure Advisor proporciona recomendaciones relacionadas con costos, rendimiento, seguridad y disponibilidad para optimizar recursos y reducir gastos.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 500,
+    "text": "¿Qué servicio de Azure permite organizar y administrar múltiples suscripciones en una estructura jerárquica?",
+    "options": [
+      "RBAC",
+      "Resource Groups",
+      "Management Groups",
+      "Azure Active Directory"
+    ],
+    "correctAnswer": "Management Groups",
+    "explaination": "Azure Management Groups permite organizar varias suscripciones en jerarquías y aplicar políticas, permisos y reglas de cumplimiento de forma centralizada.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 501,
+    "text": "¿Qué característica de un sistema basado en la nube contribuye principalmente a su elasticidad?",
+    "options": [
+      "La capacidad de resistir ataques DDoS",
+      "La capacidad de aumentar y disminuir recursos dinámicamente según la demanda",
+      "La capacidad de mantener disponibilidad durante actualizaciones",
+      "La capacidad de recuperarse automáticamente después de una falla"
+    ],
+    "correctAnswer": "La capacidad de aumentar y disminuir recursos dinámicamente según la demanda",
+    "explaination": "La elasticidad en la computación en la nube permite ajustar automáticamente la capacidad de recursos en tiempo real según la demanda.",
+    "categoryId": "cloud-concepts"
+  },
+  {
+    "id": 502,
+    "text": "¿Qué servicio de Azure permite controlar el acceso a aplicaciones utilizando autenticación multifactor?",
+    "options": [
+      "Microsoft Entra ID",
+      "Azure Authorization",
+      "Azure Function",
+      "Azure Authentication"
+    ],
+    "correctAnswer": "Microsoft Entra ID",
+    "explaination": "Microsoft Entra ID proporciona autenticación multifactor para reforzar la seguridad y controlar el acceso a recursos y aplicaciones.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 503,
+    "text": "¿Qué característica de Azure puede generar el ahorro más inmediato en costos?",
+    "options": [
+      "Cambiar almacenamiento de redundancia global a local",
+      "Restringir VM costosas con Azure Policy",
+      "Apagar automáticamente servidores de desarrollo y QA fuera de horario",
+      "Usar instancias reservadas"
+    ],
+    "correctAnswer": "Apagar automáticamente servidores de desarrollo y QA fuera de horario",
+    "explaination": "El apagado automático de servidores de desarrollo y QA durante noches y fines de semana evita costos innecesarios y genera ahorros inmediatos.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 514,
+    "text": "¿Los scripts de Azure PowerShell y Azure CLI son completamente compatibles entre sí?",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Falso",
+    "explaination": "Azure PowerShell y Azure CLI utilizan sintaxis y estructuras de comandos diferentes, por lo que no son directamente intercambiables.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 515,
+    "text": "¿Si una característica está en fase de disponibilidad general (GA), recibe soporte de todos los canales de soporte de Microsoft?",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Verdadero",
+    "explaination": "Cuando un servicio alcanza la fase de disponibilidad general (GA), Microsoft ofrece soporte oficial, documentación y acuerdos de nivel de servicio (SLA).",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 516,
+    "text": "¿Qué sucede si Azure no cumple con su Acuerdo de Nivel de Servicio (SLA)?",
+    "options": [
+      "No es posible, Azure siempre cumple el SLA",
+      "Se recibe un reembolso parcial como crédito de servicio",
+      "El servicio será gratuito ese mes"
+    ],
+    "correctAnswer": "Se recibe un reembolso parcial como crédito de servicio",
+    "explaination": "Si Azure no cumple con el SLA, los clientes pueden recibir créditos de servicio equivalentes a un pequeño porcentaje de la tarifa mensual.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 517,
+    "text": "¿Qué sistemas operativos son compatibles con las máquinas virtuales de Azure?",
+    "options": [
+      "Solo Linux",
+      "Solo Windows",
+      "Windows, Linux y macOS",
+      "Solo macOS",
+      "Windows y Linux"
+    ],
+    "correctAnswer": "Windows y Linux",
+    "explaination": "Azure Virtual Machines admite sistemas operativos Windows y Linux. macOS no está soportado como sistema operativo general en máquinas virtuales de Azure.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 518,
+    "text": "¿Cuál de los siguientes recursos NO se considera un recurso de cómputo?",
+    "options": [
+      "Azure Batch",
+      "Máquinas virtuales",
+      "Virtual Machine Scale Sets",
+      "Load Balancer",
+      "Function Apps"
+    ],
+    "correctAnswer": "Load Balancer",
+    "explaination": "Un Load Balancer distribuye tráfico de red y no realiza procesamiento computacional, por lo que no se considera un recurso de cómputo.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 519,
+    "text": "¿Dónde se puede consultar con qué estándares y normativas cumple Microsoft Azure?",
+    "options": [
+      "Azure Service Health",
+      "Azure Security Center",
+      "Azure Privacy Page",
+      "Trust Center"
+    ],
+    "correctAnswer": "Trust Center",
+    "explaination": "El Azure Trust Center proporciona información sobre cumplimiento normativo, certificaciones y estándares de seguridad de Microsoft Azure.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 520,
+    "text": "¿Cuántos minutos de inactividad al mes representan un 99.99% de disponibilidad?",
+    "options": [
+      "4 minutos",
+      "40 minutos",
+      "100 minutos",
+      "1 minuto"
+    ],
+    "correctAnswer": "4 minutos",
+    "explaination": "Una disponibilidad de 99.99% permite aproximadamente 4 minutos de inactividad al mes.",
+    "categoryId": "cloud-concepts"
+  },
+  {
+    "id": 521,
+    "text": "¿Cómo se puede evitar que una cuenta de Azure genere costos inesperados sobre un cierto límite?",
+    "options": [
+      "Configurar alertas de facturación",
+      "Usar únicamente Azure Functions",
+      "Utilizar Azure Reserved Instances",
+      "Implementar Spending Limit"
+    ],
+    "correctAnswer": "Configurar alertas de facturación",
+    "explaination": "Las alertas de facturación permiten recibir notificaciones cuando el gasto alcanza un umbral específico, ayudando a controlar costos.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 522,
+    "text": "¿Qué ocurre cuando una cuenta gratuita de Azure alcanza el límite de crédito de $200?",
+    "options": [
+      "Todos los servicios se detienen hasta decidir si convertir la cuenta en pagada",
+      "La cuenta se cierra automáticamente",
+      "La tarjeta de crédito se cobra automáticamente",
+      "No se pueden crear más recursos hasta agregar más crédito"
+    ],
+    "correctAnswer": "Todos los servicios se detienen hasta decidir si convertir la cuenta en pagada",
+    "explaination": "Al alcanzar el límite de crédito de la cuenta gratuita, Azure detiene los servicios y el usuario debe decidir si cambia a un modelo de pago.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 523,
+    "text": "¿Cuál es la importancia de seleccionar una región de Azure al crear recursos?",
+    "options": [
+      "No tiene consecuencias importantes",
+      "Es solo una estructura organizativa",
+      "No se pueden crear recursos fuera de la región elegida",
+      "Define la ubicación física donde se hospedarán los recursos"
+    ],
+    "correctAnswer": "Define la ubicación física donde se hospedarán los recursos",
+    "explaination": "La región de Azure determina la ubicación geográfica de los recursos, afectando latencia, cumplimiento normativo y estrategias de disponibilidad.",
+    "categoryId": "azure-services"
+  },
+   {
+    "id": 524,
+    "text": "¿Qué servicio de Azure puede bloquear automáticamente tráfico hacia o desde direcciones IP y dominios maliciosos?",
+    "options": [
+      "Load Balancer",
+      "Azure Active Directory",
+      "Azure Firewall",
+      "Network Security Groups"
+    ],
+    "correctAnswer": "Azure Firewall",
+    "explaination": "Azure Firewall puede integrar inteligencia de amenazas de Microsoft para bloquear tráfico malicioso hacia o desde IPs y dominios sospechosos.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 525,
+    "text": "¿Qué software se utiliza para sincronizar Active Directory local con Azure Active Directory?",
+    "options": [
+      "Azure AD Federation Services",
+      "LDAP",
+      "AD Connect",
+      "Azure AD Domain Services"
+    ],
+    "correctAnswer": "AD Connect",
+    "explaination": "Azure AD Connect sincroniza usuarios, grupos y credenciales entre Active Directory local y Azure Active Directory.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 526,
+    "text": "¿Un tenant de Azure es una instancia dedicada y confiable de Azure Active Directory creada automáticamente al suscribirse a un servicio de Microsoft?",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Verdadero",
+    "explaination": "Cuando una organización se registra en servicios como Azure o Microsoft 365, se crea automáticamente un tenant de Azure AD.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 527,
+    "text": "¿Qué modelo de computación es más sencillo para migrar una aplicación existente desde un datacenter local hacia la nube?",
+    "options": [
+      "FaaS",
+      "Serverless",
+      "IaaS",
+      "PaaS"
+    ],
+    "correctAnswer": "IaaS",
+    "explaination": "IaaS permite realizar migraciones tipo lift-and-shift usando máquinas virtuales con mínimos cambios en la arquitectura original.",
+    "categoryId": "cloud-concepts"
+  },
+  {
+    "id": 528,
+    "text": "¿Qué significa la letra R en RBAC?",
+    "options": [
+      "Review",
+      "Rights",
+      "Role",
+      "Rule"
+    ],
+    "correctAnswer": "Role",
+    "explaination": "RBAC significa Role-Based Access Control, un modelo de control de acceso basado en roles.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 529,
+    "text": "¿Qué componentes forman parte del despliegue de aplicaciones en Azure App Services? (Seleccione dos)",
+    "options": [
+      "Configuración",
+      "Código empaquetado",
+      "Scripts de base de datos",
+      "Administración de actualizaciones del sistema operativo"
+    ],
+    "correctAnswer": "Configuración y Código empaquetado",
+    "explaination": "El despliegue de aplicaciones en Azure App Services requiere configuraciones como variables de entorno y el código de la aplicación.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 530,
+    "text": "¿Cuántas horas gratuitas mensuales ofrece una VM B1S en la cuenta gratuita de Azure durante los primeros 12 meses?",
+    "options": [
+      "750 horas",
+      "500 horas",
+      "Horas ilimitadas",
+      "300 horas"
+    ],
+    "correctAnswer": "750 horas",
+    "explaination": "La cuenta gratuita de Azure incluye hasta 750 horas mensuales de uso para una máquina virtual B1S durante los primeros 12 meses.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 531,
+    "text": "¿Cuál de los siguientes elementos pertenece a la capa de seguridad de red?",
+    "options": [
+      "Separar servidores en subredes según su función",
+      "Candados en las puertas del datacenter",
+      "Mantener sistemas operativos actualizados",
+      "Todas las anteriores"
+    ],
+    "correctAnswer": "Separar servidores en subredes según su función",
+    "explaination": "La seguridad de red incluye segmentación mediante subredes para aislar recursos según roles o funciones.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 532,
+    "text": "¿Qué son los Resource Groups en Azure?",
+    "options": [
+      "Grupos automáticos de recursos del mismo tipo",
+      "Grupos de usuarios con permisos",
+      "Una estructura lógica para organizar recursos",
+      "Grupos basados en etiquetas automáticas"
+    ],
+    "correctAnswer": "Una estructura lógica para organizar recursos",
+    "explaination": "Los Resource Groups permiten organizar y administrar recursos relacionados como máquinas virtuales, redes y bases de datos.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 533,
+    "text": "¿Qué servicio de Azure permite habilitar MFA solo para administradores y no para usuarios normales?",
+    "options": [
+      "Privileged Identity Management",
+      "Azure AD B2B",
+      "Advanced Threat Protection",
+      "Azure Firewall"
+    ],
+    "correctAnswer": "Privileged Identity Management",
+    "explaination": "Azure Privileged Identity Management permite aplicar controles avanzados como MFA únicamente a usuarios con privilegios elevados.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 534,
+    "text": "¿Qué servicio de Azure, al habilitarse, bloquea automáticamente tráfico hacia o desde direcciones IP y dominios maliciosos?",
+    "options": [
+      "Load Balancer",
+      "Azure Active Directory",
+      "Azure Firewall",
+      "Network Security Groups"
+    ],
+    "correctAnswer": "Azure Firewall",
+    "explaination": "Azure Firewall utiliza inteligencia de amenazas de Microsoft para bloquear tráfico sospechoso hacia o desde direcciones IP y dominios maliciosos.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 535,
+    "text": "¿Qué software se utiliza para sincronizar Active Directory local con Azure Active Directory?",
+    "options": [
+      "Azure AD Federation Services",
+      "LDAP",
+      "AD Connect",
+      "Azure AD Domain Services"
+    ],
+    "correctAnswer": "AD Connect",
+    "explaination": "Azure AD Connect sincroniza usuarios, grupos y credenciales entre Active Directory local y Azure Active Directory.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 536,
+    "text": "¿Cuál es una ventaja principal de ejecutar una nube privada?",
+    "options": [
+      "Puedes cambiar fácilmente de proveedor",
+      "Tus aplicaciones y datos están en hardware y redes aisladas",
+      "Es mucho más barata que la nube pública"
+    ],
+    "correctAnswer": "Tus aplicaciones y datos están en hardware y redes aisladas",
+    "explaination": "La nube privada ofrece aislamiento de infraestructura y red, aumentando el control y la seguridad.",
+    "categoryId": "cloud-concepts"
+  },
+  {
+    "id": 537,
+    "text": "¿Qué herramienta de Azure entrega recomendaciones basadas en el uso real de tus recursos?",
+    "options": [
+      "Azure Monitor",
+      "Azure Dashboard",
+      "Azure Advisor",
+      "Azure Service Health"
+    ],
+    "correctAnswer": "Azure Advisor",
+    "explaination": "Azure Advisor analiza tu entorno y entrega recomendaciones para optimizar costos, seguridad, rendimiento y disponibilidad.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 538,
+    "text": "¿Qué tipo de información entrega Microsoft Service Trust Portal?",
+    "options": [
+      "Herramientas para gestionar cumplimiento",
+      "Documentación y reportes de cumplimiento y seguridad",
+      "Documentación técnica de servicios Azure",
+      "Recomendaciones de optimización"
+    ],
+    "correctAnswer": "Documentación y reportes de cumplimiento y seguridad",
+    "explaination": "Service Trust Portal contiene reportes de auditoría, certificaciones, evaluaciones de seguridad y documentos de cumplimiento.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 539,
+    "text": "¿Por qué se recomienda dividir una aplicación en múltiples subredes?",
+    "options": [
+      "Cada servidor requiere obligatoriamente una subred distinta",
+      "Permite aplicar diferentes reglas de seguridad y limitar ataques laterales",
+      "Las subredes tienen límites estrictos de direcciones IP"
+    ],
+    "correctAnswer": "Permite aplicar diferentes reglas de seguridad y limitar ataques laterales",
+    "explaination": "La segmentación en subredes mejora la seguridad permitiendo aplicar reglas NSG específicas y limitar movimientos laterales.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 540,
+    "text": "¿Qué característica de Azure informa sobre incidentes y problemas de la plataforma Azure?",
+    "options": [
+      "Azure Service Health",
+      "Azure Security Center",
+      "Azure Monitor",
+      "Azure Portal Dashboard"
+    ],
+    "correctAnswer": "Azure Service Health",
+    "explaination": "Azure Service Health entrega alertas sobre incidentes, mantenimientos y problemas que afectan servicios de Azure.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 541,
+    "text": "¿Qué ventajas entrega la elasticidad en la computación en la nube? (Selecciona dos)",
+    "options": [
+      "Permite ahorrar dinero",
+      "Permite hacer más respaldos",
+      "Los servidores dañados no necesitan reparación",
+      "Permite agregar capacidad automáticamente en periodos de alta demanda"
+    ],
+    "correctAnswer": "Permite ahorrar dinero y Permite agregar capacidad automáticamente en periodos de alta demanda",
+    "correctAnswers": [
+      "Permite ahorrar dinero",
+      "Permite agregar capacidad automáticamente en periodos de alta demanda"
+    ],
+    "explaination": "La elasticidad permite escalar recursos según la demanda, optimizando costos y manteniendo el rendimiento.",
+    "categoryId": "cloud-concepts"
+  },
+  {
+    "id": 542,
+    "text": "¿Dónde puedes configurar una alerta cuando se crea una nueva máquina virtual en Azure?",
+    "options": [
+      "Subscription Settings",
+      "Azure Monitor",
+      "Azure Policy",
+      "Azure Dashboard"
+    ],
+    "correctAnswer": "Azure Monitor",
+    "explaination": "Azure Monitor permite crear alertas basadas en eventos y actividades, como la creación de nuevas máquinas virtuales.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 543,
+    "text": "¿Qué ventaja tiene Application Gateway sobre un Load Balancer?",
+    "options": [
+      "Comprende HTTP y puede tomar decisiones según la URL",
+      "Puede escalar automáticamente",
+      "Es el único recomendado para producción"
+    ],
+    "correctAnswer": "Comprende HTTP y puede tomar decisiones según la URL",
+    "explaination": "Application Gateway opera en capa 7 y puede enrutar tráfico según URL, encabezados y contenido HTTP.",
+    "categoryId": "azure-services"
+  },
+  {
+    "id": 544,
+    "text": "¿Qué herramienta de administración de Azure analiza el uso y entrega recomendaciones sobre costos, seguridad y rendimiento?",
+    "options": [
+      "Azure Firewall",
+      "Azure Service Health",
+      "Azure Advisor",
+      "Azure Mobile App"
+    ],
+    "correctAnswer": "Azure Advisor",
+    "explaination": "Azure Advisor analiza el uso de recursos y entrega recomendaciones personalizadas para optimizar el entorno.",
+    "categoryId": "azure-management"
+  },
+  {
+    "id": 545,
+    "text": "¿Cuál es el objetivo de un ataque DDoS?",
+    "options": [
+      "Descifrar contraseñas de administradores",
+      "Engañar usuarios para obtener información",
+      "Extraer datos desde una base de datos",
+      "Sobrecargar y agotar los recursos de una aplicación"
+    ],
+    "correctAnswer": "Sobrecargar y agotar los recursos de una aplicación",
+    "explaination": "Un ataque DDoS busca inundar un sistema con tráfico excesivo para dejarlo fuera de servicio.",
+    "categoryId": "azure-services"
+  }
 ];
