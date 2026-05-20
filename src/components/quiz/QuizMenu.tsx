@@ -1,0 +1,180 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { BookOpen, Shuffle, ListOrdered, Trophy, Clock } from "lucide-react";
+import { useQuizStore } from "@/lib/store/quiz.store";
+import { getTotalCount } from "@/lib/repositories/QuestionRepository";
+import { formatDate, formatDuration } from "@/lib/utils";
+import { isPassing, PASS_THRESHOLD } from "@/lib/quiz-utils";
+import { cn } from "@/lib/utils";
+import type { QuizConfig, QuizMode } from "@/types/quiz";
+
+const total = getTotalCount();
+const PREFERRED_COUNTS = [10, 20, 40];
+const countOptions = [
+  ...new Set(PREFERRED_COUNTS.filter((n) => n < total).concat(total)),
+];
+
+export function QuizMenu() {
+  const router = useRouter();
+  const { history, startSession, clearSession } = useQuizStore();
+  const [count, setCount] = useState(countOptions[0] ?? total);
+  const [mode, setMode] = useState<QuizMode>("random");
+
+  function handleStart() {
+    clearSession();
+    const config: QuizConfig = {
+      questionCount: count,
+      mode,
+      label: `${count} preg. · ${mode === "random" ? "Aleatorio" : "Secuencial"}`,
+    };
+    const sessionId = startSession(config);
+    router.push(`/quiz/${sessionId}`);
+  }
+
+  return (
+    <div className="max-w-lg mx-auto px-4 py-10">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35 }}
+      >
+        {/* Header */}
+        <div className="mb-8">
+          <div className="w-11 h-11 bg-indigo-600 rounded-xl flex items-center justify-center mb-4 shadow-lg shadow-indigo-500/20">
+            <BookOpen className="text-white" size={22} />
+          </div>
+          <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-50">
+            AZ-900 Quiz
+          </h1>
+          <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">
+            {total} preguntas · Umbral de aprobación: {PASS_THRESHOLD}%
+          </p>
+        </div>
+
+        {/* Config card */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm mb-4">
+          {/* Count selection */}
+          <div className="mb-5">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2.5">
+              Preguntas
+            </p>
+            <div className="flex gap-2">
+              {countOptions.map((n) => (
+                <button
+                  key={n}
+                  onClick={() => setCount(n)}
+                  className={cn(
+                    "flex-1 py-2 rounded-lg text-sm font-semibold transition-colors border-2",
+                    count === n
+                      ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                      : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
+                  )}
+                >
+                  {n === total && n !== PREFERRED_COUNTS[PREFERRED_COUNTS.length - 1]
+                    ? "Todo"
+                    : n}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Mode selection */}
+          <div className="mb-5">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2.5">
+              Modo
+            </p>
+            <div className="flex gap-2">
+              {(
+                [
+                  { value: "random", label: "Aleatorio", icon: Shuffle },
+                  { value: "sequential", label: "Secuencial", icon: ListOrdered },
+                ] as const
+              ).map(({ value, label, icon: Icon }) => (
+                <button
+                  key={value}
+                  onClick={() => setMode(value)}
+                  className={cn(
+                    "flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-colors border-2",
+                    mode === value
+                      ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                      : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
+                  )}
+                >
+                  <Icon size={14} />
+                  {label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button
+            onClick={handleStart}
+            className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold transition-colors text-sm"
+          >
+            Comenzar quiz
+          </button>
+        </div>
+
+        {/* History */}
+        {history.length > 0 && (
+          <div>
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-3">
+              Historial reciente
+            </p>
+            <div className="space-y-2">
+              {history.slice(0, 5).map((s) => (
+                <div
+                  key={s.id}
+                  className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-3"
+                >
+                  <div
+                    className={cn(
+                      "w-9 h-9 rounded-full flex items-center justify-center shrink-0",
+                      isPassing(s.percentage)
+                        ? "bg-green-100 dark:bg-green-900/50"
+                        : "bg-red-100 dark:bg-red-900/50"
+                    )}
+                  >
+                    <Trophy
+                      size={16}
+                      className={
+                        isPassing(s.percentage)
+                          ? "text-green-600 dark:text-green-400"
+                          : "text-red-500 dark:text-red-400"
+                      }
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                      {s.score}/{s.total}{" "}
+                      <span
+                        className={cn(
+                          "font-bold",
+                          isPassing(s.percentage)
+                            ? "text-green-600 dark:text-green-400"
+                            : "text-red-500 dark:text-red-400"
+                        )}
+                      >
+                        {s.percentage}%
+                      </span>
+                    </p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
+                      {s.config.label} · {formatDate(s.completedAt)}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-slate-400 shrink-0">
+                    <Clock size={11} />
+                    {formatDuration(s.durationSeconds)}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </motion.div>
+    </div>
+  );
+}
