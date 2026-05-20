@@ -16,6 +16,7 @@ import {
   getSequentialQuestions,
   getWeightedQuestions,
   shuffleArray,
+  shuffleQuestionOptions,
 } from "@/lib/quiz-utils";
 
 interface QuizStore {
@@ -39,7 +40,9 @@ export const useQuizStore = create<QuizStore>()(
 
       startSessionWithQuestions: (config, questions) => {
         const sessionId = crypto.randomUUID();
-        const ordered = config.mode === "sequential" ? questions : shuffleArray(questions);
+        const ordered = shuffleQuestionOptions(
+          config.mode === "sequential" ? questions : shuffleArray(questions)
+        );
         const session: QuizSession = {
           id: sessionId,
           questions: ordered,
@@ -76,7 +79,7 @@ export const useQuizStore = create<QuizStore>()(
 
         const session: QuizSession = {
           id: sessionId,
-          questions,
+          questions: shuffleQuestionOptions(questions),
           currentIndex: 0,
           answers: {},
           status: "active",

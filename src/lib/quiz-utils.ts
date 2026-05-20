@@ -46,6 +46,10 @@ export function getWeightedQuestions(
   return shuffleArray(result);
 }
 
+export function shuffleQuestionOptions(questions: Question[]): Question[] {
+  return questions.map((q) => ({ ...q, options: shuffleArray(q.options) }));
+}
+
 export function getWrongQuestionsFromHistory(history: CompletedSession[]): Question[] {
   const seen = new Set<number>();
   const wrong: Question[] = [];
