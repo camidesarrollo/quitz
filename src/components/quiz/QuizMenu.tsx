@@ -37,6 +37,8 @@ export function QuizMenu() {
 
   const [domain, setDomain] = useState<DomainOption>("simulacro");
   const [mode, setMode] = useState<QuizMode>("random");
+  const [customInput, setCustomInput] = useState("");
+  const [isCustom, setIsCustom] = useState(false);
 
   // Pool size depends on selected domain
   const poolSize =
@@ -50,12 +52,42 @@ export function QuizMenu() {
   // Keep count valid when domain changes
   function handleDomainChange(d: DomainOption) {
     setDomain(d);
+    setCustomInput("");
+    setIsCustom(false);
     const newPool =
       d === "simulacro"
         ? COURSE.categories.reduce((sum, c) => sum + getCategoryCount(c.id), 0)
         : getCategoryCount(d);
     const opts = buildCountOptions(newPool);
     setCount((prev) => (opts.includes(prev) ? prev : opts[0] ?? 10));
+  }
+
+  function handlePresetClick(n: number) {
+    setCount(n);
+    setCustomInput("");
+    setIsCustom(false);
+  }
+
+  function handleCustomChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const val = e.target.value;
+    setCustomInput(val);
+    setIsCustom(true);
+    const num = parseInt(val, 10);
+    if (!isNaN(num) && num >= 1 && num <= poolSize) {
+      setCount(num);
+    }
+  }
+
+  function handleCustomBlur() {
+    const num = parseInt(customInput, 10);
+    if (!isNaN(num) && num >= 1) {
+      const clamped = Math.min(num, poolSize);
+      setCount(clamped);
+      setCustomInput(String(clamped));
+    } else {
+      setCustomInput("");
+      setIsCustom(false);
+    }
   }
 
   function handleStart() {
@@ -175,10 +207,10 @@ export function QuizMenu() {
                 <button
                   key={n}
                   type="button"
-                  onClick={() => setCount(n)}
+                  onClick={() => handlePresetClick(n)}
                   className={cn(
                     "flex-1 py-2 rounded-lg text-sm font-semibold transition-colors border-2",
-                    count === n
+                    !isCustom && count === n
                       ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
                       : "border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
                   )}
@@ -186,6 +218,21 @@ export function QuizMenu() {
                   {n === poolSize ? "Todo" : n}
                 </button>
               ))}
+              <input
+                type="number"
+                min={1}
+                max={poolSize}
+                value={customInput}
+                onChange={handleCustomChange}
+                onBlur={handleCustomBlur}
+                placeholder="..."
+                className={cn(
+                  "w-16 py-2 rounded-lg text-sm font-semibold text-center transition-colors border-2 bg-transparent outline-none",
+                  isCustom
+                    ? "border-indigo-500 bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300"
+                    : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
+                )}
+              />
             </div>
           </div>
 
