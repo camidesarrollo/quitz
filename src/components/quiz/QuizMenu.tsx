@@ -14,6 +14,7 @@ import {
   XCircle,
   ArrowRight,
   Trash2,
+  PlayCircle,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { getCategoryCount } from "@/lib/repositories/QuestionRepository";
@@ -36,7 +37,7 @@ function buildCountOptions(poolSize: number): number[] {
 
 export function QuizMenu() {
   const router = useRouter();
-  const { history, startSession, startSessionWithQuestions, clearSession, clearHistory } = useQuizStore();
+  const { session, history, startSession, startSessionWithQuestions, clearSession, clearHistory } = useQuizStore();
   const wrongQuestions = getWrongQuestionsFromHistory(history);
 
   const [domain, setDomain] = useState<DomainOption>("simulacro");
@@ -167,6 +168,58 @@ export function QuizMenu() {
             {poolSize} preguntas disponibles · Umbral de aprobación: {PASS_THRESHOLD}%
           </p>
         </div>
+
+        {/* Resume in-progress session */}
+        {session && session.status === "active" && (() => {
+          const answeredCount = Object.keys(session.answers).length;
+          const progressPct = Math.round((answeredCount / session.questions.length) * 100);
+          return (
+            <div className="bg-amber-50 dark:bg-amber-950/30 rounded-2xl border border-amber-200 dark:border-amber-800/60 p-5 mb-4">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center shrink-0">
+                  <PlayCircle size={18} className="text-amber-500 dark:text-amber-400" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                    Quiz en progreso
+                  </p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                    {session.config.label}
+                  </p>
+                  <p className="text-xs text-amber-600 dark:text-amber-400 mt-0.5 font-medium">
+                    {answeredCount} de {session.questions.length} respondidas · {progressPct}%
+                  </p>
+                </div>
+              </div>
+              {/* Progress bar */}
+              <div className="mt-3 h-1.5 bg-amber-100 dark:bg-amber-900/40 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full bg-amber-400 dark:bg-amber-500 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressPct}%` }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+              </div>
+              <div className="mt-3 flex gap-2">
+                <button
+                  type="button"
+                  onClick={clearSession}
+                  className="flex-1 py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 text-sm font-semibold hover:border-slate-300 dark:hover:border-slate-600 transition-colors"
+                >
+                  Descartar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/quiz/${session.id}`)}
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white text-sm font-semibold transition-colors"
+                >
+                  Continuar
+                  <ArrowRight size={14} />
+                </button>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Config card */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm mb-4 space-y-5">

@@ -1,24 +1,17 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  ArrowLeft,
-  Clock,
-  Target,
-  BookOpen,
-  CheckCircle2,
-  XCircle,
-  ChevronDown,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowLeft, Clock, Target, BookOpen } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { ScoreRing } from "./ScoreRing";
+import { QuestionReview } from "./QuestionReview";
 import { formatDuration, formatDate } from "@/lib/utils";
 import { isPassing } from "@/lib/quiz-utils";
 import { cn } from "@/lib/utils";
 import { getCourseById } from "@/lib/repositories/CourseRepository";
-import type { CompletedSession, Question, Answer } from "@/types/quiz";
+import type { CompletedSession } from "@/types/quiz";
 
 interface HistoryDetailViewProps {
   sessionId: string;
@@ -68,112 +61,6 @@ function barColor(pct: number) {
   return "bg-red-500";
 }
 
-function QuestionReview({
-  question,
-  answer,
-  index,
-}: {
-  question: Question;
-  answer: Answer | undefined;
-  index: number;
-}) {
-  const [showExplanation, setShowExplanation] = useState(false);
-  const correct = answer?.isCorrect ?? false;
-  const selectedOptions = answer?.selectedOptions ?? (answer?.selectedOption ? [answer.selectedOption] : []);
-  const correctOptions =
-    question.correctAnswers && question.correctAnswers.length > 1
-      ? question.correctAnswers
-      : [question.correctAnswer];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 6 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.2, delay: index * 0.03 }}
-      className={cn(
-        "rounded-xl border p-4",
-        correct
-          ? "border-green-200 dark:border-green-800 bg-green-50/50 dark:bg-green-950/20"
-          : "border-red-200 dark:border-red-800 bg-red-50/50 dark:bg-red-950/20"
-      )}
-    >
-      <div className="flex gap-2.5">
-        <div className="shrink-0 mt-0.5">
-          {correct ? (
-            <CheckCircle2 size={16} className="text-green-500" />
-          ) : (
-            <XCircle size={16} className="text-red-500" />
-          )}
-        </div>
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-semibold text-slate-400 mb-1">
-            Pregunta {index + 1}
-          </p>
-          <p className="text-sm text-slate-800 dark:text-slate-200 leading-snug mb-3">
-            {question.text}
-          </p>
-          <div className="space-y-1">
-            {question.options.map((opt) => {
-              const isSelected = selectedOptions.includes(opt);
-              const isCorrectOpt = correctOptions.includes(opt);
-              return (
-                <div
-                  key={opt}
-                  className={cn(
-                    "text-xs px-2.5 py-1.5 rounded-lg",
-                    isCorrectOpt
-                      ? "bg-green-100 dark:bg-green-900/40 text-green-800 dark:text-green-300 font-medium"
-                      : isSelected && !isCorrectOpt
-                      ? "bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 line-through"
-                      : "text-slate-500 dark:text-slate-400"
-                  )}
-                >
-                  {isCorrectOpt && "✓ "}
-                  {isSelected && !isCorrectOpt && "✗ "}
-                  {opt}
-                </div>
-              );
-            })}
-          </div>
-          {question.explaination && (
-            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700/60">
-              {correct && (
-                <button
-                  type="button"
-                  onClick={() => setShowExplanation((v) => !v)}
-                  className="text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1 hover:underline mb-1"
-                >
-                  <ChevronDown
-                    size={12}
-                    className={cn(
-                      "transition-transform duration-200",
-                      showExplanation && "rotate-180"
-                    )}
-                  />
-                  {showExplanation ? "Ocultar explicación" : "Ver explicación"}
-                </button>
-              )}
-              <AnimatePresence initial={false}>
-                {(!correct || showExplanation) && (
-                  <motion.p
-                    key="expl"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed overflow-hidden"
-                  >
-                    {question.explaination}
-                  </motion.p>
-                )}
-              </AnimatePresence>
-            </div>
-          )}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
 
 export function HistoryDetailView({ sessionId }: HistoryDetailViewProps) {
   const router = useRouter();

@@ -1,16 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Home, RotateCcw, Clock, Target, BookOpen } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { ScoreRing } from "./ScoreRing";
+import { QuestionReview } from "./QuestionReview";
 import { formatDuration } from "@/lib/utils";
 import { isPassing } from "@/lib/quiz-utils";
 import { cn } from "@/lib/utils";
 import { getCourseById } from "@/lib/repositories/CourseRepository";
 import type { QuizSession } from "@/types/quiz";
+
+type ReviewFilter = "all" | "correct" | "incorrect";
 
 interface ResultsViewProps {
   sessionId: string;
@@ -65,6 +68,7 @@ function barColor(pct: number) {
 export function ResultsView({ sessionId }: ResultsViewProps) {
   const router = useRouter();
   const { session, clearSession } = useQuizStore();
+  const [reviewFilter, setReviewFilter] = useState<ReviewFilter>("all");
 
   useEffect(() => {
     if (!session || session.id !== sessionId) {
@@ -78,6 +82,15 @@ export function ResultsView({ sessionId }: ResultsViewProps) {
 
   const score = Object.values(session.answers).filter((a) => a.isCorrect).length;
   const total = session.questions.length;
+  const incorrectCount = total - score;
+
+  const filteredIndices = session.questions
+    .map((_, i) => i)
+    .filter((i) => {
+      if (reviewFilter === "correct") return session.answers[i]?.isCorrect === true;
+      if (reviewFilter === "incorrect") return session.answers[i]?.isCorrect === false;
+      return true;
+    });
   const percentage = Math.round((score / total) * 100);
   const duration = session.completedAt
     ? Math.round((session.completedAt - session.startedAt) / 1000)
@@ -196,7 +209,7 @@ export function ResultsView({ sessionId }: ResultsViewProps) {
         )}
 
         {/* Actions */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 mb-8">
           <button
             type="button"
             onClick={goHome}
@@ -213,6 +226,64 @@ export function ResultsView({ sessionId }: ResultsViewProps) {
             <RotateCcw size={15} />
             Nuevo quiz
           </button>
+        </div>
+
+        {/* Question review */}
+        <div>
+          {/* Filter tabs */}
+          <div className="flex items-center gap-2 mb-4">
+            {(
+              [
+                { value: "all", label: "Todas", count: total },
+                { value: "correct", label: "Correctas", count: score },
+                { value: "incorrect", label: "Incorrectas", count: incorrectCount },
+              ] as { value: ReviewFilter; label: string; count: number }[]
+            ).map(({ value, label, count }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setReviewFilter(value)}
+                className={cn(
+                  "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border",
+                  reviewFilter === value
+                    ? value === "incorrect"
+                      ? "bg-red-50 dark:bg-red-950/40 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400"
+                      : value === "correct"
+                      ? "bg-green-50 dark:bg-green-950/40 border-green-300 dark:border-green-800 text-green-600 dark:text-green-400"
+                      : "bg-indigo-50 dark:bg-indigo-950/40 border-indigo-300 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400"
+                    : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600"
+                )}
+              >
+                {label}
+                <span
+                  className={cn(
+                    "rounded-full px-1.5 py-0.5 text-[10px] font-bold",
+                    reviewFilter === value
+                      ? value === "incorrect"
+                        ? "bg-red-100 dark:bg-red-900/60 text-red-600 dark:text-red-400"
+                        : value === "correct"
+                        ? "bg-green-100 dark:bg-green-900/60 text-green-600 dark:text-green-400"
+                        : "bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
+                  )}
+                >
+                  {count}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Questions */}
+          <div className="space-y-3">
+            {filteredIndices.map((i) => (
+              <QuestionReview
+                key={i}
+                question={session.questions[i]}
+                answer={session.answers[i]}
+                index={i}
+              />
+            ))}
+          </div>
         </div>
       </motion.div>
     </div>
