@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown } from "lucide-react";
+import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
@@ -16,7 +16,7 @@ interface QuizPlayerProps {
 
 export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const router = useRouter();
-  const { session, submitAnswer, advanceQuestion } = useQuizStore();
+  const { session, submitAnswer, advanceQuestion, skipQuestion, markedQuestionIds, toggleMarkQuestion } = useQuizStore();
   const [pendingSelections, setPendingSelections] = useState<string[]>([]);
   const [showExplanation, setShowExplanation] = useState(false);
 
@@ -46,6 +46,11 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const hasAnswered = answer !== undefined;
   const total = questions.length;
   const progress = ((currentIndex + (hasAnswered ? 1 : 0)) / total) * 100;
+
+  const pendingCount = (session.pendingIndices ?? []).length;
+  const unansweredCount = questions.filter((_, i) => answers[i] === undefined).length;
+  const canSkip = !hasAnswered && unansweredCount > 1;
+  const isMarked = markedQuestionIds.includes(question.id);
 
   const isMultiAnswer = (question.correctAnswers?.length ?? 0) > 1;
   const requiredCount = question.correctAnswers?.length ?? 1;
@@ -106,16 +111,41 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
       <div className="flex-1 max-w-2xl mx-auto w-full px-4 py-8">
         {/* Counter */}
         <div className="flex items-center justify-between mb-6">
-          <span className="text-sm text-slate-500 dark:text-slate-400">
-            Pregunta{" "}
-            <span className="font-semibold text-slate-700 dark:text-slate-300">
-              {currentIndex + 1}
-            </span>{" "}
-            de {total}
-          </span>
-          <span className="text-sm text-slate-400 dark:text-slate-500 tabular-nums">
-            {Math.round(progress)}%
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-slate-500 dark:text-slate-400">
+              Pregunta{" "}
+              <span className="font-semibold text-slate-700 dark:text-slate-300">
+                {currentIndex + 1}
+              </span>{" "}
+              de {total}
+            </span>
+            {pendingCount > 0 && (
+              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400">
+                {pendingCount} pendiente{pendingCount !== 1 ? "s" : ""}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => toggleMarkQuestion(question.id)}
+              title={isMarked ? "Quitar marca" : "Marcar pregunta"}
+              className="transition-colors"
+            >
+              <Bookmark
+                size={16}
+                className={cn(
+                  "transition-colors",
+                  isMarked
+                    ? "text-amber-500 fill-amber-500"
+                    : "text-slate-300 dark:text-slate-600 hover:text-amber-400 dark:hover:text-amber-500"
+                )}
+              />
+            </button>
+            <span className="text-sm text-slate-400 dark:text-slate-500 tabular-nums">
+              {Math.round(progress)}%
+            </span>
+          </div>
         </div>
 
         {/* Question + options */}
@@ -155,6 +185,28 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
               ))}
             </div>
           </motion.div>
+        </AnimatePresence>
+
+        {/* Skip button */}
+        <AnimatePresence>
+          {canSkip && (
+            <motion.div
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              className="mt-3"
+            >
+              <button
+                type="button"
+                onClick={skipQuestion}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 font-semibold text-sm hover:border-amber-300 dark:hover:border-amber-700 hover:text-amber-600 dark:hover:text-amber-400 transition-colors"
+              >
+                <SkipForward size={14} />
+                Saltar por ahora
+              </button>
+            </motion.div>
+          )}
         </AnimatePresence>
 
         {/* Confirm button for multi-answer (before submitting) */}

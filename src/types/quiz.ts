@@ -57,6 +57,7 @@ export interface QuizSession {
   config: QuizConfig;
   startedAt: number;
   completedAt?: number;
+  pendingIndices?: number[]; // questions explicitly skipped, to revisit
 }
 
 export interface CompletedSession {

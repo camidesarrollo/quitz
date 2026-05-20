@@ -4483,14 +4483,15 @@ export const az900Questions: Question[] = [
   },
   {
     "id": 529,
-    "text": "¿Qué componentes forman parte del despliegue de aplicaciones en Azure App Services? (Seleccione dos)",
+    "text": "¿Qué componentes forman parte del despliegue de aplicaciones en Azure App Services?",
     "options": [
       "Configuración",
       "Código empaquetado",
       "Scripts de base de datos",
       "Administración de actualizaciones del sistema operativo"
     ],
-    "correctAnswer": "Configuración y Código empaquetado",
+    "correctAnswer": "Configuración",
+    "correctAnswers": ["Configuración", "Código empaquetado"],
     "explaination": "El despliegue de aplicaciones en Azure App Services requiere configuraciones como variables de entorno y el código de la aplicación.",
     "categoryId": "azure-services"
   },

@@ -22,14 +22,17 @@ import {
 interface QuizStore {
   session: QuizSession | null;
   history: CompletedSession[];
+  markedQuestionIds: number[];
 
   startSession: (config: QuizConfig) => string;
   startSessionWithQuestions: (config: QuizConfig, questions: Question[]) => string;
   submitAnswer: (questionIndex: number, selected: string | string[]) => void;
   advanceQuestion: () => void;
+  skipQuestion: () => void;
   completeSession: () => void;
   clearSession: () => void;
   clearHistory: () => void;
+  toggleMarkQuestion: (id: number) => void;
 }
 
 export const useQuizStore = create<QuizStore>()(
@@ -37,6 +40,7 @@ export const useQuizStore = create<QuizStore>()(
     (set, get) => ({
       session: null,
       history: [],
+      markedQuestionIds: [],
 
       startSessionWithQuestions: (config, questions) => {
         const sessionId = crypto.randomUUID();
@@ -116,13 +120,64 @@ export const useQuizStore = create<QuizStore>()(
         const { session } = get();
         if (!session || session.status !== "active") return;
 
-        const nextIndex = session.currentIndex + 1;
+        const total = session.questions.length;
+        const currentIdx = session.currentIndex;
+        const answeredSet = new Set(Object.keys(session.answers).map(Number));
+        const pending = (session.pendingIndices ?? []).filter((i) => i !== currentIdx);
 
-        if (nextIndex >= session.questions.length) {
+        // Find next unanswered: first after current, then wrap from start
+        let next: number | null = null;
+        for (let i = currentIdx + 1; i < total; i++) {
+          if (!answeredSet.has(i)) { next = i; break; }
+        }
+        if (next === null) {
+          for (let i = 0; i < currentIdx; i++) {
+            if (!answeredSet.has(i)) { next = i; break; }
+          }
+        }
+
+        if (next === null) {
+          set({ session: { ...session, pendingIndices: [] } });
           get().completeSession();
         } else {
-          set({ session: { ...session, currentIndex: nextIndex } });
+          set({ session: { ...session, currentIndex: next, pendingIndices: pending } });
         }
+      },
+
+      skipQuestion: () => {
+        const { session } = get();
+        if (!session || session.status !== "active") return;
+        if (session.answers[session.currentIndex] !== undefined) return;
+
+        const currentIdx = session.currentIndex;
+        const total = session.questions.length;
+        const answeredSet = new Set(Object.keys(session.answers).map(Number));
+        const pending = [...new Set([...(session.pendingIndices ?? []), currentIdx])];
+
+        // Find next unanswered after current (excluding current)
+        let next: number | null = null;
+        for (let i = currentIdx + 1; i < total; i++) {
+          if (!answeredSet.has(i)) { next = i; break; }
+        }
+        if (next === null) {
+          for (let i = 0; i < currentIdx; i++) {
+            if (!answeredSet.has(i)) { next = i; break; }
+          }
+        }
+
+        // Can't skip if this is the only unanswered question left
+        if (next === null) return;
+
+        set({ session: { ...session, currentIndex: next, pendingIndices: pending } });
+      },
+
+      toggleMarkQuestion: (id) => {
+        const { markedQuestionIds } = get();
+        set({
+          markedQuestionIds: markedQuestionIds.includes(id)
+            ? markedQuestionIds.filter((qId) => qId !== id)
+            : [...markedQuestionIds, id],
+        });
       },
 
       completeSession: () => {
@@ -165,6 +220,7 @@ export const useQuizStore = create<QuizStore>()(
       partialize: (state) => ({
         session: state.session,
         history: state.history,
+        markedQuestionIds: state.markedQuestionIds,
       }),
     }
   )

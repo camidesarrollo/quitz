@@ -15,9 +15,10 @@ import {
   ArrowRight,
   Trash2,
   PlayCircle,
+  Bookmark,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
-import { getCategoryCount } from "@/lib/repositories/QuestionRepository";
+import { getCategoryCount, getAllQuestions } from "@/lib/repositories/QuestionRepository";
 import { formatDate, formatDuration } from "@/lib/utils";
 import { isPassing, PASS_THRESHOLD, getWrongQuestionsFromHistory } from "@/lib/quiz-utils";
 import { cn } from "@/lib/utils";
@@ -37,8 +38,9 @@ function buildCountOptions(poolSize: number): number[] {
 
 export function QuizMenu() {
   const router = useRouter();
-  const { session, history, startSession, startSessionWithQuestions, clearSession, clearHistory } = useQuizStore();
+  const { session, history, markedQuestionIds, startSession, startSessionWithQuestions, clearSession, clearHistory } = useQuizStore();
   const wrongQuestions = getWrongQuestionsFromHistory(history);
+  const markedQuestions = getAllQuestions().filter((q) => markedQuestionIds.includes(q.id));
 
   const [domain, setDomain] = useState<DomainOption>("simulacro");
   const [mode, setMode] = useState<QuizMode>("random");
@@ -93,6 +95,19 @@ export function QuizMenu() {
       setCustomInput("");
       setIsCustom(false);
     }
+  }
+
+  function handleStartMarkedReview() {
+    if (markedQuestions.length === 0) return;
+    clearSession();
+    const config: QuizConfig = {
+      courseId: COURSE.id,
+      questionCount: markedQuestions.length,
+      mode,
+      label: `Preguntas marcadas · ${markedQuestions.length} preg.`,
+    };
+    const sessionId = startSessionWithQuestions(config, markedQuestions);
+    router.push(`/quiz/${sessionId}`);
   }
 
   function handleStartWrongReview() {
@@ -367,6 +382,33 @@ export function QuizMenu() {
               className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 active:bg-red-700 text-white font-semibold transition-colors text-sm"
             >
               Comenzar repaso
+              <ArrowRight size={15} />
+            </button>
+          </div>
+        )}
+
+        {/* Marked questions */}
+        {markedQuestions.length > 0 && (
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-amber-200 dark:border-amber-800/60 p-5 mb-4">
+            <div className="flex items-start gap-3">
+              <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center shrink-0">
+                <Bookmark size={18} className="text-amber-500 dark:text-amber-400 fill-amber-200 dark:fill-amber-900/60" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                  Preguntas marcadas
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {markedQuestions.length} pregunta{markedQuestions.length !== 1 ? "s" : ""} guardada{markedQuestions.length !== 1 ? "s" : ""} para repasar
+                </p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={handleStartMarkedReview}
+              className="mt-4 w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 active:bg-amber-700 text-white font-semibold transition-colors text-sm"
+            >
+              Practicar marcadas
               <ArrowRight size={15} />
             </button>
           </div>

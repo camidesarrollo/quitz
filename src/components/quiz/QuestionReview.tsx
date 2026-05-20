@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { CheckCircle2, XCircle, ChevronDown, Search } from "lucide-react";
+import { CheckCircle2, XCircle, ChevronDown, Search, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useQuizStore } from "@/lib/store/quiz.store";
 import type { Question, Answer } from "@/types/quiz";
 
 interface QuestionReviewProps {
@@ -14,7 +15,9 @@ interface QuestionReviewProps {
 
 export function QuestionReview({ question, answer, index }: QuestionReviewProps) {
   const [showExplanation, setShowExplanation] = useState(false);
+  const { markedQuestionIds, toggleMarkQuestion } = useQuizStore();
   const correct = answer?.isCorrect ?? false;
+  const isMarked = markedQuestionIds.includes(question.id);
   const selectedOptions =
     answer?.selectedOptions ?? (answer?.selectedOption ? [answer.selectedOption] : []);
   const correctOptions =
@@ -45,15 +48,32 @@ export function QuestionReview({ question, answer, index }: QuestionReviewProps)
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between mb-1">
             <p className="text-xs font-semibold text-slate-400">Pregunta {index + 1}</p>
-            <a
-              href={`https://www.google.com/search?q=${encodeURIComponent(question.text + " Azure AZ-900")}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Buscar en Google"
-              className="text-slate-300 dark:text-slate-600 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
-            >
-              <Search size={13} />
-            </a>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => toggleMarkQuestion(question.id)}
+                title={isMarked ? "Quitar marca" : "Marcar pregunta"}
+              >
+                <Bookmark
+                  size={13}
+                  className={cn(
+                    "transition-colors",
+                    isMarked
+                      ? "text-amber-500 fill-amber-500"
+                      : "text-slate-300 dark:text-slate-600 hover:text-amber-400"
+                  )}
+                />
+              </button>
+              <a
+                href={`https://www.google.com/search?q=${encodeURIComponent(question.text + " Azure AZ-900")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Buscar en Google"
+                className="text-slate-300 dark:text-slate-600 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors"
+              >
+                <Search size={13} />
+              </a>
+            </div>
           </div>
           <p className="text-sm text-slate-800 dark:text-slate-200 leading-snug mb-3">
             {question.text}
