@@ -120,6 +120,8 @@ export const useQuizStore = create<QuizStore>()(
           durationSeconds: Math.round((now - session.startedAt) / 1000),
           completedAt: now,
           config: session.config,
+          questions: session.questions,
+          answers: session.answers,
         };
 
         set({

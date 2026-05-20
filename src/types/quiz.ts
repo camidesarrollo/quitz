@@ -66,6 +66,8 @@ export interface CompletedSession {
   durationSeconds: number;
   completedAt: number;
   config: QuizConfig;
+  questions: Question[];
+  answers: Record<number, Answer>;
 }
 
 // Derived helpers

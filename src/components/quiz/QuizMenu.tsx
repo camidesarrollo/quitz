@@ -10,6 +10,7 @@ import {
   Trophy,
   Clock,
   LayoutGrid,
+  ChevronRight,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { getCategoryCount } from "@/lib/repositories/QuestionRepository";
@@ -235,9 +236,11 @@ export function QuizMenu() {
             </p>
             <div className="space-y-2">
               {history.slice(0, 5).map((s) => (
-                <div
+                <button
                   key={s.id}
-                  className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-3"
+                  type="button"
+                  onClick={() => router.push(`/history/${s.id}`)}
+                  className="w-full bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-3 hover:border-slate-300 dark:hover:border-slate-600 transition-colors text-left"
                 >
                   <div
                     className={cn(
@@ -274,11 +277,12 @@ export function QuizMenu() {
                       {s.config.label} · {formatDate(s.completedAt)}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-slate-400 shrink-0">
+                  <div className="flex items-center gap-2 text-xs text-slate-400 shrink-0">
                     <Clock size={11} />
                     {formatDuration(s.durationSeconds)}
+                    <ChevronRight size={13} className="opacity-40" />
                   </div>
-                </div>
+                </button>
               ))}
             </div>
           </div>
