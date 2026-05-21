@@ -27,6 +27,11 @@ export const AZ900: Course = {
     { categoryId: "azure-services", weight: 37 },
     { categoryId: "azure-management", weight: 35 },
   ],
+  examConfig: {
+    questionCount: 45,
+    timeLimitSeconds: 65 * 60, // 65 minutes — matches official AZ-900 duration
+    passingPercentage: 70,
+  },
 };
 
 export const COURSES: Course[] = [AZ900];

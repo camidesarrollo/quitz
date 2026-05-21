@@ -11,12 +11,19 @@ export interface CategoryWeight {
   weight: number; // percentage 0-100
 }
 
+export interface ExamConfig {
+  questionCount: number;
+  timeLimitSeconds: number;
+  passingPercentage: number;
+}
+
 export interface Course {
   id: string;
   code: string;
   name: string;
   categories: Category[];
   defaultWeights: CategoryWeight[];
+  examConfig?: ExamConfig;
 }
 
 export interface Question {
@@ -46,6 +53,9 @@ export interface QuizConfig {
   questionCount: number;
   mode: QuizMode;
   label: string;
+  isExamMode?: boolean;
+  timeLimitSeconds?: number;
+  passingPercentage?: number;
 }
 
 export interface QuizSession {

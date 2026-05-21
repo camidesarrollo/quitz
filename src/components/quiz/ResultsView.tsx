@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Home, RotateCcw, Clock, Target, BookOpen } from "lucide-react";
+import { Home, RotateCcw, Clock, Target, BookOpen, GraduationCap } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { ScoreRing } from "./ScoreRing";
 import { QuestionReview } from "./QuestionReview";
@@ -91,11 +91,15 @@ export function ResultsView({ sessionId }: ResultsViewProps) {
       if (reviewFilter === "incorrect") return session.answers[i]?.isCorrect === false;
       return true;
     });
+  const isExamMode = session.config.isExamMode ?? false;
   const percentage = Math.round((score / total) * 100);
   const duration = session.completedAt
     ? Math.round((session.completedAt - session.startedAt) / 1000)
     : 0;
-  const passing = isPassing(percentage);
+  const passingThreshold = isExamMode && session.config.passingPercentage
+    ? session.config.passingPercentage
+    : undefined;
+  const passing = passingThreshold !== undefined ? percentage >= passingThreshold : isPassing(percentage);
   const categoryStats = buildCategoryStats(session);
 
   function goHome() {
@@ -115,6 +119,16 @@ export function ResultsView({ sessionId }: ResultsViewProps) {
         <div className="flex justify-center mb-6">
           <ScoreRing percentage={percentage} />
         </div>
+
+        {/* Exam mode badge */}
+        {isExamMode && (
+          <div className="flex justify-center mb-4">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 rounded-full text-xs font-semibold">
+              <GraduationCap size={12} />
+              Examen oficial
+            </span>
+          </div>
+        )}
 
         {/* Title */}
         <div className="text-center mb-6">
@@ -145,7 +159,14 @@ export function ResultsView({ sessionId }: ResultsViewProps) {
             <p className="text-xl font-bold text-slate-900 dark:text-slate-50">
               {formatDuration(duration)}
             </p>
-            <p className="text-xs text-slate-500 dark:text-slate-400">Tiempo</p>
+            {isExamMode && session.config.timeLimitSeconds && (
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 tabular-nums">
+                de {Math.round(session.config.timeLimitSeconds / 60)} min
+              </p>
+            )}
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              {isExamMode ? "Tiempo usado" : "Tiempo"}
+            </p>
           </div>
         </div>
 

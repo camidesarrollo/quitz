@@ -1,9 +1,9 @@
 ﻿"use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark } from "lucide-react";
+import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark, Timer } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
@@ -16,9 +16,10 @@ interface QuizPlayerProps {
 
 export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const router = useRouter();
-  const { session, submitAnswer, advanceQuestion, skipQuestion, markedQuestionIds, toggleMarkQuestion } = useQuizStore();
+  const { session, submitAnswer, advanceQuestion, skipQuestion, completeSession, markedQuestionIds, toggleMarkQuestion } = useQuizStore();
   const [pendingSelections, setPendingSelections] = useState<string[]>([]);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
   useEffect(() => {
     if (!session || session.id !== sessionId) {
@@ -36,6 +37,29 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     setShowExplanation(false);
   }, [session?.currentIndex]);
 
+  // Exam mode countdown timer
+  useEffect(() => {
+    if (!session?.config.isExamMode || !session.config.timeLimitSeconds) return;
+    const limit = session.config.timeLimitSeconds;
+    const start = session.startedAt;
+    const compute = () => Math.max(0, limit - Math.floor((Date.now() - start) / 1000));
+    setTimeLeft(compute());
+    const id = setInterval(() => setTimeLeft(compute()), 1000);
+    return () => clearInterval(id);
+  }, [session?.id, session?.config.isExamMode, session?.config.timeLimitSeconds, session?.startedAt]);
+
+  useEffect(() => {
+    if (timeLeft === 0) completeSession();
+  }, [timeLeft, completeSession]);
+
+  // Keyboard shortcuts — stable listener, handler updated each render via ref
+  const keyHandlerRef = useRef<(e: KeyboardEvent) => void>(() => {});
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) { keyHandlerRef.current(e); }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   if (!session || session.id !== sessionId || session.status === "completed") {
     return null;
   }
@@ -52,10 +76,55 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const canSkip = !hasAnswered && unansweredCount > 1;
   const isMarked = markedQuestionIds.includes(question.id);
 
+  const isExamMode = session.config.isExamMode ?? false;
   const isMultiAnswer = (question.correctAnswers?.length ?? 0) > 1;
   const requiredCount = question.correctAnswers?.length ?? 1;
   const remaining = requiredCount - pendingSelections.length;
   const canConfirm = pendingSelections.length === requiredCount;
+
+  // Refresh keyboard handler with latest values on every render
+  keyHandlerRef.current = (e: KeyboardEvent) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const key = e.key.toUpperCase();
+
+    // A–D: select / toggle option
+    if (!hasAnswered && ["A", "B", "C", "D"].includes(key)) {
+      const idx = key.charCodeAt(0) - 65;
+      const option = question.options[idx];
+      if (!option) return;
+      e.preventDefault();
+      if (!isMultiAnswer) {
+        submitAnswer(currentIndex, option);
+      } else {
+        setPendingSelections((prev) =>
+          prev.includes(option) ? prev.filter((o) => o !== option) : [...prev, option]
+        );
+      }
+      return;
+    }
+
+    // Enter / Space / →: advance or confirm multi-answer
+    if (e.key === "Enter" || e.key === " " || e.key === "ArrowRight") {
+      e.preventDefault();
+      if (hasAnswered) {
+        advanceQuestion();
+      } else if (isMultiAnswer && canConfirm) {
+        submitAnswer(currentIndex, pendingSelections);
+      }
+      return;
+    }
+
+    // S: skip
+    if (key === "S" && canSkip) {
+      skipQuestion();
+      return;
+    }
+
+    // M: mark / unmark
+    if (key === "M") {
+      toggleMarkQuestion(question.id);
+    }
+  };
 
   function handleOptionClick(option: string) {
     if (hasAnswered) return;
@@ -82,12 +151,23 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     }
 
     const selections = answer.selectedOptions ?? [answer.selectedOption];
-    const correct = question.correctAnswers ?? [question.correctAnswer];
 
+    // In exam mode: only show which option was selected, no correct/wrong reveal
+    if (isExamMode) {
+      return selections.includes(option) ? ("selected" as const) : ("default" as const);
+    }
+
+    const correct = question.correctAnswers ?? [question.correctAnswer];
     if (correct.includes(option)) {
       return selections.includes(option) ? ("correct" as const) : ("reveal" as const);
     }
     return selections.includes(option) ? ("wrong" as const) : ("default" as const);
+  }
+
+  function formatTimer(s: number) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${String(m).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
   }
 
   const wrongSelections = hasAnswered
@@ -126,6 +206,21 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
             )}
           </div>
           <div className="flex items-center gap-3">
+            {isExamMode && timeLeft !== null && (
+              <span
+                className={cn(
+                  "text-sm font-mono font-semibold tabular-nums flex items-center gap-1",
+                  timeLeft < 60
+                    ? "text-red-500 dark:text-red-400"
+                    : timeLeft < 300
+                    ? "text-amber-500 dark:text-amber-400"
+                    : "text-slate-600 dark:text-slate-400"
+                )}
+              >
+                <Timer size={13} />
+                {formatTimer(timeLeft)}
+              </span>
+            )}
             <button
               type="button"
               onClick={() => toggleMarkQuestion(question.id)}
@@ -142,9 +237,11 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                 )}
               />
             </button>
-            <span className="text-sm text-slate-400 dark:text-slate-500 tabular-nums">
-              {Math.round(progress)}%
-            </span>
+            {!isExamMode && (
+              <span className="text-sm text-slate-400 dark:text-slate-500 tabular-nums">
+                {Math.round(progress)}%
+              </span>
+            )}
           </div>
         </div>
 
@@ -187,9 +284,9 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
           </motion.div>
         </AnimatePresence>
 
-        {/* Skip button */}
+        {/* Skip button — hidden in exam mode */}
         <AnimatePresence>
-          {canSkip && (
+          {canSkip && !isExamMode && (
             <motion.div
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
@@ -237,9 +334,9 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
           )}
         </AnimatePresence>
 
-        {/* Feedback */}
+        {/* Feedback — hidden in exam mode */}
         <AnimatePresence>
-          {hasAnswered && (
+          {hasAnswered && !isExamMode && (
             <motion.div
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
@@ -355,6 +452,23 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Keyboard shortcuts hint */}
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 select-none">
+          {([
+            ["A–D", "opciones"],
+            ["↵", "avanzar"],
+            ["S", "saltar"],
+            ["M", "marcar"],
+          ] as [string, string][]).map(([key, label]) => (
+            <span key={key} className="flex items-center gap-1 text-[10px] text-slate-300 dark:text-slate-700">
+              <kbd className="px-1 py-0.5 rounded border border-current font-mono leading-none">
+                {key}
+              </kbd>
+              {label}
+            </span>
+          ))}
+        </div>
       </div>
     </div>
   );

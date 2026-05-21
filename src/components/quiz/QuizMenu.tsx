@@ -16,6 +16,9 @@ import {
   Trash2,
   PlayCircle,
   Bookmark,
+  GraduationCap,
+  Timer,
+  AlertCircle,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { getCategoryCount, getAllQuestions } from "@/lib/repositories/QuestionRepository";
@@ -120,6 +123,23 @@ export function QuizMenu() {
       label: `Repaso de errores · ${wrongQuestions.length} preg.`,
     };
     const sessionId = startSessionWithQuestions(config, wrongQuestions);
+    router.push(`/quiz/${sessionId}`);
+  }
+
+  function handleStartExam() {
+    if (!COURSE.examConfig) return;
+    clearSession();
+    const config: QuizConfig = {
+      courseId: COURSE.id,
+      categoryWeights: COURSE.defaultWeights,
+      questionCount: COURSE.examConfig.questionCount,
+      mode: "random",
+      label: `Examen ${COURSE.code}`,
+      isExamMode: true,
+      timeLimitSeconds: COURSE.examConfig.timeLimitSeconds,
+      passingPercentage: COURSE.examConfig.passingPercentage,
+    };
+    const sessionId = startSession(config);
     router.push(`/quiz/${sessionId}`);
   }
 
@@ -359,6 +379,59 @@ export function QuizMenu() {
             Comenzar quiz
           </button>
         </div>
+
+        {/* Exam mode card */}
+        {COURSE.examConfig && (
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-violet-200 dark:border-violet-800/60 p-5 mb-4">
+            <div className="flex items-start gap-3 mb-4">
+              <div className="w-9 h-9 rounded-xl bg-violet-100 dark:bg-violet-900/40 flex items-center justify-center shrink-0">
+                <GraduationCap size={18} className="text-violet-600 dark:text-violet-400" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                  Modo Examen Real
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  Condiciones del examen oficial {COURSE.code}
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-3 gap-2 mb-4">
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 text-center">
+                <p className="text-base font-bold text-slate-900 dark:text-slate-50">
+                  {COURSE.examConfig.questionCount}
+                </p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">preguntas</p>
+              </div>
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 text-center">
+                <p className="text-base font-bold text-slate-900 dark:text-slate-50 flex items-center justify-center gap-1">
+                  <Timer size={13} className="text-slate-400" />
+                  {Math.round(COURSE.examConfig.timeLimitSeconds / 60)}
+                  <span className="text-xs font-normal text-slate-400">min</span>
+                </p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">límite</p>
+              </div>
+              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 text-center">
+                <p className="text-base font-bold text-slate-900 dark:text-slate-50">
+                  {COURSE.examConfig.passingPercentage}%
+                </p>
+                <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">para aprobar</p>
+              </div>
+            </div>
+            <p className="text-xs text-slate-400 dark:text-slate-500 mb-4 flex items-start gap-1.5">
+              <AlertCircle size={11} className="shrink-0 mt-0.5" />
+              Sin feedback inmediato — los resultados se revelan al terminar
+            </p>
+            <button
+              type="button"
+              onClick={handleStartExam}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 active:bg-violet-800 text-white font-semibold transition-colors text-sm"
+            >
+              <GraduationCap size={15} />
+              Comenzar examen
+            </button>
+          </div>
+        )}
 
         {/* Wrong answers review */}
         {wrongQuestions.length > 0 && (
