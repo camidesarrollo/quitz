@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark, Timer } from "lucide-react";
+import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark, Timer, Flame } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
@@ -77,6 +77,15 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const isMarked = markedQuestionIds.includes(question.id);
 
   const isExamMode = session.config.isExamMode ?? false;
+
+  // Consecutive correct answers ending at the latest answered question
+  const answeredSorted = Object.keys(answers).map(Number).sort((a, b) => a - b);
+  let streak = 0;
+  for (let i = answeredSorted.length - 1; i >= 0; i--) {
+    if (answers[answeredSorted[i]]?.isCorrect) streak++;
+    else break;
+  }
+
   const isMultiAnswer = (question.correctAnswers?.length ?? 0) > 1;
   const requiredCount = question.correctAnswers?.length ?? 1;
   const remaining = requiredCount - pendingSelections.length;
@@ -204,6 +213,28 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                 {pendingCount} pendiente{pendingCount !== 1 ? "s" : ""}
               </span>
             )}
+            <AnimatePresence>
+              {!isExamMode && streak >= 2 && (
+                <motion.span
+                  key={streak}
+                  initial={{ scale: streak >= 5 ? 1.7 : 1.3, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 13 }}
+                  className={cn(
+                    "inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-full tabular-nums",
+                    streak >= 10
+                      ? "bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400"
+                      : streak >= 5
+                      ? "bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400"
+                      : "bg-yellow-100 dark:bg-yellow-900/40 text-yellow-600 dark:text-yellow-400"
+                  )}
+                >
+                  <Flame size={11} className="fill-current" />
+                  {streak}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </div>
           <div className="flex items-center gap-3">
             {isExamMode && timeLeft !== null && (
