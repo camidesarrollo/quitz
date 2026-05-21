@@ -334,6 +334,22 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
           )}
         </AnimatePresence>
 
+        {/* Exam mode: neutral confirmation so the user knows the click registered */}
+        <AnimatePresence>
+          {hasAnswered && isExamMode && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="mt-5 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center gap-2"
+            >
+              <CheckCircle2 size={14} className="text-slate-400 dark:text-slate-500" />
+              <span className="text-sm text-slate-500 dark:text-slate-400">Respuesta registrada</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Feedback — hidden in exam mode */}
         <AnimatePresence>
           {hasAnswered && !isExamMode && (
