@@ -2837,15 +2837,15 @@ export const az900Questions: Question[] = [
   },
   {
     "id": 346,
-    "text": "Relacione los servicios de Azure con las descripciones de redes correctas (ExpressRoute: privada, VPN Gateway: cifrada pública, VNet Peering: combina dos redes):",
+    "text": "¿Cuál de las siguientes opciones relaciona correctamente los servicios de red de Azure con sus características principales?",
     "options": [
-      "ExpressRoute: privada; VPN Gateway: cifrada pública; VNet Peering: combina redes",
+      "ExpressRoute: cifrada pública; VPN Gateway: privada; VNet Peering: combina redes",
       "VPN Gateway: privada; ExpressRoute: combina redes; VNet Peering: cifrada pública",
       "VPN Gateway: privada; VNet Peering: combina redes; ExpressRoute: cifrada pública",
       "ExpressRoute: privada; VNet Peering: combina redes; VPN Gateway: cifrada pública"
     ],
     "correctAnswer": "ExpressRoute: privada; VNet Peering: combina redes; VPN Gateway: cifrada pública",
-    "explaination": "ExpressRoute utiliza conexiones privadas, VPN Gateway usa Internet cifrada y VNet Peering conecta redes virtuales.",
+    "explaination": "ExpressRoute ofrece conectividad privada dedicada (no pasa por Internet), VPN Gateway cifra el tráfico sobre Internet público, y VNet Peering conecta redes virtuales de Azure directamente.",
     "categoryId": "azure-services"
   },
   {
