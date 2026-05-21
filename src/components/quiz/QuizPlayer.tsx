@@ -103,7 +103,11 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
       if (!option) return;
       e.preventDefault();
       if (!isMultiAnswer) {
-        submitAnswer(currentIndex, option);
+        if (isExamMode) {
+          setPendingSelections([option]);
+        } else {
+          submitAnswer(currentIndex, option);
+        }
       } else {
         setPendingSelections((prev) =>
           prev.includes(option) ? prev.filter((o) => o !== option) : [...prev, option]
@@ -112,13 +116,13 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
       return;
     }
 
-    // Enter / Space / →: advance or confirm multi-answer
+    // Enter / Space / →: advance or confirm
     if (e.key === "Enter" || e.key === " " || e.key === "ArrowRight") {
       e.preventDefault();
       if (hasAnswered) {
         advanceQuestion();
-      } else if (isMultiAnswer && canConfirm) {
-        submitAnswer(currentIndex, pendingSelections);
+      } else if (canConfirm) {
+        submitAnswer(currentIndex, isMultiAnswer ? pendingSelections : pendingSelections[0]);
       }
       return;
     }
@@ -139,7 +143,11 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     if (hasAnswered) return;
 
     if (!isMultiAnswer) {
-      submitAnswer(currentIndex, option);
+      if (isExamMode) {
+        setPendingSelections([option]);
+      } else {
+        submitAnswer(currentIndex, option);
+      }
       return;
     }
 
@@ -150,12 +158,12 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
 
   function handleConfirm() {
     if (!canConfirm) return;
-    submitAnswer(currentIndex, pendingSelections);
+    submitAnswer(currentIndex, isMultiAnswer ? pendingSelections : pendingSelections[0]);
   }
 
   function getOptionState(option: string) {
     if (!hasAnswered) {
-      if (isMultiAnswer && pendingSelections.includes(option)) return "selected" as const;
+      if (pendingSelections.includes(option)) return "selected" as const;
       return "default" as const;
     }
 
@@ -337,9 +345,9 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
           )}
         </AnimatePresence>
 
-        {/* Confirm button for multi-answer (before submitting) */}
+        {/* Confirm button — multi-answer always, single-answer only in exam mode */}
         <AnimatePresence>
-          {isMultiAnswer && !hasAnswered && (
+          {!hasAnswered && (isMultiAnswer || (isExamMode && pendingSelections.length > 0)) && (
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
@@ -359,7 +367,9 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                 )}
               >
                 <CheckSquare size={16} />
-                Confirmar selección ({pendingSelections.length}/{requiredCount})
+                {isMultiAnswer
+                  ? `Confirmar selección (${pendingSelections.length}/${requiredCount})`
+                  : "Confirmar respuesta"}
               </button>
             </motion.div>
           )}
