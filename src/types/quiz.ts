@@ -31,7 +31,7 @@ export interface Question {
   categoryId?: string;
   text: string;
   options: string[];
-  correctAnswer: string;
+  correctAnswer?: string;
   correctAnswers?: string[]; // multi-answer questions
   explaination?: string;
 }
