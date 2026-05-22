@@ -7695,5 +7695,325 @@ export const az900Questions: Question[] = [
     "correctAnswer": "Plantillas ARM",
     "categoryId": "azure-management",
     "explaination": "Las plantillas ARM (Azure Resource Manager) permiten definir infraestructura y configuraciones usando sintaxis declarativa en JSON. Describes qué recursos necesitas y Azure determina cómo implementarlos, permitiendo despliegues consistentes y repetibles. Azure CLI sigue un modelo imperativo, Cloud Shell es el entorno de ejecución, y Azure Arc gestiona recursos fuera de Azure."
+  },
+  {
+    "id": 787,
+    "categoryId": "azure-services",
+    "text": "Azure Arc permite administrar servidores SQL alojados fuera de Azure como si estuvieran en Azure.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Azure Arc permite administrar no solo servidores en Azure, sino también los que están fuera de él, como instancias de SQL Server en entornos locales u otras nubes. Los trata como recursos de Azure, lo que proporciona gobernanza y administración consistentes."
+  },
+  {
+    "id": 788,
+    "categoryId": "azure-management",
+    "text": "Azure PowerShell puede instalarse y ejecutarse en plataformas Linux, Mac y Windows.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Azure PowerShell está diseñado para la flexibilidad. Es multiplataforma, por lo que ya sea que uses Windows, Linux o macOS, puedes instalarlo y utilizarlo. Esto es ideal para administradores que trabajan en entornos diversos."
+  },
+  {
+    "id": 789,
+    "categoryId": "azure-management",
+    "text": "Azure Service Health solo proporciona actualizaciones de estado global y no ofrece información sobre la salud de recursos individuales.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Azure Service Health hace más que mostrar una vista global. Proporciona alertas personalizadas e información detallada sobre la salud de tus recursos específicos de Azure a través de herramientas como Resource Health."
+  },
+  {
+    "id": 790,
+    "categoryId": "azure-services",
+    "text": "Application Insights, una característica de Azure Monitor, solo puede monitorear aplicaciones que se ejecutan en Azure.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Aunque Application Insights forma parte de Azure Monitor, no está limitado a aplicaciones alojadas en Azure. También puedes usarlo para monitorear aplicaciones en entornos locales o en otros servicios en la nube, lo que lo hace muy versátil."
+  },
+  {
+    "id": 791,
+    "categoryId": "azure-management",
+    "text": "Azure Monitor solo puede recopilar datos de recursos de Azure y no admite la recopilación de datos de entornos locales o de múltiples nubes.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Azure Monitor es una solución integral. No solo recopila datos de servicios de Azure, sino que también funciona con sistemas locales y entornos de múltiples nubes, lo que lo hace ideal para la monitorización de infraestructuras híbridas."
+  },
+  {
+    "id": 792,
+    "categoryId": "cloud-concepts",
+    "text": "Una pequeña empresa decide usar Office 365 y un proveedor de nube principal para todos sus servicios. ¿Cuál de las siguientes opciones describe mejor el modelo de nube que han elegido?",
+    "options": ["Nube privada", "Nube pública", "Nube híbrida", "Nube gubernamental"],
+    "correctAnswer": "Nube pública",
+    "explaination": "Cuando una empresa utiliza servicios como Office 365, depende de recursos proporcionados y administrados por un proveedor externo a través de internet. Esto es característico de la nube pública. Microsoft posee y administra la infraestructura, mientras que la empresa simplemente consume los servicios."
+  },
+  {
+    "id": 793,
+    "categoryId": "cloud-concepts",
+    "text": "La computación en la nube permite a las organizaciones usar servicios de cómputo a través de internet en lugar de depender únicamente de centros de datos físicos.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "La computación en la nube permite a las organizaciones acceder a servicios como almacenamiento, redes y máquinas virtuales a través de internet. En lugar de mantener servidores físicos, dependen de proveedores como Microsoft Azure o AWS."
+  },
+  {
+    "id": 794,
+    "categoryId": "cloud-concepts",
+    "text": "En la computación en la nube, el proveedor gestiona la red física mientras los usuarios administran sus propios recursos y configuraciones.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "El proveedor de la nube no solo administra la red física, sino toda la infraestructura subyacente. Los usuarios sí gestionan las configuraciones de sus propios servicios, como máquinas virtuales o aplicaciones, pero no la red física."
+  },
+  {
+    "id": 795,
+    "categoryId": "cloud-concepts",
+    "text": "La computación en la nube permite a las organizaciones escalar su infraestructura de TI rápidamente sin necesidad de construir nuevos centros de datos.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Una de las mayores ventajas de la computación en la nube es la escalabilidad rápida. Las empresas pueden aumentar o reducir recursos rápidamente sin invertir en nuevos centros de datos."
+  },
+  {
+    "id": 796,
+    "categoryId": "cloud-concepts",
+    "text": "Los usuarios son responsables de proteger sus datos en la nube, mientras que el proveedor de la nube protege la infraestructura subyacente.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "El modelo de responsabilidad compartida aplica en la computación en la nube. Los proveedores protegen el hardware, los centros de datos y las redes, pero el usuario es responsable de la seguridad de los datos: control de acceso, gestión de identidades y cifrado."
+  },
+  {
+    "id": 797,
+    "categoryId": "cloud-concepts",
+    "text": "Una base de datos SQL en la nube representa un gasto __________, mientras que un clúster SQL en las instalaciones representa un gasto __________.",
+    "options": ["operativo (OpEx) / de capital (CapEx)", "de capital (CapEx) / operativo (OpEx)", "operativo (OpEx) / operativo (OpEx)", "de capital (CapEx) / de capital (CapEx)"],
+    "correctAnswer": "operativo (OpEx) / de capital (CapEx)",
+    "explaination": "Una base de datos SQL en la nube usa el modelo de pago por uso, lo que representa un gasto operativo (OpEx) recurrente. Un clúster SQL en las instalaciones requiere una gran inversión inicial en hardware y licencias, lo que constituye un gasto de capital (CapEx)."
+  },
+  {
+    "id": 798,
+    "categoryId": "azure-services",
+    "text": "Las cuentas de almacenamiento de Azure incluyen el servicio __________, que almacena datos no estructurados, y el servicio __________, que actúa como servidor de archivos en la nube.",
+    "options": ["Blob storage / File storage", "File storage / Blob storage", "Disk storage / Queue storage", "Queue storage / Table storage"],
+    "correctAnswer": "Blob storage / File storage",
+    "explaination": "Blob storage está optimizado para grandes volúmenes de datos no estructurados como imágenes, videos y registros. File storage es un servicio de uso compartido de archivos administrado que funciona como un servidor de archivos tradicional, accesible mediante protocolos SMB."
+  },
+  {
+    "id": 799,
+    "categoryId": "azure-services",
+    "text": "Una empresa está preocupada por quedarse sin espacio de almacenamiento de datos y no quiere comprar discos duros adicionales. ¿Cuál es el mejor enfoque?",
+    "options": ["Comprar múltiples discos duros con anticipación", "Eliminar datos antiguos", "Almacenar datos en dispositivos personales de empleados", "Usar almacenamiento en la nube para solicitar más espacio según sea necesario"],
+    "correctAnswer": "Usar almacenamiento en la nube para solicitar más espacio según sea necesario",
+    "explaination": "El almacenamiento en la nube está diseñado para escalar. Puedes aumentar la capacidad bajo demanda sin necesidad de invertir en hardware nuevo. Servicios como Azure Blob Storage permiten escalar de gigabytes a petabytes con solo unos clics."
+  },
+  {
+    "id": 800,
+    "categoryId": "cloud-concepts",
+    "text": "¿Cuál de las siguientes opciones describe mejor la computación en la nube?",
+    "options": ["Una configuración de TI tradicional donde los recursos se instalan en las instalaciones", "Una tecnología que permite a los usuarios acceder a recursos de cómputo a través de internet", "Un servicio limitado al almacenamiento de archivos y documentos", "Una tecnología que elimina todas las responsabilidades de mantenimiento de TI"],
+    "correctAnswer": "Una tecnología que permite a los usuarios acceder a recursos de cómputo a través de internet",
+    "explaination": "La computación en la nube trata fundamentalmente sobre la entrega de servicios de cómputo como servidores, almacenamiento, bases de datos, redes, software y análisis a través de internet, de manera flexible, escalable y eficiente."
+  },
+  {
+    "id": 801,
+    "categoryId": "cloud-concepts",
+    "text": "¿Cuáles dos beneficios de la computación en la nube ayudan a las organizaciones a reducir los gastos de capital (CapEx)? (Selecciona dos)",
+    "options": ["Modelo de precios de pago por uso", "Redundancia multirregión", "Capacidad de escalar recursos dinámicamente", "SLA de tiempo de actividad del 99.99%"],
+    "correctAnswers": ["Modelo de precios de pago por uso", "Capacidad de escalar recursos dinámicamente"],
+    "explaination": "El modelo de pago por uso evita inversiones iniciales elevadas en servidores. La capacidad de escalar dinámicamente elimina la necesidad de comprar hardware en exceso para prepararse para demandas futuras. La redundancia multirregión y el SLA de disponibilidad son beneficios de resiliencia, no de reducción de CapEx."
+  },
+  {
+    "id": 802,
+    "categoryId": "azure-services",
+    "text": "¿Qué subservicio de almacenamiento de Azure almacena datos no estructurados como imágenes y videos?",
+    "options": ["File storage", "Disk storage", "Blob storage", "Queue storage"],
+    "correctAnswer": "Blob storage",
+    "explaination": "Blob storage está optimizado para manejar grandes cantidades de datos no estructurados como imágenes, videos y registros. Se compara frecuentemente con Amazon S3 por su uso en escenarios de almacenamiento de objetos a escala web."
+  },
+  {
+    "id": 803,
+    "categoryId": "azure-services",
+    "text": "Las redes virtuales de Azure permiten crear una __________ entre recursos locales y recursos de Azure, permitiendo la comunicación como si estuvieran en la misma red local.",
+    "options": ["VPN", "Firewall", "Peering", "NAT Gateway"],
+    "correctAnswer": "VPN",
+    "explaination": "Una red privada virtual (VPN) en Azure se usa para conectar de forma segura la infraestructura local con la nube de Azure, haciendo que los dos entornos funcionen como una sola red local."
+  },
+  {
+    "id": 804,
+    "categoryId": "azure-services",
+    "text": "Azure Queue Storage se usa para la cola de mensajes entre componentes de aplicaciones.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Azure Queue Storage está diseñado exactamente para esto: hacer cola de mensajes entre componentes de aplicaciones. Permite la comunicación asíncrona, lo que ayuda a que los sistemas funcionen de manera independiente y más eficiente."
+  },
+  {
+    "id": 805,
+    "categoryId": "azure-services",
+    "text": "Cada mensaje de cola en Azure Queue Storage puede tener hasta 256 kilobytes de tamaño.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Esta afirmación es falsa porque cada mensaje en Azure Queue Storage puede tener hasta 64 kilobytes de tamaño. Si necesitas almacenar mensajes más grandes, deberías guardar el contenido en Blob Storage y colocar una referencia en la cola, o usar Azure Service Bus."
+  },
+  {
+    "id": 806,
+    "categoryId": "azure-services",
+    "text": "Los mensajes de Azure Queue Storage son accesibles globalmente mediante HTTP/HTTPS.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Los mensajes de Azure Queue Storage son accesibles globalmente a través de HTTP/HTTPS, lo que significa que los desarrolladores y aplicaciones pueden recuperar o añadir mensajes de forma segura a través de internet usando protocolos web estándar."
+  },
+  {
+    "id": 807,
+    "categoryId": "azure-services",
+    "text": "Queue Storage puede almacenar un número ilimitado de mensajes siempre que la cuenta de almacenamiento tenga capacidad.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Una cola puede almacenar un número ilimitado de mensajes, pero solo mientras la cuenta de almacenamiento de Azure tenga capacidad suficiente. No hay un límite fijo en el número de mensajes, solo en el almacenamiento que los respalda."
+  },
+  {
+    "id": 808,
+    "categoryId": "azure-services",
+    "text": "Las redes virtuales en Azure solo pueden usarse para máquinas virtuales.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Las redes virtuales de Azure no están limitadas a máquinas virtuales. Pueden conectarse a una amplia variedad de servicios como Azure Kubernetes Service, App Service Environments, Azure Bastion y más."
+  },
+  {
+    "id": 809,
+    "categoryId": "azure-services",
+    "text": "Las redes virtuales de Azure pueden vincular recursos tanto en la nube como en entornos locales.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Las redes virtuales de Azure pueden vincular recursos en la nube con infraestructura local usando opciones de conectividad híbrida como VPN Gateways o ExpressRoute, lo que hace posibles y eficientes las configuraciones de nube híbrida."
+  },
+  {
+    "id": 810,
+    "categoryId": "azure-services",
+    "text": "Las redes virtuales de Azure no pueden conectarse directamente a internet.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Las redes virtuales de Azure sí pueden conectarse a internet. Al asignar direcciones IP públicas o usar herramientas como el Azure Load Balancer, puedes permitir el acceso a internet a tus recursos cuando sea necesario."
+  },
+  {
+    "id": 811,
+    "categoryId": "azure-services",
+    "text": "Los discos administrados de Azure gestionan automáticamente el escalado del almacenamiento y la disponibilidad.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Los discos administrados de Azure gestionan el escalado del almacenamiento y la disponibilidad sin configuración manual. Microsoft se encarga de la infraestructura, para que puedas concentrarte en tus aplicaciones."
+  },
+  {
+    "id": 812,
+    "categoryId": "azure-services",
+    "text": "Los discos SSD Premium V2 pueden admitir tamaños de hasta 32 TB.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Los discos SSD Premium V2 admiten tamaños de hasta 64 TB, no solo 32 TB. El potencial de almacenamiento es mucho mayor de lo que afirma esta opción."
+  },
+  {
+    "id": 813,
+    "categoryId": "azure-management",
+    "text": "El objetivo de la defensa en profundidad es prevenir el acceso no autorizado a los datos usando una sola capa de seguridad.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "El objetivo de la defensa en profundidad no es depender de una sola capa de seguridad. Se trata de superponer protecciones como capas de identidad, red, cómputo, aplicación y datos para que, si una falla, las otras aún brinden defensa."
+  },
+  {
+    "id": 814,
+    "categoryId": "azure-management",
+    "text": "Si se vulnera una capa en el modelo de defensa en profundidad, las capas adicionales aún ayudan a proteger el sistema.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Este enfoque por capas significa que si un atacante vulnera una capa, las capas restantes siguen activas. Esto proporciona resiliencia y da tiempo para la detección y respuesta."
+  },
+  {
+    "id": 815,
+    "categoryId": "azure-management",
+    "text": "La capa de cómputo en la defensa en profundidad es responsable de proteger las aplicaciones frente a vulnerabilidades.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "La capa de cómputo no protege directamente las aplicaciones. Su función es proteger las máquinas virtuales, aplicar parches y proteger los endpoints. La protección de aplicaciones es responsabilidad de la capa de aplicación."
+  },
+  {
+    "id": 816,
+    "categoryId": "azure-management",
+    "text": "Microsoft Entra ID monitorea intentos de inicio de sesión sospechosos y alerta a los administradores.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Microsoft Entra ID usa señales como ubicaciones o dispositivos de inicio de sesión no familiares para detectar intentos sospechosos y luego alerta a los administradores para que puedan tomar medidas inmediatas."
+  },
+  {
+    "id": 817,
+    "categoryId": "azure-management",
+    "text": "Microsoft Entra ID no puede integrarse con proveedores de autenticación de terceros.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Microsoft Entra ID admite la federación con sistemas de identidad como Google, Facebook y Okta, brindando a las organizaciones flexibilidad en sus estrategias de autenticación."
+  },
+  {
+    "id": 818,
+    "categoryId": "azure-services",
+    "text": "Azure Migrate solo admite la migración de máquinas virtuales, no de bases de datos ni aplicaciones.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Azure Migrate admite mucho más que solo VMs. Se integra con herramientas como Azure Database Migration Service para bases de datos y App Service Migration Assistant para aplicaciones, lo que le da amplias capacidades de migración de cargas de trabajo."
+  },
+  {
+    "id": 819,
+    "categoryId": "azure-services",
+    "text": "Azure Data Box es un dispositivo físico usado para transferir grandes cantidades de datos hacia o desde Azure.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Azure Data Box es un dispositivo físico real que Microsoft envía a los clientes. Se usa para mover conjuntos de datos muy grandes, generalmente más de 40 TB, de forma segura hacia o desde Azure."
+  },
+  {
+    "id": 820,
+    "categoryId": "azure-services",
+    "text": "Azure China y Azure Government son ejemplos de:",
+    "options": ["Nubes privadas", "Regiones soberanas", "Geografías de Azure", "Grupos de administración"],
+    "correctAnswer": "Regiones soberanas",
+    "explaination": "Las regiones soberanas son entornos especiales de Azure creados para cumplir con estrictos requisitos gubernamentales o de cumplimiento normativo en países específicos. Azure China y Azure Government operan de forma independiente de la nube global de Azure bajo políticas y reglas de cumplimiento distintas."
+  },
+  {
+    "id": 821,
+    "categoryId": "azure-services",
+    "text": "Una empresa de medios necesita archivar terabytes de metraje de video histórico, pero espera recuperarlo solo por razones legales. ¿Qué nivel de acceso de Azure Blob es el más rentable para este escenario?",
+    "options": ["Activo (Hot)", "Esporádico (Cool)", "Frío (Cold)", "Archivo (Archive)"],
+    "correctAnswer": "Archivo (Archive)",
+    "explaination": "El nivel de archivo está diseñado específicamente para almacenar datos a los que raramente se accede pero que deben conservarse por razones de cumplimiento, legales o históricas. Ofrece el menor costo de almacenamiento entre todos los niveles de blob de Azure."
+  },
+  {
+    "id": 822,
+    "categoryId": "azure-services",
+    "text": "¿Cuál es la función principal de las zonas de disponibilidad de Azure?",
+    "options": ["Proporcionar almacenamiento de datos aislado por seguridad", "Aumentar la disponibilidad de los servicios usando centros de datos independientes", "Gestionar el acceso de usuarios en diferentes regiones", "Organizar la facturación para diferentes departamentos"],
+    "correctAnswer": "Aumentar la disponibilidad de los servicios usando centros de datos independientes",
+    "explaination": "Las zonas de disponibilidad de Azure son centros de datos físicamente separados dentro de una sola región de Azure. Su propósito principal es proporcionar alta disponibilidad y tolerancia a fallos. Si un centro de datos falla, las otras zonas mantienen los servicios en funcionamiento."
+  },
+  {
+    "id": 823,
+    "categoryId": "azure-services",
+    "text": "Las máquinas virtuales (VMs) proporcionan el mayor nivel de control sobre los entornos de alojamiento en Azure.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "explaination": "Las máquinas virtuales de Azure ofrecen control total sobre el entorno de alojamiento. Puedes configurar el SO, instalar cualquier software, gestionar la configuración de red y ajustar las políticas de seguridad, lo que lo convierte en la opción de alojamiento más flexible y personalizable."
+  },
+  {
+    "id": 824,
+    "categoryId": "azure-services",
+    "text": "Azure App Service solo puede usarse para alojar aplicaciones web.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "explaination": "Azure App Service no está limitado solo a aplicaciones web. También puede ejecutar aplicaciones de API, aplicaciones móviles y WebJobs para procesamiento en segundo plano, lo que lo convierte en una plataforma PaaS versátil."
+  },
+  {
+    "id": 825,
+    "categoryId": "azure-management",
+    "text": "¿Cuál de las siguientes NO es una característica de Azure DNS?",
+    "options": ["Alojar dominios DNS privados para redes virtuales personalizadas", "Control de acceso basado en roles (RBAC) para gestionar el acceso a recursos DNS", "Proporcionar servicios de compra de nombres de dominio", "Ofrecer resolución DNS rápida a través de una red global de servidores"],
+    "correctAnswer": "Proporcionar servicios de compra de nombres de dominio",
+    "explaination": "Azure DNS es un servicio de alojamiento del sistema de nombres de dominio que permite gestionar registros DNS, pero no ofrece la posibilidad de comprar nombres de dominio. Esa función la manejan los dominios de App Service o registradores de dominios de terceros."
+  },
+  {
+    "id": 826,
+    "categoryId": "azure-management",
+    "text": "¿Cuál de las siguientes opciones NO es una característica de Azure Log Analytics?",
+    "options": ["Escribir y probar consultas de registros", "Realizar análisis estadísticos sobre datos de registros", "Generar alertas detalladas sobre interrupciones del servicio", "Visualizar resultados mediante gráficos y paneles"],
+    "correctAnswer": "Generar alertas detalladas sobre interrupciones del servicio",
+    "explaination": "Azure Log Analytics es principalmente una herramienta para consultar y analizar datos de registros. La generación de alertas detalladas sobre interrupciones del servicio es responsabilidad de herramientas como Azure Monitor Alerts y Azure Service Health, no de Log Analytics."
   }
 ];
