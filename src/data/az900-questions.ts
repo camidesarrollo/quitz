@@ -1845,7 +1845,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
     "categoryId": "azure-management",
-    "explaination": "Sí, una única cuenta de Microsoft puede utilizarse para administrar varias suscripciones de Azure."
+    "explaination": "Una cuenta de Microsoft (o cuenta de trabajo/escuela) puede ser propietaria o co-administradora de múltiples suscripciones de Azure. Esto permite a organizaciones o individuos separar entornos (producción, desarrollo, pruebas) o departamentos bajo una misma identidad, facilitando la facturación independiente pero la gestión centralizada desde el portal."
   },
   {
     "id": 223,
@@ -1853,7 +1853,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "No",
     "categoryId": "azure-management",
-    "explaination": "No, no se pueden fusionar dos suscripciones de Azure en una sola."
+    "explaination": "Azure no ofrece una función nativa para fusionar o combinar suscripciones. Cada suscripción es una unidad de facturación y gestión independiente. Si se necesita consolidar recursos, la alternativa es migrar o mover recursos individualmente entre suscripciones usando Azure Resource Mover o la opción 'Mover' del portal, pero la suscripción de origen seguirá existiendo."
   },
   {
     "id": 224,
@@ -1861,7 +1861,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
     "categoryId": "azure-management",
-    "explaination": "Sí, una empresa puede utilizar recursos de múltiples suscripciones."
+    "explaination": "Una organización puede tener y operar recursos distribuidos en varias suscripciones simultáneamente. Es una práctica común en empresas grandes: separar suscripciones por departamento, proyecto o entorno (producción vs. desarrollo). Azure Management Groups permiten aplicar políticas y controles de acceso a todas las suscripciones de la organización de forma jerárquica."
   },
   {
     "id": 225,
@@ -1869,7 +1869,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "No",
     "categoryId": "azure-services",
-    "explaination": "No, las zonas de disponibilidad no se pueden implementar en todas las regiones de Azure."
+    "explaination": "Las Availability Zones solo están disponibles en regiones de Azure específicas que cuentan con la infraestructura física necesaria (centros de datos separados con energía, refrigeración y red independientes). Regiones más pequeñas o recientes pueden no tenerlas. Microsoft publica la lista de regiones compatibles; antes de diseñar una arquitectura de alta disponibilidad con zonas, se debe verificar que la región de destino las soporte."
   },
   {
     "id": 226,
@@ -1877,7 +1877,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "No",
     "categoryId": "azure-services",
-    "explaination": "No, en las zonas de disponibilidad solo se pueden crear VMs que ejecuten Windows Server."
+    "explaination": "Las zonas de disponibilidad son agnósticas al sistema operativo. Se pueden desplegar VMs con Windows Server, distribuciones de Linux (Ubuntu, Red Hat, SUSE, etc.) y cualquier imagen disponible en Azure Marketplace. La característica de zona afecta únicamente la ubicación física del hardware, no el software que corre sobre él."
   },
   {
     "id": 227,
@@ -1885,7 +1885,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "No",
     "categoryId": "azure-services",
-    "explaination": "No, las zonas de disponibilidad no se utilizan para replicar datos y aplicaciones en varias regiones."
+    "explaination": "Las zonas de disponibilidad protegen contra fallos dentro de una misma región (son centros de datos físicamente separados dentro de la misma área metropolitana). Para replicar datos y aplicaciones entre regiones distintas (por ejemplo, Este de EE. UU. y Oeste de Europa) se usan otras soluciones como Azure Site Recovery, geo-replicación de bases de datos o el emparejamiento de regiones (region pairs)."
   },
   {
     "id": 228,
@@ -3047,7 +3047,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "No",
     "categoryId": "azure-management",
-    "explaination": "Las reservas de Azure se utilizan para reservar capacidad de servidor en un centro de datos."
+    "explaination": "Las reservas de Azure (Azure Reservations) se utilizan principalmente para obtener descuentos al comprometerse a usar ciertos recursos durante 1 o 3 años, como máquinas virtuales, bases de datos o capacidad de cómputo. No garantizan reservar servidores físicos específicos en un centro de datos determinado. Las Azure Reservations permiten reducir costos mediante compromisos a largo plazo sobre recursos de Azure. Aunque algunas ofertas pueden incluir prioridad de capacidad, su propósito principal es el ahorro de costos y no la reserva física de servidores específicos en un datacenter."
   },
   {
     "id": 371,
@@ -3360,7 +3360,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "No",
     "categoryId": "azure-services",
-    "explaination": "Azure DevOps Services no se puede utilizar para crear y alojar aplicaciones web."
+    "explaination": "Azure DevOps Services es una plataforma de gestión del ciclo de desarrollo: incluye repositorios de código (Azure Repos), pipelines de CI/CD (Azure Pipelines), seguimiento de trabajo (Azure Boards) y gestión de artefactos. Puede automatizar el build y el despliegue de una aplicación web, pero el alojamiento lo realizan servicios distintos como Azure App Service, Azure Static Web Apps o Azure Kubernetes Service. DevOps orquesta el proceso; no es un servicio de hosting."
   },
   {
     "id": 410,
@@ -4703,5 +4703,2997 @@ export const az900Questions: Question[] = [
     "correctAnswer": "Sobrecargar y agotar los recursos de una aplicación",
     "explaination": "Un ataque DDoS busca inundar un sistema con tráfico excesivo para dejarlo fuera de servicio.",
     "categoryId": "azure-services"
+  },
+  {
+    "id": 546,
+    "text": "Se puede decir que un recurso pertenece a uno y solo un grupo de recursos. ¿A qué pertenece un grupo de recursos?",
+    "options": [
+      "Grupo de administración",
+      "Microsoft Entra ID",
+      "Otros grupos de recursos",
+      "Suscripción"
+    ],
+    "correctAnswer": "Suscripción",
+    "categoryId": "azure-management",
+    "explaination": "Un grupo de recursos en Azure pertenece a una única suscripción. Todos los recursos dentro del grupo se administran bajo esa misma suscripción, la cual determina la facturación, las políticas y el control de acceso."
+  },
+  {
+    "id": 547,
+    "text": "¿Qué modelo de nube sería el más adecuado para una organización de salud que maneja datos sensibles de pacientes y datos administrativos no sensibles?",
+    "options": [
+      "Nube pública",
+      "Nube híbrida",
+      "Nube privada",
+      "Nube comunitaria"
+    ],
+    "correctAnswer": "Nube híbrida",
+    "categoryId": "cloud-concepts",
+    "explaination": "Una nube híbrida permite almacenar datos sensibles en una nube privada para mayor seguridad y cumplimiento normativo, mientras que las cargas menos sensibles pueden ejecutarse en la nube pública para mejorar la escalabilidad y reducir costos."
+  },
+  {
+    "id": 548,
+    "text": "¿Cuál es la principal diferencia entre PaaS e IaaS?",
+    "options": [
+      "La escalabilidad del servicio",
+      "El costo del servicio",
+      "El nivel de control sobre la infraestructura",
+      "La seguridad del servicio"
+    ],
+    "correctAnswer": "El nivel de control sobre la infraestructura",
+    "categoryId": "cloud-concepts",
+    "explaination": "IaaS proporciona mayor control sobre máquinas virtuales, almacenamiento y redes, mientras que PaaS abstrae la administración de infraestructura para que los desarrolladores se enfoquen en las aplicaciones."
+  },
+  {
+    "id": 549,
+    "text": "¿Cómo minimiza el tiempo de inactividad la alta disponibilidad en la computación en la nube?",
+    "options": [
+      "Limitando el uso de recursos durante horas punta",
+      "Proporcionando sistemas de energía de respaldo",
+      "Reduciendo el costo de la infraestructura",
+      "Replicando automáticamente recursos en múltiples regiones o zonas"
+    ],
+    "correctAnswer": "Replicando automáticamente recursos en múltiples regiones o zonas",
+    "categoryId": "cloud-concepts",
+    "explaination": "La alta disponibilidad reduce el tiempo de inactividad replicando recursos en varias regiones o zonas de disponibilidad, asegurando que los servicios continúen funcionando incluso si una ubicación falla."
+  },
+  {
+    "id": 550,
+    "text": "¿Cuál es el nivel más alto de organización dentro de la jerarquía de Azure?",
+    "options": [
+      "Grupo de administración",
+      "Suscripción",
+      "Grupo de recursos",
+      "Recurso"
+    ],
+    "correctAnswer": "Grupo de administración",
+    "categoryId": "azure-management",
+    "explaination": "Los grupos de administración son el nivel más alto de la jerarquía de Azure y permiten administrar múltiples suscripciones con políticas y gobernanza unificadas."
+  },
+  {
+    "id": 551,
+    "text": "¿Qué característica de las máquinas virtuales de Azure permite elegir en qué centro de datos físico desplegar una VM?",
+    "options": [
+      "Conjuntos de disponibilidad",
+      "Región",
+      "Instancias Spot",
+      "Zonas de disponibilidad"
+    ],
+    "correctAnswer": "Zonas de disponibilidad",
+    "categoryId": "azure-services",
+    "explaination": "Las zonas de disponibilidad son centros de datos físicamente separados dentro de una región de Azure y proporcionan mayor disponibilidad y tolerancia a fallos."
+  },
+  {
+    "id": 552,
+    "text": "Aplicar regularmente parches de software a los servidores en la nube es un ejemplo de gobernanza.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-management",
+    "explaination": "La aplicación de parches forma parte de la gobernanza porque ayuda a mantener los sistemas seguros, actualizados y alineados con estándares organizacionales."
+  },
+  {
+    "id": 553,
+    "text": "¿Qué tipo de escalado en la computación en la nube prácticamente no tiene límite?",
+    "options": [
+      "Escalado vertical",
+      "Escalado horizontal"
+    ],
+    "correctAnswer": "Escalado horizontal",
+    "categoryId": "cloud-concepts",
+    "explaination": "El escalado horizontal consiste en agregar más instancias, como máquinas virtuales o contenedores, permitiendo crecer continuamente según la demanda."
+  },
+  {
+    "id": 554,
+    "text": "Planeas implementar tu aplicación en un conjunto de escalado de máquinas virtuales (VMSS) y permitir que escale automáticamente según la demanda. ¿Cómo se distribuye el tráfico entre las máquinas del conjunto?",
+    "options": [
+      "Debes agregar un servicio adicional como Load Balancer o Application Gateway",
+      "Los conjuntos de escalado de máquinas virtuales incluyen balanceo de carga"
+    ],
+    "correctAnswer": "Los conjuntos de escalado de máquinas virtuales incluyen balanceo de carga",
+    "categoryId": "azure-services",
+    "explaination": "Azure VM Scale Sets incluye automáticamente balanceo de carga para distribuir el tráfico de forma uniforme entre las instancias."
+  },
+  {
+    "id": 555,
+    "text": "¿Qué frase describe mejor la propiedad de escalabilidad?",
+    "options": [
+      "La facilidad de administrar y mantener un sistema",
+      "La capacidad de prever y planificar el rendimiento y los recursos del sistema",
+      "La capacidad de un sistema de permanecer operativo y accesible durante un alto porcentaje del tiempo",
+      "La capacidad de un sistema para manejar una mayor carga agregando recursos dinámicamente"
+    ],
+    "correctAnswer": "La capacidad de un sistema para manejar una mayor carga agregando recursos dinámicamente",
+    "categoryId": "cloud-concepts",
+    "explaination": "La escalabilidad se refiere a la capacidad de un sistema para adaptarse al aumento de demanda agregando recursos sin afectar el rendimiento."
+  },
+  {
+    "id": 556,
+    "text": "¿Cuál de las siguientes NO es una condición que puede utilizarse en una política de acceso condicional?",
+    "options": [
+      "Tipo de aplicación",
+      "Tipo de dispositivo",
+      "Ubicación del usuario",
+      "Nivel de riesgo del usuario"
+    ],
+    "correctAnswer": "Tipo de aplicación",
+    "categoryId": "azure-management",
+    "explaination": "Las políticas de acceso condicional admiten condiciones como tipo de dispositivo, ubicación y nivel de riesgo del usuario, pero no el tipo de aplicación."
+  },
+  {
+    "id": 557,
+    "text": "Si necesitas almacenar más de 5 PB en una cuenta de almacenamiento de Azure, ¿cuál es la mejor opción?",
+    "options": [
+      "Abrir un ticket con Azure para solicitar un límite mayor",
+      "El máximo permitido en Azure es 5 PB y no existe solución",
+      "Crear una segunda cuenta de almacenamiento y particionar los datos",
+      "Crear otra cuenta de almacenamiento en otra región"
+    ],
+    "correctAnswer": "Crear una segunda cuenta de almacenamiento y particionar los datos",
+    "categoryId": "azure-services",
+    "explaination": "Para superar los límites de almacenamiento de una cuenta, Azure recomienda distribuir los datos entre múltiples cuentas de almacenamiento."
+  },
+  {
+    "id": 558,
+    "text": "¿Cuál es el principio fundamental de la seguridad Zero Trust?",
+    "options": [
+      "Confiar hasta que se demuestre lo contrario",
+      "Confiar pero verificar",
+      "Seguridad mediante oscuridad",
+      "Nunca confiar, siempre verificar"
+    ],
+    "correctAnswer": "Nunca confiar, siempre verificar",
+    "categoryId": "azure-management",
+    "explaination": "Zero Trust exige verificar continuamente la identidad y el acceso de usuarios y dispositivos antes de conceder permisos."
+  },
+  {
+    "id": 559,
+    "text": "¿Cuál es la opción de almacenamiento de menor costo en Azure?",
+    "options": [
+      "SSD estándar",
+      "HDD estándar",
+      "SSD premium",
+      "Ultra Disk"
+    ],
+    "correctAnswer": "HDD estándar",
+    "categoryId": "azure-services",
+    "explaination": "Los discos HDD estándar son la opción de almacenamiento más económica en Azure y están orientados a cargas con menores requerimientos de rendimiento."
+  },
+  {
+    "id": 560,
+    "text": "¿Qué opción de almacenamiento de Azure es la solución NoSQL de menor costo para datos estructurados no relacionales?",
+    "options": [
+      "Queue Storage",
+      "Blob Storage",
+      "Table Storage",
+      "Cosmos DB"
+    ],
+    "correctAnswer": "Table Storage",
+    "categoryId": "azure-services",
+    "explaination": "Azure Table Storage es un almacén NoSQL económico y escalable diseñado para datos estructurados no relacionales."
+  },
+  {
+    "id": 561,
+    "text": "Completa el espacio en blanco: ________ es un dispositivo físico que permite transferir grandes cantidades de datos hacia y desde Azure.",
+    "options": [
+      "Data Migration Assistant",
+      "Azure Migrate",
+      "Steve, el becario mal pagado de TI",
+      "Azure Data Box"
+    ],
+    "correctAnswer": "Azure Data Box",
+    "categoryId": "azure-services",
+    "explaination": "Azure Data Box es un dispositivo físico utilizado para transferir grandes volúmenes de datos cuando la transferencia por Internet no es práctica."
+  },
+  {
+    "id": 562,
+    "text": "Completa el espacio en blanco: ________ es un intento malicioso de interrumpir o impedir el funcionamiento de un servicio en la nube saturándolo con tráfico o solicitudes excesivas.",
+    "options": [
+      "Un ataque de denegación de servicio",
+      "Malware",
+      "Phishing",
+      "Una inyección SQL"
+    ],
+    "correctAnswer": "Un ataque de denegación de servicio",
+    "categoryId": "azure-management",
+    "explaination": "Un ataque DoS busca saturar un servicio con tráfico excesivo para volverlo lento o inaccesible."
+  },
+  {
+    "id": 563,
+    "text": "¿Cuál es el papel de la tolerancia a fallos en la estrategia de confiabilidad de Azure?",
+    "options": [
+      "Prevenir que ocurran fallos",
+      "Minimizar el impacto de fallos individuales de componentes",
+      "Optimizar el rendimiento del sistema",
+      "Garantizar una recuperación rápida ante grandes interrupciones"
+    ],
+    "correctAnswer": "Minimizar el impacto de fallos individuales de componentes",
+    "categoryId": "cloud-concepts",
+    "explaination": "La tolerancia a fallos asegura que el sistema continúe funcionando incluso si algunos componentes fallan, minimizando interrupciones."
+  },
+  {
+    "id": 564,
+    "text": "¿Cuál es el propósito principal de la herramienta AzCopy en Azure?",
+    "options": [
+      "Crear y administrar cuentas de almacenamiento de Azure",
+      "Transferir datos hacia y desde Azure Storage",
+      "Monitorear el uso de recursos en Azure",
+      "Administrar máquinas virtuales de Azure"
+    ],
+    "correctAnswer": "Transferir datos hacia y desde Azure Storage",
+    "categoryId": "azure-services",
+    "explaination": "AzCopy es una herramienta de línea de comandos optimizada para transferir datos entre sistemas locales y servicios de Azure Storage."
+  },
+  {
+    "id": 565,
+    "text": "¿Qué tipo de almacenamiento de Azure está diseñado específicamente como un volumen de almacenamiento a nivel de bloque administrado por Azure para máquinas virtuales?",
+    "options": [
+      "Azure File Storage",
+      "General Purpose v2",
+      "Azure Disk",
+      "Azure Blob Storage"
+    ],
+    "correctAnswer": "Azure Disk",
+    "categoryId": "azure-services",
+    "explaination": "Azure Disk proporciona almacenamiento administrado a nivel de bloque optimizado para máquinas virtuales de Azure."
+  },
+  {
+    "id": 566,
+    "text": "¿En qué entorno de nube el proveedor administra el sistema operativo, lo que significa que no puedes determinar la versión exacta de Windows o Linux que se está utilizando?",
+    "options": [
+      "IaaS",
+      "PaaS",
+      "Máquinas virtuales",
+      "Conjuntos de escalado de máquinas virtuales"
+    ],
+    "correctAnswer": "PaaS",
+    "categoryId": "cloud-concepts",
+    "explaination": "En un entorno PaaS, el proveedor de la nube administra el sistema operativo y la infraestructura subyacente, permitiendo a los usuarios enfocarse en desarrollar y desplegar aplicaciones."
+  },
+  {
+    "id": 567,
+    "text": "¿Cuál es el propósito principal de las regiones soberanas en Azure?",
+    "options": [
+      "Proporcionar mayor rendimiento para clientes en países específicos",
+      "Ofrecer descuentos para clientes en ciertas regiones",
+      "Garantizar el cumplimiento de residencia de datos",
+      "Proporcionar acceso a servicios de Azure en ubicaciones geográficas específicas"
+    ],
+    "correctAnswer": "Garantizar el cumplimiento de residencia de datos",
+    "categoryId": "azure-management",
+    "explaination": "Las regiones soberanas ayudan a cumplir requisitos legales y regulatorios relacionados con dónde se almacenan y procesan los datos."
+  },
+  {
+    "id": 568,
+    "text": "¿Qué modelo de nube es utilizado frecuentemente por agencias gubernamentales u organizaciones con estrictos requisitos de cumplimiento?",
+    "options": [
+      "Nube pública",
+      "Nube híbrida",
+      "Nube comunitaria",
+      "Nube privada"
+    ],
+    "correctAnswer": "Nube comunitaria",
+    "categoryId": "cloud-concepts",
+    "explaination": "La nube comunitaria está diseñada para organizaciones con necesidades regulatorias similares, proporcionando un entorno seguro y compatible."
+  },
+  {
+    "id": 569,
+    "text": "¿Los grupos de administración pueden anidarse?",
+    "options": [
+      "Sí",
+      "No"
+    ],
+    "correctAnswer": "Sí",
+    "categoryId": "azure-management",
+    "explaination": "Azure permite anidar grupos de administración para crear estructuras jerárquicas de gobernanza y aplicar políticas en múltiples suscripciones."
+  },
+  {
+    "id": 570,
+    "text": "¿Cuál de las siguientes NO es un caso de uso común para Azure Policy?",
+    "options": [
+      "Denegar acceso a recursos a una persona específica",
+      "Aplicar estándares de seguridad de red",
+      "Exigir etiquetas de recursos para asignación de costos",
+      "Evitar la creación de recursos en regiones específicas"
+    ],
+    "correctAnswer": "Denegar acceso a recursos a una persona específica",
+    "categoryId": "azure-management",
+    "explaination": "Azure Policy se utiliza para gobernanza y cumplimiento. El control de acceso a usuarios específicos se administra mediante RBAC."
+  },
+  {
+    "id": 571,
+    "text": "¿Cuál de las siguientes NO es una característica clave de Microsoft Defender for Cloud?",
+    "options": [
+      "Detección y respuesta ante amenazas",
+      "Evaluación de vulnerabilidades",
+      "Administración de contraseñas",
+      "Gestión de postura de seguridad"
+    ],
+    "correctAnswer": "Administración de contraseñas",
+    "categoryId": "azure-services",
+    "explaination": "Microsoft Defender for Cloud se centra en la seguridad y protección de recursos, pero la administración de contraseñas corresponde a otros servicios como Microsoft Entra ID."
+  },
+  {
+    "id": 572,
+    "text": "¿Cuál de las siguientes es una buena razón para ejecutar tu infraestructura localmente en lugar de utilizar la nube?",
+    "options": [
+      "Escalabilidad potencialmente ilimitada",
+      "Necesidad de servidores en muchos países",
+      "Necesidad de una amplia variedad de servicios y herramientas",
+      "Puede ser más económico operar infraestructura propia"
+    ],
+    "correctAnswer": "Puede ser más económico operar infraestructura propia",
+    "categoryId": "cloud-concepts",
+    "explaination": "En algunos casos, las organizaciones pueden reducir costos usando infraestructura propia, especialmente si ya poseen el hardware necesario."
+  },
+  {
+    "id": 573,
+    "text": "¿Cuál es el propósito principal de Azure Virtual Desktop?",
+    "options": [
+      "Entregar escritorios Windows virtualizados a los usuarios",
+      "Crear y administrar máquinas virtuales en Azure",
+      "Proporcionar un entorno virtualizado para cargas de Windows Server",
+      "Proporcionar una plataforma para hospedar aplicaciones web"
+    ],
+    "correctAnswer": "Entregar escritorios Windows virtualizados a los usuarios",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Desktop permite a los usuarios acceder a escritorios y aplicaciones Windows virtualizadas desde cualquier lugar."
+  },
+  {
+    "id": 574,
+    "text": "¿Cuál es el propósito del rol Owner en Azure RBAC?",
+    "options": [
+      "Administrar recursos de Azure incluyendo delegar permisos",
+      "Administrar recursos de Azure sin delegar permisos",
+      "Monitorear recursos de Azure para detectar amenazas",
+      "Visualizar recursos de Azure"
+    ],
+    "correctAnswer": "Administrar recursos de Azure incluyendo delegar permisos",
+    "categoryId": "azure-management",
+    "explaination": "El rol Owner proporciona acceso total a los recursos y permite asignar permisos a otros usuarios."
+  },
+  {
+    "id": 575,
+    "text": "¿Cuál de las siguientes opciones es un ejemplo de una oferta IaaS de Azure?",
+    "options": [
+      "Azure Managed Storage",
+      "Servicios de protección DDoS",
+      "Azure Firewall",
+      "Virtual Network"
+    ],
+    "correctAnswer": "Virtual Network",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Network es una oferta IaaS porque proporciona capacidades básicas de red para recursos en Azure."
+  },
+  {
+    "id": 576,
+    "text": "¿Qué dispositivo debe implementarse en una red virtual de Azure antes de conectarse mediante VPN?",
+    "options": [
+      "Azure Application Gateway",
+      "Azure Firewall",
+      "Azure VPN Gateway",
+      "Virtual Network Peering"
+    ],
+    "correctAnswer": "Azure VPN Gateway",
+    "categoryId": "azure-services",
+    "explaination": "Azure VPN Gateway permite establecer conexiones VPN seguras entre redes locales y redes virtuales de Azure."
+  },
+  {
+    "id": 577,
+    "text": "¿Cuál es la principal ventaja de utilizar instancias Spot en la nube?",
+    "options": [
+      "Siempre están disponibles",
+      "Proporcionan importantes ahorros de costos",
+      "Ofrecen el máximo rendimiento",
+      "Son ideales para aplicaciones con requisitos estrictos de rendimiento"
+    ],
+    "correctAnswer": "Proporcionan importantes ahorros de costos",
+    "categoryId": "azure-services",
+    "explaination": "Las instancias Spot permiten utilizar capacidad no utilizada a un menor costo, aunque pueden ser interrumpidas."
+  },
+  {
+    "id": 578,
+    "text": "Uno de los beneficios de la computación en la nube es poder usar scripts de línea de comandos para crear o destruir máquinas virtuales programáticamente. ¿Qué tipo de beneficio de administración representa esto?",
+    "options": [
+      "Administración de la nube",
+      "Administración en la nube"
+    ],
+    "correctAnswer": "Administración en la nube",
+    "categoryId": "cloud-concepts",
+    "explaination": "La administración en la nube permite automatizar recursos utilizando scripts, APIs e infraestructura como código."
+  },
+  {
+    "id": 579,
+    "text": "En Azure, ________ es una división lógica de una red virtual.",
+    "options": [
+      "Dirección IP",
+      "Firewall",
+      "Subred",
+      "Grupo de seguridad de red (NSG)"
+    ],
+    "correctAnswer": "Subred",
+    "categoryId": "azure-services",
+    "explaination": "Las subredes permiten segmentar y administrar recursos dentro de una red virtual de Azure."
+  },
+  {
+    "id": 580,
+    "text": "El modelo de ________ es un marco que define la división de responsabilidades entre el proveedor de nube y el cliente.",
+    "options": [
+      "GDPR",
+      "Responsabilidad compartida",
+      "Serverless",
+      "Pago por uso"
+    ],
+    "correctAnswer": "Responsabilidad compartida",
+    "categoryId": "cloud-concepts",
+    "explaination": "El modelo de responsabilidad compartida divide las responsabilidades de seguridad y administración entre el proveedor y el cliente."
+  },
+  {
+    "id": 581,
+    "text": "¿Cuál es el propósito principal de Azure B2C?",
+    "options": [
+      "Permitir que empleados accedan a recursos corporativos desde dispositivos personales",
+      "Administrar identidad y acceso para socios y proveedores externos",
+      "Permitir a las organizaciones ofrecer gestión de identidad y acceso para sus clientes",
+      "Proporcionar gestión de identidad y acceso para usuarios internos"
+    ],
+    "correctAnswer": "Permitir a las organizaciones ofrecer gestión de identidad y acceso para sus clientes",
+    "categoryId": "azure-services",
+    "explaination": "Azure B2C está diseñado para administrar autenticación e identidad de usuarios externos en aplicaciones orientadas al consumidor."
+  },
+  {
+    "id": 582,
+    "text": "¿Qué modelo de nube utiliza típicamente el modelo de precios basado en consumo?",
+    "options": [
+      "Nube pública",
+      "Infraestructura local",
+      "Nube híbrida",
+      "Nube privada"
+    ],
+    "correctAnswer": "Nube pública",
+    "categoryId": "cloud-concepts",
+    "explaination": "La nube pública utiliza generalmente un modelo de pago por uso, permitiendo pagar solo por los recursos consumidos."
+  },
+  {
+    "id": 583,
+    "text": "¿Cuál de las siguientes opciones NO es un ejemplo de un recurso de Azure?",
+    "options": [
+      "Una cuenta de almacenamiento",
+      "Una suscripción de Azure",
+      "Una base de datos Azure SQL",
+      "Una red virtual"
+    ],
+    "correctAnswer": "Una suscripción de Azure",
+    "categoryId": "azure-management",
+    "explaination": "Una suscripción es un contenedor lógico que organiza recursos, pero no es un recurso en sí."
+  },
+  {
+    "id": 584,
+    "text": "¿Cuál es el propósito principal de la autenticación multifactor (MFA)?",
+    "options": [
+      "Simplificar el proceso de inicio de sesión",
+      "Agregar una capa extra de seguridad mediante múltiples formas de verificación",
+      "Eliminar la necesidad de contraseñas",
+      "Proteger contra ataques de phishing"
+    ],
+    "correctAnswer": "Agregar una capa extra de seguridad mediante múltiples formas de verificación",
+    "categoryId": "azure-management",
+    "explaination": "MFA mejora la seguridad requiriendo dos o más factores de autenticación antes de permitir el acceso."
+  },
+  {
+    "id": 585,
+    "text": "Microsoft Entra Domain Services es un servicio de dominio administrado que puede utilizarse para:",
+    "options": [
+      "Reemplazar completamente Active Directory Domain Services (AD DS)",
+      "Soportar únicamente aplicaciones basadas en la nube",
+      "Extender AD DS a la nube",
+      "Proporcionar un sistema de identidad completamente separado de AD DS"
+    ],
+    "correctAnswer": "Extender AD DS a la nube",
+    "categoryId": "azure-services",
+    "explaination": "Microsoft Entra Domain Services permite extender funcionalidades tradicionales de Active Directory a Azure sin administrar controladores de dominio."
+  },
+  {
+    "id": 586,
+    "text": "Varias máquinas virtuales en el mismo conjunto de disponibilidad se implementan en múltiples dominios de actualización. ¿Contra qué ayudan a proteger los dominios de actualización?",
+    "options": [
+      "Tiempo de inactividad no planificado",
+      "Tiempo de inactividad planificado"
+    ],
+    "correctAnswer": "Tiempo de inactividad planificado",
+    "categoryId": "azure-services",
+    "explaination": "Los dominios de actualización ayudan a evitar que todas las máquinas virtuales se actualicen o reinicien al mismo tiempo durante tareas de mantenimiento planificadas."
+  },
+  {
+    "id": 587,
+    "text": "¿Cuántas zonas de disponibilidad suelen existir dentro de una sola región de Azure?",
+    "options": [
+      "Dos",
+      "Una",
+      "Cuatro",
+      "Tres"
+    ],
+    "correctAnswer": "Tres",
+    "categoryId": "azure-services",
+    "explaination": "Normalmente una región de Azure cuenta con tres zonas de disponibilidad físicamente separadas para proporcionar alta disponibilidad y tolerancia a fallos."
+  },
+  {
+    "id": 588,
+    "text": "¿Cuál es el propósito principal de Microsoft Purview en Azure?",
+    "options": [
+      "Unificar la gobernanza y el cumplimiento de datos entre distintas fuentes de datos",
+      "Monitorear y optimizar el rendimiento de recursos de Azure",
+      "Automatizar la implementación y configuración de recursos de Azure",
+      "Proporcionar funciones avanzadas de seguridad para recursos de Azure"
+    ],
+    "correctAnswer": "Unificar la gobernanza y el cumplimiento de datos entre distintas fuentes de datos",
+    "categoryId": "azure-management",
+    "explaination": "Microsoft Purview permite descubrir, clasificar y administrar datos para asegurar cumplimiento normativo y gobernanza."
+  },
+  {
+    "id": 589,
+    "text": "Si dos redes están conectadas mediante peering en diferentes regiones, ¿por qué red viajan los datos entre ellas?",
+    "options": [
+      "Red global de Microsoft",
+      "Internet pública"
+    ],
+    "correctAnswer": "Red global de Microsoft",
+    "categoryId": "azure-services",
+    "explaination": "El tráfico entre redes emparejadas en distintas regiones viaja por la red global privada de Microsoft, garantizando seguridad y alto rendimiento."
+  },
+  {
+    "id": 590,
+    "text": "¿Qué servicio de Azure se utiliza para hospedar Azure App Services?",
+    "options": [
+      "Dedicated Host",
+      "App Service Plan",
+      "Máquina virtual",
+      "Grupo de recursos"
+    ],
+    "correctAnswer": "App Service Plan",
+    "categoryId": "azure-services",
+    "explaination": "Un App Service Plan define la región, tamaño, escalabilidad y nivel de precios de las aplicaciones hospedadas en Azure App Service."
+  },
+  {
+    "id": 591,
+    "text": "¿En qué opción de redundancia de almacenamiento Azure mantiene tres copias de tus archivos distribuidas en tres zonas de una sola región?",
+    "options": [
+      "GRS",
+      "GZRS",
+      "ZRS",
+      "LRS"
+    ],
+    "correctAnswer": "ZRS",
+    "categoryId": "azure-services",
+    "explaination": "ZRS replica los datos en múltiples zonas de disponibilidad dentro de una misma región para mejorar disponibilidad y durabilidad."
+  },
+  {
+    "id": 592,
+    "text": "¿Cómo ayudan las instancias reservadas de Azure a lograr previsibilidad de costos?",
+    "options": [
+      "Ofreciendo pruebas gratuitas para nuevos servicios",
+      "Utilizando precios de pago por uso",
+      "Habilitando escalado automático",
+      "Proporcionando descuentos por compromisos a largo plazo"
+    ],
+    "correctAnswer": "Proporcionando descuentos por compromisos a largo plazo",
+    "categoryId": "azure-management",
+    "explaination": "Las instancias reservadas ofrecen descuentos significativos a cambio de compromisos de uno o tres años."
+  },
+  {
+    "id": 593,
+    "text": "¿Qué tipo de recurso de Azure permite administrar, configurar y actualizar centralmente una gran cantidad de máquinas virtuales?",
+    "options": [
+      "Azure App Services",
+      "Azure Kubernetes Service",
+      "Azure Functions",
+      "Virtual Machine Scale Sets"
+    ],
+    "correctAnswer": "Virtual Machine Scale Sets",
+    "categoryId": "azure-services",
+    "explaination": "VM Scale Sets permiten administrar y escalar automáticamente múltiples máquinas virtuales según la demanda."
+  },
+  {
+    "id": 594,
+    "text": "¿Cuál es un beneficio importante de utilizar computación serverless para aplicaciones con cargas impredecibles?",
+    "options": [
+      "Mayor complejidad",
+      "Reducción de costos operacionales",
+      "Administración manual de infraestructura",
+      "Estructura de precios fija"
+    ],
+    "correctAnswer": "Reducción de costos operacionales",
+    "categoryId": "cloud-concepts",
+    "explaination": "Serverless permite pagar solo por los recursos realmente utilizados, evitando costos de infraestructura inactiva."
+  },
+  {
+    "id": 595,
+    "text": "¿Cómo puede Azure Cost Management ayudar a identificar oportunidades de ahorro?",
+    "options": [
+      "Apagando automáticamente máquinas virtuales inactivas",
+      "Proporcionando pronósticos de costos en tiempo real",
+      "Analizando el uso de recursos e identificando recursos subutilizados",
+      "Recomendando los servicios más baratos de Azure"
+    ],
+    "correctAnswer": "Analizando el uso de recursos e identificando recursos subutilizados",
+    "categoryId": "azure-management",
+    "explaination": "Azure Cost Management ayuda a optimizar costos detectando recursos con baja utilización y oportunidades de mejora."
+  },
+  {
+    "id": 596,
+    "text": "¿Qué hace difícil estimar el costo de una cuenta de almacenamiento no administrada?",
+    "options": [
+      "No existe forma de predecir la cantidad de datos almacenados",
+      "Se cobra por los datos que ingresan a Azure y es difícil predecirlos",
+      "El costo del almacenamiento cambia frecuentemente",
+      "Se cobra por los datos que salen de Azure y es difícil predecirlos"
+    ],
+    "correctAnswer": "Se cobra por los datos que salen de Azure y es difícil predecirlos",
+    "categoryId": "azure-management",
+    "explaination": "Los costos de salida de datos pueden variar considerablemente y dificultan estimar el gasto total."
+  },
+  {
+    "id": 597,
+    "text": "¿Cuál de las siguientes NO es una característica de Azure Functions?",
+    "options": [
+      "Puede no costarte nada gracias a una capa gratuita generosa",
+      "Está diseñado para aplicaciones backend que se ejecutan continuamente",
+      "Permite editar código directamente en el portal de Azure",
+      "Puede ejecutarse mediante eventos de Azure como la carga de archivos en Blob Storage"
+    ],
+    "correctAnswer": "Está diseñado para aplicaciones backend que se ejecutan continuamente",
+    "categoryId": "azure-services",
+    "explaination": "Azure Functions está orientado a cargas de trabajo serverless basadas en eventos, no a procesos que deben ejecutarse permanentemente."
+  },
+  {
+    "id": 598,
+    "text": "¿Qué servicio de base de datos está diseñado específicamente para responder extremadamente rápido a solicitudes de pequeñas cantidades de datos, conocido como baja latencia?",
+    "options": [
+      "SQL Data Warehouse",
+      "Cosmos DB",
+      "SQL Database",
+      "SQL Server en una máquina virtual"
+    ],
+    "correctAnswer": "Cosmos DB",
+    "categoryId": "azure-services",
+    "explaination": "Azure Cosmos DB está optimizado para aplicaciones globales de alta velocidad y baja latencia."
+  },
+  {
+    "id": 599,
+    "text": "¿Qué recurso de Azure permite dividir uniformemente el tráfico entrante y dirigirlo a varias máquinas virtuales idénticas?",
+    "options": [
+      "Azure App Services",
+      "Virtual Network",
+      "Load Balancer o Application Gateway",
+      "Azure Logic Apps"
+    ],
+    "correctAnswer": "Load Balancer o Application Gateway",
+    "categoryId": "azure-services",
+    "explaination": "Azure Load Balancer y Application Gateway distribuyen el tráfico entre múltiples máquinas virtuales para mejorar disponibilidad y rendimiento."
+  },
+  {
+    "id": 600,
+    "text": "¿Cuál es el cobro mínimo mensual por tener una cuenta de Azure aunque no utilices recursos?",
+    "options": [
+      "Se negocia con el administrador empresarial",
+      "$200",
+      "$1",
+      "$0"
+    ],
+    "correctAnswer": "$0",
+    "categoryId": "azure-management",
+    "explaination": "Azure no cobra una tarifa mínima mensual; solo se paga por los recursos utilizados."
+  },
+  {
+    "id": 601,
+    "text": "¿Qué servicio de Azure es la oferta recomendada de identidad como servicio?",
+    "options": [
+      "Identity and Access Management (IAM)",
+      "Azure Portal",
+      "Azure Front Door",
+      "Azure Active Directory"
+    ],
+    "correctAnswer": "Azure Active Directory",
+    "categoryId": "azure-services",
+    "explaination": "Azure Active Directory proporciona autenticación, autorización y administración de identidades para aplicaciones y servicios."
+  },
+  {
+    "id": 602,
+    "text": "¿Qué significa el concepto de regiones emparejadas en Azure?",
+    "options": [
+      "Los empleados de Azure en esas regiones realizan actividades juntos",
+      "El código se despliega automáticamente en otra región como respaldo",
+      "Cada región tiene otra región emparejada en otro país para respaldos",
+      "Cada región tiene al menos otra región emparejada con conexiones de alta velocidad y coordinación para evitar caídas simultáneas"
+    ],
+    "correctAnswer": "Cada región tiene al menos otra región emparejada con conexiones de alta velocidad y coordinación para evitar caídas simultáneas",
+    "categoryId": "azure-services",
+    "explaination": "Las regiones emparejadas ofrecen resiliencia y recuperación ante desastres mediante conexiones rápidas y mantenimiento coordinado."
+  },
+  {
+    "id": 603,
+    "text": "Selecciona todas las características que forman parte de Azure AD.",
+    "options": [
+      "Administración de dispositivos",
+      "Inicio de sesión único (SSO)",
+      "Smart Lockout",
+      "Lista personalizada de contraseñas prohibidas",
+      "Reglas de alerta de registros"
+    ],
+    "correctAnswers": [
+      "Inicio de sesión único (SSO)",
+      "Smart Lockout",
+      "Lista personalizada de contraseñas prohibidas"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Azure AD incluye funcionalidades como SSO, Smart Lockout y políticas avanzadas de contraseñas para mejorar la seguridad."
+  },
+  {
+    "id": 604,
+    "text": "¿Qué es el concepto de Big Data?",
+    "options": [
+      "Un conjunto de servicios de Azure para ejecutar código sin administrar servidores",
+      "Una forma de inteligencia artificial que aprende automáticamente",
+      "Un conjunto extremadamente grande de datos que requiere tecnologías especializadas para análisis",
+      "Un pequeño sensor que envía constantemente información a la nube"
+    ],
+    "correctAnswer": "Un conjunto extremadamente grande de datos que requiere tecnologías especializadas para análisis",
+    "categoryId": "cloud-concepts",
+    "explaination": "Big Data se refiere a conjuntos de datos tan grandes o complejos que requieren herramientas especializadas para procesarlos y analizarlos."
+  },
+  {
+    "id": 605,
+    "text": "¿Qué característica de seguridad adicional opcional ofrece Application Gateway sobre un Load Balancer tradicional?",
+    "options": [
+      "Web Application Firewall (WAF)",
+      "Autenticación multifactor",
+      "Protección avanzada contra DDoS",
+      "Azure AD Advanced Information Protection"
+    ],
+    "correctAnswer": "Web Application Firewall (WAF)",
+    "categoryId": "azure-services",
+    "explaination": "Application Gateway puede incluir WAF para proteger aplicaciones web frente a amenazas como inyección SQL y ataques XSS."
+  },
+  {
+    "id": 606,
+    "text": "¿Cuál de las siguientes opciones NO es un ejemplo de infraestructura como servicio (IaaS)?",
+    "options": [
+      "Virtual Network",
+      "Azure SQL Database",
+      "Máquina virtual",
+      "SQL Server en una máquina virtual",
+      "Virtual Machine Scale Sets"
+    ],
+    "correctAnswer": "Azure SQL Database",
+    "categoryId": "cloud-concepts",
+    "explaination": "Azure SQL Database es un servicio PaaS porque Microsoft administra el mantenimiento, la seguridad y el escalado. Los demás ejemplos corresponden a IaaS."
+  },
+  {
+    "id": 607,
+    "text": "¿Cuál sería una buena razón para tener múltiples suscripciones de Azure?",
+    "options": [
+      "Existe una sola persona o tarjeta de crédito pagando los recursos, pero muchas personas necesitan administrar recursos completamente aislados entre clientes",
+      "Existe una sola persona administrando todos los recursos y solo se quiere identificar qué recursos pertenecen a cada cliente"
+    ],
+    "correctAnswer": "Existe una sola persona o tarjeta de crédito pagando los recursos, pero muchas personas necesitan administrar recursos completamente aislados entre clientes",
+    "categoryId": "azure-management",
+    "explaination": "Las suscripciones proporcionan límites de seguridad, facturación y cumplimiento, ideales para aislar recursos entre distintos clientes."
+  },
+  {
+    "id": 608,
+    "text": "¿Cuál de las siguientes opciones es un buen ejemplo de nube híbrida?",
+    "options": [
+      "Tecnología para crear tejido vivo sobre un exoesqueleto",
+      "Una aplicación móvil que utiliza una base de datos en la nube",
+      "Un servidor local que utiliza almacenamiento en la nube para ampliar su capacidad",
+      "Usuarios dentro de la red corporativa utilizando aplicaciones en la nube"
+    ],
+    "correctAnswer": "Un servidor local que utiliza almacenamiento en la nube para ampliar su capacidad",
+    "categoryId": "cloud-concepts",
+    "explaination": "La nube híbrida combina infraestructura local con servicios en la nube para extender capacidades y recursos."
+  },
+  {
+    "id": 609,
+    "text": "¿Por qué un usuario y contraseña a veces no son suficientes para demostrar la identidad de una persona?",
+    "options": [
+      "Las credenciales pueden ser utilizadas por terceros como hackers, ex empleados o compañeros de trabajo",
+      "Las contraseñas deben cifrarse antes de almacenarse",
+      "Las contraseñas suelen olvidarse fácilmente",
+      "Algunas personas podrían elegir el mismo usuario y contraseña"
+    ],
+    "correctAnswer": "Las credenciales pueden ser utilizadas por terceros como hackers, ex empleados o compañeros de trabajo",
+    "categoryId": "azure-management",
+    "explaination": "Las contraseñas pueden verse comprometidas, por lo que se recomienda usar MFA para verificar adicionalmente la identidad."
+  },
+  {
+    "id": 610,
+    "text": "¿Cuál es el SLA de Azure para dos o más máquinas virtuales en un conjunto de disponibilidad?",
+    "options": [
+      "99.90%",
+      "99.99%",
+      "100%",
+      "99.95%"
+    ],
+    "correctAnswer": "99.95%",
+    "categoryId": "azure-services",
+    "explaination": "Azure ofrece un SLA de 99.95% para dos o más máquinas virtuales configuradas en un Availability Set."
+  },
+  {
+    "id": 611,
+    "text": "¿Qué herramienta de Azure incluye Azure Status, Service Health y Resource Health?",
+    "options": [
+      "Azure Advisor",
+      "Azure Dashboard",
+      "Azure Service Health",
+      "Azure Monitor"
+    ],
+    "correctAnswer": "Azure Service Health",
+    "categoryId": "azure-management",
+    "explaination": "Azure Service Health proporciona información sobre el estado global de los servicios y recursos de Azure."
+  },
+  {
+    "id": 612,
+    "text": "¿Cómo se obtiene acceso a servicios en modo Private Preview?",
+    "options": [
+      "Debes solicitar acceso",
+      "Están disponibles directamente en Marketplace",
+      "Debes aceptar términos de uso",
+      "No es posible utilizar servicios en Private Preview"
+    ],
+    "correctAnswer": "Debes solicitar acceso",
+    "categoryId": "azure-services",
+    "explaination": "Los servicios en Private Preview requieren aprobación previa por parte de Microsoft antes de poder utilizarlos."
+  },
+  {
+    "id": 613,
+    "text": "¿Qué modelo de computación en la nube requiere el mayor nivel de participación del cliente en el mantenimiento del sistema operativo y sistema de archivos?",
+    "options": [
+      "PaaS",
+      "FaaS",
+      "SaaS",
+      "IaaS"
+    ],
+    "correctAnswer": "IaaS",
+    "categoryId": "cloud-concepts",
+    "explaination": "En IaaS el cliente administra el sistema operativo, aplicaciones y configuraciones, mientras el proveedor administra el hardware."
+  },
+  {
+    "id": 614,
+    "text": "¿Qué regulación de privacidad y protección de datos entró en vigor en Europa en mayo de 2018?",
+    "options": [
+      "PCI DSS",
+      "FedRAMP",
+      "ISO 9001:2015",
+      "GDPR"
+    ],
+    "correctAnswer": "GDPR",
+    "categoryId": "azure-management",
+    "explaination": "GDPR establece normas estrictas para proteger la privacidad y los datos personales de los ciudadanos de la Unión Europea."
+  },
+  {
+    "id": 615,
+    "text": "¿Cuál es el SLA para dos o más máquinas virtuales de Azure colocadas manualmente en diferentes zonas de disponibilidad dentro de la misma región?",
+    "options": [
+      "100%",
+      "99.95%",
+      "99.99%",
+      "99.90%"
+    ],
+    "correctAnswer": "99.99%",
+    "categoryId": "azure-services",
+    "explaination": "Azure ofrece un SLA de 99.99% para máquinas virtuales distribuidas entre distintas zonas de disponibilidad."
+  },
+  {
+    "id": 616,
+    "text": "¿Cuál de las siguientes opciones se considera una desventaja del gasto de capital (CapEx)?",
+    "options": [
+      "No requiere mucho dinero inicial",
+      "No se garantiza obtener ganancias",
+      "Debes esperar años para depreciar la inversión en impuestos",
+      "Puedes deducir gastos a medida que ocurren"
+    ],
+    "correctAnswer": "Debes esperar años para depreciar la inversión en impuestos",
+    "categoryId": "cloud-concepts",
+    "explaination": "CapEx implica grandes inversiones iniciales que deben depreciarse durante varios años."
+  },
+  {
+    "id": 617,
+    "text": "Azure Cloud Shell permite acceder a consolas Bash y PowerShell desde el portal de Azure.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Azure Cloud Shell proporciona acceso directo a Bash y PowerShell desde el navegador sin instalar herramientas locales."
+  },
+  {
+    "id": 618,
+    "text": "¿Qué significa que un servicio esté en modo General Availability (GA)?",
+    "options": [
+      "Debes solicitar acceso para usar el servicio",
+      "Cualquiera puede usarlo pero no en producción",
+      "Cualquiera puede usar el servicio para cualquier propósito",
+      "El servicio está en Public Preview y tiene soporte de Microsoft"
+    ],
+    "correctAnswer": "Cualquiera puede usar el servicio para cualquier propósito",
+    "categoryId": "azure-services",
+    "explaination": "General Availability indica que el servicio está completamente disponible, estable y soportado para producción."
+  },
+  {
+    "id": 619,
+    "text": "¿En cuál de los siguientes escenarios Azure Policy sería el método recomendado para aplicar reglas?",
+    "options": [
+      "Agregar una advertencia al crear recursos sin etiquetas",
+      "Obligar a una máquina virtual a instalar automáticamente los últimos parches",
+      "Permitir solo ciertos roles de usuario en un grupo de recursos",
+      "Evitar que se usen ciertos tamaños de máquinas virtuales en un grupo de recursos"
+    ],
+    "correctAnswer": "Evitar que se usen ciertos tamaños de máquinas virtuales en un grupo de recursos",
+    "categoryId": "azure-management",
+    "explaination": "Azure Policy permite restringir configuraciones y tipos de recursos para cumplir estándares organizacionales."
+  },
+  {
+    "id": 620,
+    "text": "¿Qué significa ARM en Azure?",
+    "options": [
+      "Azure Resource Manager",
+      "Advance Risks Machine",
+      "Availability Reliability Maintainability",
+      "Account Resource Manager"
+    ],
+    "correctAnswer": "Azure Resource Manager",
+    "categoryId": "azure-management",
+    "explaination": "Azure Resource Manager es el servicio de implementación y administración de recursos en Azure."
+  },
+  {
+    "id": 621,
+    "text": "¿Qué tipo de archivos puede acelerar una red de entrega de contenido (CDN)?",
+    "options": [
+      "Imágenes",
+      "Videos",
+      "Archivos JavaScript",
+      "PDFs"
+    ],
+    "correctAnswers": [
+      "Imágenes",
+      "Videos",
+      "Archivos JavaScript",
+      "PDFs"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Una CDN mejora la entrega de contenido estático como imágenes, videos, scripts y documentos almacenándolos en caché globalmente."
+  },
+  {
+    "id": 622,
+    "text": "¿Cuál es la cantidad máxima de almacenamiento que puede tener una sola suscripción de Azure?",
+    "options": [
+      "5 PB",
+      "2 TB",
+      "500 GB",
+      "Prácticamente ilimitado"
+    ],
+    "correctAnswer": "Prácticamente ilimitado",
+    "categoryId": "azure-services",
+    "explaination": "Aunque las cuentas individuales tienen límites, una suscripción puede escalar prácticamente sin límites utilizando múltiples cuentas de almacenamiento."
+  },
+  {
+    "id": 623,
+    "text": "¿Qué concepto representa la capacidad de ejecutar rápidamente aplicaciones y datos en otro entorno?",
+    "options": [
+      "Azure DevOps",
+      "Implementaciones reproducibles",
+      "Azure Blueprint",
+      "Continuidad del negocio o recuperación ante desastres"
+    ],
+    "correctAnswer": "Implementaciones reproducibles",
+    "categoryId": "cloud-concepts",
+    "explaination": "Las implementaciones reproducibles permiten recrear entornos de manera consistente usando automatización e infraestructura como código."
+  },
+  {
+    "id": 624,
+    "text": "Además de Azure Service Health, ¿dónde puedes revisar problemas que afecten la red global de Azure y tus recursos?",
+    "options": [
+      "Azure Updates Blog",
+      "La aplicación móvil de Azure",
+      "Resource Health de cada máquina virtual",
+      "Azure enviará un correo electrónico"
+    ],
+    "correctAnswer": "Resource Health de cada máquina virtual",
+    "categoryId": "azure-management",
+    "explaination": "Resource Health proporciona información específica sobre el estado y problemas de recursos individuales."
+  },
+  {
+    "id": 625,
+    "text": "¿De qué manera la autenticación multifactor (MFA) aumenta la seguridad de una cuenta de usuario?",
+    "options": [
+      "Requiere que el usuario posea algo como un teléfono, aplicación móvil o identificación biométrica",
+      "No aumenta la seguridad, solo el acceso",
+      "Requiere funcionalidad de inicio de sesión único",
+      "Requiere aprobación manual antes del primer inicio de sesión"
+    ],
+    "correctAnswer": "Requiere que el usuario posea algo como un teléfono, aplicación móvil o identificación biométrica",
+    "categoryId": "azure-management",
+    "explaination": "MFA agrega capas adicionales de verificación, haciendo mucho más difícil el acceso no autorizado."
+  },
+  {
+    "id": 626,
+    "text": "¿Cuál de los siguientes elementos se considera parte de la capa perimetral de seguridad?",
+    "options": [
+      "Mantener los sistemas operativos actualizados con parches",
+      "Cerraduras en las puertas del centro de datos",
+      "Usar un firewall",
+      "Separar servidores en subredes distintas según su rol"
+    ],
+    "correctAnswer": "Usar un firewall",
+    "categoryId": "azure-management",
+    "explaination": "La capa perimetral de seguridad protege el límite externo de la red. Los firewalls filtran el tráfico y bloquean conexiones maliciosas antes de que lleguen a los sistemas internos."
+  },
+  {
+    "id": 627,
+    "text": "¿Cuál es el beneficio de usar PowerShell en lugar de Azure CLI?",
+    "options": [
+      "No hay beneficio, son iguales",
+      "Es más barato",
+      "Comandos más potentes",
+      "Despliegue más rápido de máquinas virtuales"
+    ],
+    "correctAnswer": "Comandos más potentes",
+    "categoryId": "azure-management",
+    "explaination": "PowerShell ofrece scripting orientado a objetos, integración profunda con Windows y automatización avanzada para tareas administrativas complejas."
+  },
+  {
+    "id": 628,
+    "text": "Azure cobra por el ancho de banda de entrada hacia Azure.",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-management",
+    "explaination": "Azure normalmente no cobra por la transferencia de datos entrante. Los costos se aplican principalmente a los datos que salen de Azure."
+  },
+  {
+    "id": 629,
+    "text": "¿Cuál es el beneficio de usar herramientas de línea de comandos como PowerShell o Azure CLI en lugar del portal de Azure?",
+    "options": [
+      "Es más barato",
+      "Despliegue más rápido de máquinas virtuales",
+      "Automatización"
+    ],
+    "correctAnswer": "Automatización",
+    "categoryId": "azure-management",
+    "explaination": "PowerShell y Azure CLI permiten automatizar tareas repetitivas, implementar infraestructura como código y administrar entornos de manera eficiente."
+  },
+  {
+    "id": 630,
+    "text": "¿Qué dos tipos de protección DDoS ofrece Azure? (Selecciona dos)",
+    "options": [
+      "DDoS Advanced Protection",
+      "DDoS IP Protection",
+      "DDoS Network Protection",
+      "DDoS Premium Protection"
+    ],
+    "correctAnswers": [
+      "DDoS Advanced Protection",
+      "DDoS IP Protection"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Azure ofrece DDoS IP Protection y DDoS Advanced Protection para mitigar ataques de denegación de servicio distribuido."
+  },
+  {
+    "id": 631,
+    "text": "¿Qué producto de Azure permite escalar automáticamente máquinas virtuales desde 1 hasta 1000 instancias y además incluye balanceo de carga integrado?",
+    "options": [
+      "Azure Virtual Machines",
+      "Azure App Services",
+      "Application Gateway",
+      "Virtual Machine Scale Sets"
+    ],
+    "correctAnswers": [
+      "Virtual Machine Scale Sets"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Virtual Machine Scale Sets permite escalar automáticamente máquinas virtuales y distribuir tráfico mediante balanceo de carga integrado."
+  },
+  {
+    "id": 632,
+    "text": "En el contexto de privacidad y cumplimiento, ¿qué significa el acrónimo ISO?",
+    "options": [
+      "Instead Of",
+      "Information System Officer",
+      "International Organization for Standardization",
+      "Intelligence and Security Office"
+    ],
+    "correctAnswers": [
+      "International Organization for Standardization"
+    ],
+    "categoryId": "azure-management",
+    "explaination": "ISO es una organización internacional que desarrolla estándares relacionados con seguridad, privacidad y cumplimiento."
+  },
+  {
+    "id": 633,
+    "text": "¿Dónde se encuentran dentro del portal de Azure las máquinas virtuales de terceros y otras ofertas?",
+    "options": [
+      "Azure Mobile App",
+      "Elegir una imagen al crear una VM",
+      "Azure Marketplace",
+      "Bing"
+    ],
+    "correctAnswers": [
+      "Azure Marketplace"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Azure Marketplace permite descubrir e implementar imágenes de máquinas virtuales, aplicaciones y servicios de terceros."
+  },
+  {
+    "id": 634,
+    "text": "¿Cuáles son formas de aumentar la seguridad de un sistema tradicional de usuario y contraseña? (Selecciona todas las que correspondan)",
+    "options": [
+      "Exigir contraseñas más largas y complejas",
+      "Permitir acceso solo desde dispositivos registrados por la empresa",
+      "Usar autenticación multifactor (MFA)",
+      "Obligar a cambiar contraseñas con más frecuencia"
+    ],
+    "correctAnswers": [
+      "Exigir contraseñas más largas y complejas",
+      "Permitir acceso solo desde dispositivos registrados por la empresa",
+      "Usar autenticación multifactor (MFA)"
+    ],
+    "categoryId": "azure-management",
+    "explaination": "El uso de contraseñas seguras, dispositivos confiables y MFA mejora considerablemente la protección de cuentas."
+  },
+  {
+    "id": 635,
+    "text": "¿Cuántas regiones de Azure existen en Brasil?",
+    "options": [
+      "Una",
+      "Cuatro",
+      "Dos",
+      "Ninguna"
+    ],
+    "correctAnswer": "Dos",
+    "categoryId": "azure-services",
+    "explaination": "Azure cuenta con las regiones Brazil South y Brazil Southeast."
+  },
+  {
+    "id": 636,
+    "text": "¿Qué representa el concepto de disponibilidad?",
+    "options": [
+      "El porcentaje de tiempo en que un sistema responde correctamente a las solicitudes",
+      "Un sistema que escala automáticamente según la demanda",
+      "Un sistema debe tener 100% de uptime para considerarse disponible",
+      "Un sistema con un único punto de falla"
+    ],
+    "correctAnswer": "El porcentaje de tiempo en que un sistema responde correctamente a las solicitudes",
+    "categoryId": "cloud-concepts",
+    "explaination": "La disponibilidad mide cuánto tiempo un sistema permanece operativo y accesible, normalmente expresado como porcentaje."
+  },
+  {
+    "id": 637,
+    "text": "¿Por qué Azure App Services se considera una plataforma como servicio (PaaS)?",
+    "options": [
+      "Entregas el código y configuración a Azure sin acceso al hardware subyacente",
+      "Eres responsable de mantener actualizado el sistema operativo",
+      "Puedes elegir el tipo exacto de máquina virtual",
+      "Azure App Services no es PaaS, es SaaS"
+    ],
+    "correctAnswer": "Entregas el código y configuración a Azure sin acceso al hardware subyacente",
+    "categoryId": "cloud-concepts",
+    "explaination": "Azure administra infraestructura, red y sistema operativo mientras los desarrolladores solo gestionan la aplicación."
+  },
+  {
+    "id": 638,
+    "text": "¿Cuál es un beneficio de las economías de escala?",
+    "options": [
+      "Mientras más compras, más barato resulta",
+      "Los precios siempre bajan cada año",
+      "Las grandes empresas no necesitan obtener ganancias",
+      "Las grandes empresas no necesitan ganar dinero en cada venta"
+    ],
+    "correctAnswer": "Mientras más compras, más barato resulta",
+    "categoryId": "cloud-concepts",
+    "explaination": "Las economías de escala permiten reducir costos unitarios a medida que aumenta el uso de servicios."
+  },
+  {
+    "id": 639,
+    "text": "¿Qué servicio gratuito de seguridad de Azure revisa el tráfico de red de una subred según reglas antes de permitirlo o bloquearlo?",
+    "options": [
+      "Azure Firewall",
+      "Advanced Threat Protection",
+      "Network Security Group",
+      "Azure DDoS Protection"
+    ],
+    "correctAnswer": "Network Security Group",
+    "categoryId": "azure-services",
+    "explaination": "Los NSG filtran tráfico entrante y saliente usando reglas de seguridad aplicadas a subredes o interfaces de red."
+  },
+  {
+    "id": 640,
+    "text": "¿Qué significa que un servicio de Azure esté en Public Preview?",
+    "options": [
+      "Debes solicitar acceso",
+      "Cualquiera puede usarlo pero no se recomienda para producción",
+      "Solo está disponible para empresas",
+      "Ya está en disponibilidad general"
+    ],
+    "correctAnswer": "Cualquiera puede usarlo pero no se recomienda para producción",
+    "categoryId": "azure-services",
+    "explaination": "Los servicios en Public Preview están disponibles para pruebas, pero aún pueden cambiar y no se recomiendan para entornos productivos."
+  },
+  {
+    "id": 641,
+    "text": "¿Cuántas suscripciones puede tener asociadas una sola cuenta de Azure?",
+    "options": [
+      "10",
+      "1",
+      "Sin límite",
+      "250 por región"
+    ],
+    "correctAnswer": "Sin límite",
+    "categoryId": "azure-management",
+    "explaination": "Una cuenta de Azure puede administrar múltiples suscripciones para distintos proyectos, equipos o entornos."
+  },
+  {
+    "id": 642,
+    "text": "¿En qué estado de Estados Unidos se encuentra la región East US 2?",
+    "options": [
+      "Virginia",
+      "Iowa",
+      "Texas",
+      "California"
+    ],
+    "correctAnswer": "Virginia",
+    "categoryId": "azure-services",
+    "explaination": "La región East US 2 está ubicada en Virginia."
+  },
+  {
+    "id": 643,
+    "text": "¿Cuál es la recomendación para asegurar los protocolos RDP y SSH en servidores?",
+    "options": [
+      "Usar contraseñas fuertes",
+      "No exponer directamente RDP ni SSH a Internet y utilizar Azure Bastion o VPN",
+      "Deshabilitar RDP completamente",
+      "No habilitar SSH en Linux"
+    ],
+    "correctAnswer": "No exponer directamente RDP ni SSH a Internet y utilizar Azure Bastion o VPN",
+    "categoryId": "azure-management",
+    "explaination": "Exponer RDP o SSH directamente a Internet aumenta el riesgo de ataques. Azure Bastion proporciona acceso seguro sin abrir puertos públicos."
+  },
+  {
+    "id": 644,
+    "text": "¿Aproximadamente cuántas regiones tiene Azure en el mundo?",
+    "options": [
+      "10",
+      "60+",
+      "40",
+      "25"
+    ],
+    "correctAnswer": "60+",
+    "categoryId": "azure-services",
+    "explaination": "Azure cuenta con más de 60 regiones distribuidas globalmente."
+  },
+  {
+    "id": 645,
+    "text": "Si eres una entidad gubernamental federal, estatal, local o tribal de Estados Unidos, ¿qué opción de Azure deberías considerar?",
+    "options": [
+      "Azure Government",
+      "Azure no está disponible para gobiernos",
+      "Azure Department of Defense",
+      "Azure Public Portal"
+    ],
+    "correctAnswer": "Azure Government",
+    "categoryId": "azure-services",
+    "explaination": "Azure Government ofrece entornos aislados y compatibles con regulaciones específicas del gobierno de Estados Unidos."
+  },
+  {
+    "id": 646,
+    "text": "¿Cómo mejora la seguridad general un modelo de defensa en profundidad?",
+    "options": [
+      "Eliminando la necesidad de capacitación de usuarios",
+      "Simplificando la infraestructura de seguridad",
+      "Reduciendo la necesidad de actualizaciones de seguridad",
+      "Haciendo más difícil que los atacantes atraviesen múltiples capas de seguridad"
+    ],
+    "correctAnswer": "Haciendo más difícil que los atacantes atraviesen múltiples capas de seguridad",
+    "categoryId": "azure-management",
+    "explaination": "El modelo de defensa en profundidad mejora la seguridad implementando múltiples capas de protección, como firewalls, cifrado, controles de acceso y monitoreo. Incluso si una capa es vulnerada, las demás continúan protegiendo el sistema."
+  },
+  {
+    "id": 647,
+    "text": "¿Qué servicio de Azure puede utilizarse para crear una aplicación altamente disponible en múltiples zonas de disponibilidad?",
+    "options": [
+      "Azure App Service",
+      "Azure Storage",
+      "Todas las respuestas son correctas",
+      "Azure Virtual Machines"
+    ],
+    "correctAnswer": "Todas las respuestas son correctas",
+    "categoryId": "azure-services",
+    "explaination": "Azure App Service, Azure Storage y Azure Virtual Machines admiten alta disponibilidad utilizando zonas de disponibilidad, proporcionando redundancia y tolerancia a fallos."
+  },
+  {
+    "id": 648,
+    "text": "¿Qué significa redundancia en el contexto de Azure?",
+    "options": [
+      "Implementar recuperación ante desastres en un centro de datos secundario",
+      "Monitorear la salud del sistema para detectar problemas",
+      "Usar una sola instancia de un recurso",
+      "Tener múltiples copias de un recurso para garantizar disponibilidad"
+    ],
+    "correctAnswer": "Tener múltiples copias de un recurso para garantizar disponibilidad",
+    "categoryId": "azure-services",
+    "explaination": "La redundancia en Azure consiste en mantener múltiples copias de recursos, como datos o máquinas virtuales, para garantizar disponibilidad y tolerancia a fallos."
+  },
+  {
+    "id": 649,
+    "text": "En el modelo de responsabilidad compartida en la nube, ¿quién suele ser responsable de proteger los datos del cliente?",
+    "options": [
+      "El proveedor y el cliente son igualmente responsables",
+      "El cliente",
+      "Nadie es realmente responsable",
+      "El proveedor de la nube"
+    ],
+    "correctAnswer": "El cliente",
+    "categoryId": "azure-management",
+    "explaination": "En el modelo de responsabilidad compartida, el proveedor protege la infraestructura física y de red, mientras que el cliente es responsable de proteger sus datos, aplicaciones y configuraciones."
+  },
+  {
+    "id": 650,
+    "text": "¿Cuál es un beneficio clave de utilizar Azure Budgets?",
+    "options": [
+      "Aplicar políticas de seguridad",
+      "Automatizar aprovisionamiento de recursos",
+      "Establecer límites y alertas de gasto",
+      "Optimizar el rendimiento de máquinas virtuales"
+    ],
+    "correctAnswer": "Establecer límites y alertas de gasto",
+    "categoryId": "azure-management",
+    "explaination": "Azure Budgets permite controlar costos estableciendo presupuestos y alertas cuando el consumo se acerca o supera los límites definidos."
+  },
+  {
+    "id": 651,
+    "text": "¿Cómo ayuda Azure Policy a administrar recursos de Azure?",
+    "options": [
+      "Optimizando el uso y costo de recursos",
+      "Proporcionando alertas de seguridad en tiempo real",
+      "Definiendo reglas que gobiernan configuración y uso de recursos",
+      "Escalando recursos automáticamente"
+    ],
+    "correctAnswer": "Definiendo reglas que gobiernan configuración y uso de recursos",
+    "categoryId": "azure-management",
+    "explaination": "Azure Policy permite aplicar reglas y estándares corporativos para garantizar cumplimiento, auditoría y control de configuraciones."
+  },
+  {
+    "id": 652,
+    "text": "¿Cuál es el propósito principal de Azure B2B Collaboration?",
+    "options": [
+      "Proporcionar administración de identidades para aplicaciones en la nube",
+      "Permitir acceso a usuarios externos de otras organizaciones",
+      "Administrar identidades internas",
+      "Permitir compras desde un sitio web corporativo"
+    ],
+    "correctAnswer": "Permitir acceso a usuarios externos de otras organizaciones",
+    "categoryId": "azure-management",
+    "explaination": "Azure B2B permite colaborar de forma segura con usuarios externos, como socios, contratistas o proveedores, manteniendo el control de seguridad y cumplimiento."
+  },
+  {
+    "id": 653,
+    "text": "¿Qué tipo de escalado implica agregar más recursos a un conjunto existente?",
+    "options": [
+      "Escalado horizontal",
+      "Escalado vertical",
+      "Escalado hacia arriba"
+    ],
+    "correctAnswer": "Escalado horizontal",
+    "categoryId": "azure-services",
+    "explaination": "El escalado horizontal agrega más instancias de recursos para distribuir la carga de trabajo y mejorar disponibilidad y rendimiento."
+  },
+  {
+    "id": 654,
+    "text": "¿Qué modelo de precios en la nube es ideal para cargas de trabajo predecibles y de largo plazo?",
+    "options": [
+      "Serverless",
+      "Pago por uso",
+      "Spot instances",
+      "Instancias reservadas"
+    ],
+    "correctAnswer": "Instancias reservadas",
+    "categoryId": "azure-management",
+    "explaination": "Las instancias reservadas ofrecen descuentos significativos a cambio de compromisos de uno o tres años, siendo ideales para cargas de trabajo estables."
+  },
+  {
+    "id": 655,
+    "text": "¿Cuál es un beneficio clave de Microsoft Entra Domain Services?",
+    "options": [
+      "Proporcionar un dominio administrado en la nube sin controladores de dominio locales",
+      "Administrar Active Directory local",
+      "Ser solo apto para pequeñas implementaciones",
+      "Reemplazar Azure Active Directory"
+    ],
+    "correctAnswer": "Proporcionar un dominio administrado en la nube sin controladores de dominio locales",
+    "categoryId": "azure-services",
+    "explaination": "Microsoft Entra Domain Services ofrece servicios administrados de dominio como LDAP, unión a dominio y directivas de grupo sin administrar controladores de dominio."
+  },
+  {
+    "id": 656,
+    "text": "¿Qué modelo de servicio en la nube es necesario para ejecutar una aplicación que requiere acceso al registro de Windows?",
+    "options": [
+      "Serverless",
+      "IaaS",
+      "SaaS",
+      "PaaS"
+    ],
+    "correctAnswer": "IaaS",
+    "categoryId": "cloud-concepts",
+    "explaination": "IaaS proporciona control total sobre el sistema operativo y permite modificar el registro de Windows, algo que no es posible en PaaS o SaaS."
+  },
+  {
+    "id": 657,
+    "text": "¿Cómo ayuda el modelo basado en consumo a administrar costos de TI?",
+    "options": [
+      "Alineando costos con el uso real",
+      "Limitando el uso de recursos",
+      "Requiriendo inversiones iniciales",
+      "Incrementando compromisos a largo plazo"
+    ],
+    "correctAnswer": "Alineando costos con el uso real",
+    "categoryId": "cloud-concepts",
+    "explaination": "El modelo de pago por uso permite pagar únicamente por los recursos consumidos, evitando inversiones innecesarias."
+  },
+  {
+    "id": 658,
+    "text": "¿Cómo se denomina un entorno donde una empresa utiliza infraestructura local y la nube para escalar temporalmente?",
+    "options": [
+      "Nube pública",
+      "Nube privada",
+      "Autoescalado",
+      "Nube híbrida"
+    ],
+    "correctAnswer": "Nube híbrida",
+    "categoryId": "cloud-concepts",
+    "explaination": "La nube híbrida combina infraestructura local con recursos en la nube para ampliar capacidad cuando es necesario."
+  },
+  {
+    "id": 659,
+    "text": "¿Cómo ayuda la alta disponibilidad a evitar pérdidas financieras?",
+    "options": [
+      "Incrementando el tiempo fuera de servicio",
+      "Garantizando continuidad de ingresos",
+      "Previniendo pérdida de datos",
+      "Reduciendo costos operativos"
+    ],
+    "correctAnswer": "Garantizando continuidad de ingresos",
+    "categoryId": "cloud-concepts",
+    "explaination": "La alta disponibilidad minimiza interrupciones del servicio, permitiendo que las empresas continúen operando y generando ingresos."
+  },
+  {
+    "id": 660,
+    "text": "¿Qué propiedad describe la capacidad de una aplicación en la nube para aumentar y reducir recursos automáticamente según la demanda?",
+    "options": [
+      "Alta disponibilidad",
+      "Escalabilidad",
+      "Predictibilidad",
+      "Administrabilidad"
+    ],
+    "correctAnswer": "Escalabilidad",
+    "categoryId": "cloud-concepts",
+    "explaination": "La escalabilidad permite adaptar automáticamente recursos según la demanda, optimizando rendimiento y costos."
+  },
+  {
+    "id": 661,
+    "text": "¿Cuál es el propósito principal de Azure Data Box?",
+    "options": [
+      "Crear máquinas virtuales",
+      "Desarrollar aplicaciones web",
+      "Monitorear uso de recursos",
+      "Transferir grandes volúmenes de datos hacia y desde Azure"
+    ],
+    "correctAnswer": "Transferir grandes volúmenes de datos hacia y desde Azure",
+    "categoryId": "azure-services",
+    "explaination": "Azure Data Box es un dispositivo físico diseñado para transferir grandes cantidades de datos de manera segura cuando la transferencia por red no es práctica."
+  },
+  {
+    "id": 662,
+    "text": "¿Qué beneficio de administrabilidad representa el escalado automático de máquinas virtuales?",
+    "options": [
+      "Administración de la nube",
+      "Administración en la nube"
+    ],
+    "correctAnswer": "Administración en la nube",
+    "categoryId": "cloud-concepts",
+    "explaination": "La administración en la nube se refiere a capacidades automáticas del entorno cloud, como escalado y aprovisionamiento dinámico."
+  },
+  {
+    "id": 663,
+    "text": "¿Qué práctica representa auditar regularmente recursos cloud para cumplir regulaciones y estándares corporativos?",
+    "options": [
+      "Escalabilidad",
+      "Confiabilidad",
+      "Gobernanza",
+      "Enfoque reactivo"
+    ],
+    "correctAnswer": "Gobernanza",
+    "categoryId": "azure-management",
+    "explaination": "La gobernanza en la nube implica políticas, auditorías y controles para garantizar cumplimiento y uso adecuado de recursos."
+  },
+  {
+    "id": 664,
+    "text": "¿Cuáles de los siguientes son roles integrados de Azure RBAC?",
+    "options": [
+      "Reader",
+      "Owner",
+      "User",
+      "Contributor"
+    ],
+    "correctAnswer": "Reader, Owner, Contributor",
+    "categoryId": "azure-management",
+    "explaination": "Reader, Owner y Contributor son roles integrados de Azure RBAC. Reader permite visualizar recursos, Contributor administrarlos y Owner tiene control total."
+  },
+  {
+    "id": 665,
+    "text": "¿Cuál de los siguientes es un ejemplo de una oferta IaaS en Azure?",
+    "options": [
+      "Azure SQL Database",
+      "Azure Virtual Machines",
+      "Azure App Service",
+      "Azure Functions"
+    ],
+    "correctAnswer": "Azure Virtual Machines",
+    "categoryId": "cloud-concepts",
+    "explaination": "Azure Virtual Machines es un servicio IaaS porque proporciona recursos de cómputo virtualizados donde el cliente administra el sistema operativo y aplicaciones."
+  },
+  {
+    "id": 666,
+    "text": "¿Cuál es el número máximo de aplicaciones web que puede soportar un único plan App Service Premium V3?",
+    "options": [
+      "100",
+      "1",
+      "10",
+      "Ilimitado"
+    ],
+    "correctAnswer": "Ilimitado",
+    "categoryId": "azure-services",
+    "explaination": "El plan Premium V3 de Azure App Service no tiene un límite predefinido de aplicaciones web. Sin embargo, la cantidad real depende de la capacidad de recursos del plan y la carga de las aplicaciones."
+  },
+  {
+    "id": 667,
+    "text": "¿Cómo pueden utilizarse las etiquetas (tags) para optimizar costos en Azure?",
+    "options": [
+      "Apagando automáticamente recursos subutilizados",
+      "Identificando recursos que pueden migrarse a un nivel más económico",
+      "Categorizando recursos según costo y uso",
+      "Aplicando descuentos automáticos a recursos etiquetados"
+    ],
+    "correctAnswer": "Categorizando recursos según costo y uso",
+    "categoryId": "azure-management",
+    "explaination": "Las etiquetas permiten organizar recursos por metadatos como departamento, centro de costos o entorno, facilitando el análisis y optimización de gastos."
+  },
+  {
+    "id": 668,
+    "text": "¿En qué opción de redundancia Azure mantiene seis copias de los archivos en dos regiones?",
+    "options": [
+      "ZRS",
+      "LRS",
+      "GRS"
+    ],
+    "correctAnswer": "GRS",
+    "categoryId": "azure-services",
+    "explaination": "Geo-Redundant Storage (GRS) mantiene tres copias en la región primaria y tres copias adicionales en una región secundaria geográficamente separada."
+  },
+  {
+    "id": 669,
+    "text": "¿Qué opción de conectividad de Azure proporciona conexión privada desde una red corporativa local hacia Azure sin usar Internet pública?",
+    "options": [
+      "VPN Site-to-Site",
+      "Azure Global Peering",
+      "Azure ExpressRoute",
+      "VPN Point-to-Site"
+    ],
+    "correctAnswer": "Azure ExpressRoute",
+    "categoryId": "azure-services",
+    "explaination": "Azure ExpressRoute ofrece conexiones privadas dedicadas entre redes locales y Azure, proporcionando mayor seguridad, menor latencia y mayor confiabilidad."
+  },
+  {
+    "id": 670,
+    "text": "¿Qué significa predictibilidad en el contexto de Azure?",
+    "options": [
+      "La capacidad de prever costos futuros con precisión",
+      "La capacidad de evitar cargos inesperados",
+      "La capacidad de asignar costos a recursos específicos",
+      "La capacidad de reducir costos con el tiempo"
+    ],
+    "correctAnswer": "La capacidad de prever costos futuros con precisión",
+    "categoryId": "azure-management",
+    "explaination": "La predictibilidad en Azure se refiere a la capacidad de estimar y planificar costos futuros basándose en el uso actual y proyectado."
+  },
+  {
+    "id": 671,
+    "text": "¿Cuál es la cantidad máxima de datos que puede almacenar una única cuenta de almacenamiento de Azure?",
+    "options": [
+      "5 petabytes",
+      "5 terabytes",
+      "5 gigabytes",
+      "No hay límite"
+    ],
+    "correctAnswer": "5 petabytes",
+    "categoryId": "azure-services",
+    "explaination": "Una cuenta de almacenamiento de Azure puede almacenar hasta 5 PB de datos utilizando redundancias como LRS, ZRS o GRS."
+  },
+  {
+    "id": 672,
+    "text": "¿Qué es un fault domain en Azure?",
+    "options": [
+      "Un reporte disponible en Azure Service Health",
+      "Un método para resolver nombres en direcciones IP",
+      "El lugar donde se unen placas tectónicas",
+      "Un agrupamiento físico de servidores dentro de un centro de datos Azure"
+    ],
+    "correctAnswer": "Un agrupamiento físico de servidores dentro de un centro de datos Azure",
+    "categoryId": "azure-services",
+    "explaination": "Un fault domain agrupa servidores que comparten energía y red. Azure los utiliza para distribuir máquinas virtuales y reducir puntos únicos de fallo."
+  },
+  {
+    "id": 673,
+    "text": "¿Cuál es el propósito principal del Single Sign-On (SSO)?",
+    "options": [
+      "Agregar una capa extra de seguridad",
+      "Permitir iniciar sesión en múltiples aplicaciones con una sola credencial",
+      "Aplicar políticas estrictas de contraseñas",
+      "Evitar accesos no autorizados"
+    ],
+    "correctAnswer": "Permitir iniciar sesión en múltiples aplicaciones con una sola credencial",
+    "categoryId": "azure-management",
+    "explaination": "SSO permite autenticarse una sola vez y acceder a múltiples aplicaciones sin volver a iniciar sesión."
+  },
+  {
+    "id": 674,
+    "text": "¿Cuál es el nombre del grupo de administración de nivel superior en Azure?",
+    "options": [
+      "Contoso",
+      "yourcompanyname.onmicrosoft.com",
+      "admin",
+      "root"
+    ],
+    "correctAnswer": "root",
+    "categoryId": "azure-management",
+    "explaination": "El grupo de administración raíz (root management group) es el nivel superior de la jerarquía de administración en Azure."
+  },
+  {
+    "id": 675,
+    "text": "¿Azure Virtual Network Peering puede conectar redes de diferentes suscripciones o cuentas?",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Azure VNet Peering permite conectar redes virtuales incluso si pertenecen a distintas suscripciones o tenants."
+  },
+  {
+    "id": 676,
+    "text": "¿Qué mecanismo permite conectar dos redes virtuales dentro de Azure?",
+    "options": [
+      "Azure Load Balancer",
+      "Azure Peering",
+      "Azure ExpressRoute",
+      "Azure Application Gateway"
+    ],
+    "correctAnswer": "Azure Peering",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Network Peering conecta redes virtuales con baja latencia y alto ancho de banda."
+  },
+  {
+    "id": 677,
+    "text": "¿Cuál es el propósito principal de Microsoft Entra ID?",
+    "options": [
+      "Proteger tráfico de red",
+      "Proporcionar servicios de dominio locales",
+      "Administrar identidades y acceso a aplicaciones y recursos",
+      "Almacenar grandes volúmenes de datos"
+    ],
+    "correctAnswer": "Administrar identidades y acceso a aplicaciones y recursos",
+    "categoryId": "azure-management",
+    "explaination": "Microsoft Entra ID es un servicio de administración de identidades y accesos basado en la nube."
+  },
+  {
+    "id": 678,
+    "text": "¿Cuál de los siguientes es un método de autenticación sin contraseña soportado por Azure?",
+    "options": [
+      "Solo autenticación biométrica",
+      "PIN de cuatro dígitos",
+      "Autenticación biométrica y llaves de seguridad",
+      "Solo llaves de seguridad"
+    ],
+    "correctAnswer": "Autenticación biométrica y llaves de seguridad",
+    "categoryId": "azure-management",
+    "explaination": "Azure admite autenticación passwordless mediante Windows Hello, llaves FIDO2 y Microsoft Authenticator."
+  },
+  {
+    "id": 679,
+    "text": "¿Cuál es el propósito principal de un Resource Group en Azure?",
+    "options": [
+      "Agrupar recursos relacionados para administración y despliegue",
+      "Proporcionar un contenedor lógico para suscripciones",
+      "Actuar como panel central de servicios Azure",
+      "Administrar cuentas de usuario"
+    ],
+    "correctAnswer": "Agrupar recursos relacionados para administración y despliegue",
+    "categoryId": "azure-management",
+    "explaination": "Los Resource Groups permiten organizar recursos relacionados para facilitar administración, monitoreo y control de acceso."
+  },
+  {
+    "id": 680,
+    "text": "¿Cuál de las siguientes NO es una capacidad principal de Microsoft Purview?",
+    "options": [
+      "Etiquetado de sensibilidad de datos",
+      "Prevención de pérdida de datos",
+      "Descubrimiento y clasificación de datos",
+      "Migración e integración de datos"
+    ],
+    "correctAnswer": "Migración e integración de datos",
+    "categoryId": "azure-management",
+    "explaination": "Microsoft Purview se centra en gobierno y cumplimiento de datos, no en migración o integración."
+  },
+  {
+    "id": 681,
+    "text": "¿Qué servicio de Azure permite desplegar y escalar aplicaciones contenedorizadas sin servidor?",
+    "options": [
+      "Azure Kubernetes Service",
+      "Azure App Service",
+      "Azure Functions",
+      "Azure Container Instances"
+    ],
+    "correctAnswer": "Azure Container Instances",
+    "categoryId": "azure-services",
+    "explaination": "Azure Container Instances permite ejecutar contenedores sin administrar máquinas virtuales ni clústeres Kubernetes."
+  },
+  {
+    "id": 682,
+    "text": "¿Qué es una región en Azure?",
+    "options": [
+      "Una red edge",
+      "Un centro de datos",
+      "Un área geográfica con uno o más centros de datos conectados",
+      "Una zona de disponibilidad"
+    ],
+    "correctAnswer": "Un área geográfica con uno o más centros de datos conectados",
+    "categoryId": "azure-services",
+    "explaination": "Una región de Azure es un área geográfica que contiene uno o más centros de datos conectados mediante redes de baja latencia."
+  },
+  {
+    "id": 683,
+    "text": "¿Cuál es el propósito principal de un Availability Set en Azure?",
+    "options": [
+      "Garantizar redundancia de datos",
+      "Proteger contra puntos únicos de falla",
+      "Proporcionar balanceo de carga",
+      "Agrupar máquinas virtuales"
+    ],
+    "correctAnswer": "Proteger contra puntos únicos de falla",
+    "categoryId": "azure-services",
+    "explaination": "Los Availability Sets distribuyen máquinas virtuales en distintos fault domains y update domains para mejorar disponibilidad."
+  },
+  {
+    "id": 684,
+    "text": "¿Cuál de las siguientes NO es una característica de IaaS?",
+    "options": [
+      "Pago por uso",
+      "Sistema operativo administrado",
+      "Virtualización de hardware",
+      "Aprovisionamiento bajo demanda"
+    ],
+    "correctAnswer": "Sistema operativo administrado",
+    "categoryId": "cloud-concepts",
+    "explaination": "En IaaS, el cliente administra el sistema operativo. El proveedor solo administra la infraestructura física."
+  },
+  {
+    "id": 685,
+    "text": "¿Cuál es el beneficio de usar Azure Virtual Desktop frente a soluciones tradicionales locales?",
+    "options": [
+      "Mayor escalabilidad",
+      "Todas las respuestas son correctas",
+      "Mayor seguridad",
+      "Menor costo"
+    ],
+    "correctAnswer": "Todas las respuestas son correctas",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Desktop ofrece escalabilidad, seguridad integrada y reducción de costos al eliminar infraestructura local."
+  },
+  {
+    "id": 686,
+    "text": "¿Cuál es el número máximo de aplicaciones web que puede soportar un único plan App Service Premium V3?",
+    "options": [
+      "100",
+      "1",
+      "10",
+      "Ilimitado"
+    ],
+    "correctAnswer": "Ilimitado",
+    "categoryId": "azure-services",
+    "explaination": "En el nivel Premium V3 de Azure App Service no existe un límite predefinido de aplicaciones web que puedan hospedarse. Sin embargo, la cantidad real depende de la capacidad de recursos del plan y del consumo de las aplicaciones."
+  },
+  {
+    "id": 687,
+    "text": "¿Cómo se pueden utilizar las etiquetas (tags) para optimizar costos en Azure?",
+    "options": [
+      "Apagando automáticamente recursos subutilizados",
+      "Identificando recursos que pueden migrarse a un nivel más económico",
+      "Clasificando recursos según costo y uso",
+      "Aplicando descuentos automáticamente"
+    ],
+    "correctAnswer": "Clasificando recursos según costo y uso",
+    "categoryId": "azure-management",
+    "explaination": "Las etiquetas permiten organizar recursos utilizando metadatos como centro de costos, departamento o entorno. Esto facilita el análisis y optimización de gastos en Azure."
+  },
+  {
+    "id": 688,
+    "text": "¿En qué opción de redundancia Azure mantiene seis copias de los archivos en dos regiones?",
+    "options": [
+      "ZRS",
+      "LRS",
+      "GRS"
+    ],
+    "correctAnswer": "GRS",
+    "categoryId": "azure-services",
+    "explaination": "Geo-Redundant Storage (GRS) mantiene tres copias en la región principal y tres copias adicionales en una región secundaria geográficamente distante."
+  },
+  {
+    "id": 689,
+    "text": "¿Qué opción de conectividad de Azure proporciona conexión privada entre la red corporativa local y Azure sin usar Internet pública?",
+    "options": [
+      "VPN Site-to-Site",
+      "Azure Global Peering",
+      "Azure ExpressRoute",
+      "VPN Point-to-Site"
+    ],
+    "correctAnswer": "Azure ExpressRoute",
+    "categoryId": "azure-services",
+    "explaination": "Azure ExpressRoute ofrece una conexión privada y dedicada entre la infraestructura local y Azure, brindando menor latencia, mayor confiabilidad y mejor seguridad."
+  },
+  {
+    "id": 690,
+    "text": "¿Qué significa predictibilidad en el contexto de Azure?",
+    "options": [
+      "La capacidad de pronosticar costos futuros con precisión",
+      "La capacidad de evitar cargos inesperados",
+      "La capacidad de asignar costos a recursos específicos",
+      "La capacidad de reducir costos con el tiempo"
+    ],
+    "correctAnswer": "La capacidad de pronosticar costos futuros con precisión",
+    "categoryId": "azure-management",
+    "explaination": "La predictibilidad de costos en Azure permite estimar y planificar gastos futuros basándose en el uso actual y proyectado."
+  },
+  {
+    "id": 691,
+    "text": "¿Cuál es la cantidad máxima de datos que puede almacenarse en una sola cuenta de almacenamiento de Azure?",
+    "options": [
+      "5 Petabytes",
+      "5 Terabytes",
+      "5 Gigabytes",
+      "No hay límite"
+    ],
+    "correctAnswer": "5 Petabytes",
+    "categoryId": "azure-services",
+    "explaination": "Una cuenta de almacenamiento de Azure puede almacenar hasta 5 PB de datos utilizando opciones de redundancia como LRS, ZRS o GRS."
+  },
+  {
+    "id": 692,
+    "text": "¿Qué es un dominio de error (fault domain) en Azure?",
+    "options": [
+      "Un reporte disponible en Azure Service Health",
+      "Un método para resolver nombres en direcciones IP",
+      "El lugar donde chocan placas tectónicas",
+      "Un agrupamiento físico de servidores dentro de un centro de datos Azure"
+    ],
+    "correctAnswer": "Un agrupamiento físico de servidores dentro de un centro de datos Azure",
+    "categoryId": "azure-services",
+    "explaination": "Un fault domain representa un grupo de servidores que comparten energía y red. Azure utiliza fault domains para distribuir máquinas virtuales y evitar puntos únicos de falla."
+  },
+  {
+    "id": 693,
+    "text": "¿Cuál es el propósito principal del Single Sign-On (SSO)?",
+    "options": [
+      "Agregar una capa extra de seguridad",
+      "Permitir iniciar sesión en múltiples aplicaciones con un solo conjunto de credenciales",
+      "Aplicar políticas de contraseñas fuertes",
+      "Prevenir accesos no autorizados"
+    ],
+    "correctAnswer": "Permitir iniciar sesión en múltiples aplicaciones con un solo conjunto de credenciales",
+    "categoryId": "azure-management",
+    "explaination": "SSO permite a los usuarios autenticarse una sola vez y acceder a múltiples aplicaciones sin volver a iniciar sesión."
+  },
+  {
+    "id": 694,
+    "text": "¿Cómo se llama el grupo de administración de nivel superior en Azure?",
+    "options": [
+      "Contoso",
+      "yourcompanyname.onmicrosoft.com",
+      "admin",
+      "root"
+    ],
+    "correctAnswer": "root",
+    "categoryId": "azure-management",
+    "explaination": "El grupo de administración raíz (root management group) contiene todas las suscripciones y grupos de administración de la organización."
+  },
+  {
+    "id": 695,
+    "text": "¿Azure Peering puede conectar redes que pertenecen a diferentes suscripciones o cuentas?",
+    "options": [
+      "Verdadero",
+      "Falso"
+    ],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Network Peering permite conectar redes virtuales incluso entre diferentes suscripciones o tenants."
+  },
+  {
+    "id": 696,
+    "text": "¿Qué mecanismo permite conectar dos redes virtuales dentro de Azure?",
+    "options": [
+      "Azure Load Balancer",
+      "Azure Peering",
+      "Azure ExpressRoute",
+      "Azure Application Gateway"
+    ],
+    "correctAnswer": "Azure Peering",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Network Peering permite conectar redes virtuales con baja latencia y alto ancho de banda."
+  },
+  {
+    "id": 697,
+    "text": "¿Cuál es el propósito principal de Microsoft Entra ID?",
+    "options": [
+      "Proteger tráfico de red",
+      "Proveer servicios de dominio locales en la nube",
+      "Administrar identidades y acceso a aplicaciones y recursos",
+      "Almacenar grandes cantidades de datos"
+    ],
+    "correctAnswer": "Administrar identidades y acceso a aplicaciones y recursos",
+    "categoryId": "azure-management",
+    "explaination": "Microsoft Entra ID es un servicio de administración de identidades y acceso basado en la nube."
+  },
+  {
+    "id": 698,
+    "text": "¿Cuál de los siguientes es un método de autenticación sin contraseña compatible con Azure?",
+    "options": [
+      "Solo autenticación biométrica",
+      "PIN de cuatro dígitos",
+      "Autenticación biométrica y llaves de seguridad",
+      "Solo llaves de seguridad"
+    ],
+    "correctAnswer": "Autenticación biométrica y llaves de seguridad",
+    "categoryId": "azure-management",
+    "explaination": "Azure admite autenticación sin contraseña mediante biometría, llaves FIDO2 y Microsoft Authenticator."
+  },
+  {
+    "id": 699,
+    "text": "¿Cuál es el propósito principal de un grupo de recursos en Azure?",
+    "options": [
+      "Agrupar recursos relacionados para administración e implementación",
+      "Proveer un contenedor lógico para suscripciones",
+      "Actuar como panel central de Azure",
+      "Administrar cuentas de usuario"
+    ],
+    "correctAnswer": "Agrupar recursos relacionados para administración e implementación",
+    "categoryId": "azure-management",
+    "explaination": "Los grupos de recursos ayudan a organizar y administrar recursos que comparten el mismo ciclo de vida."
+  },
+  {
+    "id": 700,
+    "text": "¿Cuál de las siguientes NO es una capacidad principal de Microsoft Purview?",
+    "options": [
+      "Etiquetado de sensibilidad de datos",
+      "Prevención de pérdida de datos",
+      "Descubrimiento y clasificación de datos",
+      "Migración e integración de datos"
+    ],
+    "correctAnswer": "Migración e integración de datos",
+    "categoryId": "azure-management",
+    "explaination": "Microsoft Purview se enfoca en gobernanza y cumplimiento de datos, no en migración o integración."
+  },
+  {
+    "id": 701,
+    "text": "¿Qué servicio de Azure permite implementar y escalar aplicaciones contenedorizadas sin servidor?",
+    "options": [
+      "Azure Kubernetes Service",
+      "Azure App Service",
+      "Azure Functions",
+      "Azure Container Instances"
+    ],
+    "correctAnswer": "Azure Container Instances",
+    "categoryId": "azure-services",
+    "explaination": "Azure Container Instances permite ejecutar contenedores sin administrar máquinas virtuales ni clústeres Kubernetes."
+  },
+  {
+    "id": 702,
+    "text": "¿Qué es una región en Azure?",
+    "options": [
+      "Una red edge",
+      "Un centro de datos",
+      "Un área geográfica con uno o más centros de datos conectados",
+      "Una zona de disponibilidad"
+    ],
+    "correctAnswer": "Un área geográfica con uno o más centros de datos conectados",
+    "categoryId": "azure-services",
+    "explaination": "Una región de Azure contiene uno o más centros de datos conectados mediante redes de baja latencia."
+  },
+  {
+    "id": 703,
+    "text": "¿Cuál es el propósito principal de un Availability Set en Azure?",
+    "options": [
+      "Garantizar redundancia y durabilidad de datos",
+      "Proteger contra puntos únicos de falla",
+      "Proporcionar balanceo de carga",
+      "Agrupar máquinas virtuales"
+    ],
+    "correctAnswer": "Proteger contra puntos únicos de falla",
+    "categoryId": "azure-services",
+    "explaination": "Los Availability Sets distribuyen máquinas virtuales entre dominios de error y actualización."
+  },
+  {
+    "id": 704,
+    "text": "¿Cuál de las siguientes NO es una característica de IaaS?",
+    "options": [
+      "Pago por uso",
+      "Sistema operativo administrado",
+      "Virtualización de hardware",
+      "Aprovisionamiento bajo demanda"
+    ],
+    "correctAnswer": "Sistema operativo administrado",
+    "categoryId": "cloud-concepts",
+    "explaination": "En IaaS, el cliente administra el sistema operativo, a diferencia de PaaS."
+  },
+  {
+    "id": 705,
+    "text": "¿Cuál es un beneficio de Azure Virtual Desktop frente a soluciones tradicionales locales?",
+    "options": [
+      "Mayor escalabilidad",
+      "Todas las respuestas son correctas",
+      "Mayor seguridad",
+      "Menor costo"
+    ],
+    "correctAnswer": "Todas las respuestas son correctas",
+    "categoryId": "azure-services",
+    "explaination": "Azure Virtual Desktop mejora escalabilidad, seguridad y costos al ejecutarse en la nube."
+  },
+  {
+    "id": 706,
+    "text": "¿Qué opción de almacenamiento ofrece el mayor rendimiento para cargas intensivas como SAP HANA?",
+    "options": [
+      "Ultra Disk",
+      "Standard HDD",
+      "Premium SSD",
+      "Standard SSD"
+    ],
+    "correctAnswer": "Ultra Disk",
+    "categoryId": "azure-services",
+    "explaination": "Azure Ultra Disk proporciona el mayor rendimiento en IOPS, throughput y baja latencia."
+  },
+  {
+    "id": 707,
+    "text": "¿Cuál de los siguientes NO es un aspecto clave de la predictibilidad en Azure?",
+    "options": [
+      "Escalabilidad",
+      "Optimización de costos",
+      "Rendimiento consistente",
+      "Tolerancia a fallos"
+    ],
+    "correctAnswer": "Tolerancia a fallos",
+    "categoryId": "azure-management",
+    "explaination": "La tolerancia a fallos está relacionada con confiabilidad y disponibilidad, no con predictibilidad."
+  },
+  {
+    "id": 708,
+    "text": "¿Cuál es un beneficio clave del modelo basado en consumo en la nube?",
+    "options": [
+      "Contratos a largo plazo",
+      "Compra inicial de hardware",
+      "Costo mensual fijo",
+      "Pago por uso"
+    ],
+    "correctAnswer": "Pago por uso",
+    "categoryId": "cloud-concepts",
+    "explaination": "El modelo de pago por uso permite pagar solo por los recursos consumidos."
+  },
+  {
+    "id": 709,
+    "text": "¿Cuál de los siguientes NO es un componente principal de la estrategia de confiabilidad de Azure?",
+    "options": [
+      "Rendimiento",
+      "Disponibilidad",
+      "Tolerancia a fallos",
+      "Redundancia"
+    ],
+    "correctAnswer": "Rendimiento",
+    "categoryId": "azure-services",
+    "explaination": "La estrategia de confiabilidad de Azure se centra en disponibilidad, redundancia y tolerancia a fallos."
+  },
+  {
+    "id": 710,
+    "text": "¿Qué característica es exclusiva de la nube privada?",
+    "options": [
+      "Infraestructura dedicada a una sola organización",
+      "Red virtual no accesible desde Internet",
+      "Uso de múltiples mecanismos de seguridad",
+      "Cualquier persona puede registrarse"
+    ],
+    "correctAnswer": "Infraestructura dedicada a una sola organización",
+    "categoryId": "cloud-concepts",
+    "explaination": "La nube privada ofrece infraestructura exclusiva para una sola organización."
+  },
+  {
+    "id": 711,
+    "text": "¿Qué opción de redundancia proporciona un endpoint secundario de solo lectura?",
+    "options": [
+      "RA-GRS",
+      "ZRS",
+      "LRS",
+      "GRS"
+    ],
+    "correctAnswer": "RA-GRS",
+    "categoryId": "azure-services",
+    "explaination": "RA-GRS ofrece replicación geográfica y acceso de solo lectura a la región secundaria."
+  },
+  {
+    "id": 712,
+    "text": "¿Cómo afecta el costo la transferencia de datos entre regiones de Azure?",
+    "options": [
+      "Se cobra según la región de destino",
+      "Se cobra según la región de origen",
+      "Siempre es gratis",
+      "Se cobra según la cantidad y distancia de transferencia"
+    ],
+    "correctAnswer": "Se cobra según la cantidad y distancia de transferencia",
+    "categoryId": "azure-management",
+    "explaination": "La transferencia entre regiones genera costos de salida de datos según volumen y distancia."
+  },
+  {
+    "id": 713,
+    "text": "¿Cuál es el beneficio principal de Microsoft Entra Conditional Access?",
+    "options": [
+      "Mejor experiencia de usuario",
+      "Reducir dependencia de contraseñas",
+      "Autenticación simplificada",
+      "Mejorar seguridad limitando acceso a usuarios y dispositivos autorizados"
+    ],
+    "correctAnswer": "Mejorar seguridad limitando acceso a usuarios y dispositivos autorizados",
+    "categoryId": "azure-management",
+    "explaination": "Conditional Access aplica controles de acceso basados en condiciones como ubicación, dispositivo y riesgo."
+  },
+  {
+    "id": 714,
+    "text": "¿Cuál es el principal beneficio de PaaS frente a IaaS?",
+    "options": [
+      "Mayor flexibilidad",
+      "Menor costo",
+      "Reducir tiempo de desarrollo",
+      "Mayor control sobre infraestructura"
+    ],
+    "correctAnswer": "Reducir tiempo de desarrollo",
+    "categoryId": "cloud-concepts",
+    "explaination": "PaaS proporciona entornos preconfigurados que aceleran el desarrollo y despliegue."
+  },
+  {
+    "id": 715,
+    "text": "¿Qué tipo de almacenamiento guarda datos offline y ofrece el costo más bajo?",
+    "options": [
+      "Cool Access",
+      "Cold Access",
+      "Hot Access",
+      "Archive Storage"
+    ],
+    "correctAnswer": "Archive Storage",
+    "categoryId": "azure-services",
+    "explaination": "Archive Storage está diseñado para datos poco utilizados y almacenamiento a largo plazo."
+  },
+  {
+    "id": 716,
+    "text": "¿Qué nivel de acceso de Azure Storage está optimizado para datos poco accedidos almacenados por al menos 30 días?",
+    "options": [
+      "Archive Access Tier",
+      "Cool Access Tier",
+      "Premium Storage",
+      "Hot Access Tier"
+    ],
+    "correctAnswer": "Cool Access Tier",
+    "categoryId": "azure-services",
+    "explaination": "El nivel Cool está optimizado para datos accedidos con poca frecuencia y almacenamiento mínimo de 30 días."
+  },
+  {
+    "id": 717,
+    "text": "¿Qué característica hace durable el almacenamiento de Azure?",
+    "options": [
+      "Accesibilidad",
+      "Seguridad",
+      "Redundancia",
+      "Escalabilidad"
+    ],
+    "correctAnswer": "Redundancia",
+    "categoryId": "azure-services",
+    "explaination": "La redundancia mantiene múltiples copias de los datos para protegerlos ante fallas."
+  },
+  {
+    "id": 718,
+    "text": "¿Cuál es el propósito principal de las etiquetas (tags) en Azure?",
+    "options": [
+      "Categorizar y organizar recursos",
+      "Monitorear rendimiento",
+      "Asignar permisos",
+      "Automatizar aprovisionamiento"
+    ],
+    "correctAnswer": "Categorizar y organizar recursos",
+    "categoryId": "azure-management",
+    "explaination": "Las etiquetas agregan metadatos a los recursos para facilitar organización, costos y automatización."
+  },
+  {
+    "id": 719,
+    "text": "¿Qué describe mejor la escalabilidad en la nube?",
+    "options": [
+      "Reducir costos limitando almacenamiento",
+      "Aumentar o disminuir recursos según demanda",
+      "Ejecutar aplicaciones sin Internet"
+    ],
+    "correctAnswer": "Aumentar o disminuir recursos según demanda",
+    "categoryId": "cloud-concepts",
+    "explaination": "La escalabilidad permite adaptar recursos dinámicamente según la carga de trabajo."
+  },
+  {
+    "id": 720,
+    "text": "¿Cuál es el propósito principal de Azure RBAC?",
+    "options": [
+      "Proteger suscripciones de accesos no autorizados",
+      "Aplicar MFA",
+      "Otorgar niveles adecuados de acceso a recursos",
+      "Administrar NSG"
+    ],
+    "correctAnswer": "Otorgar niveles adecuados de acceso a recursos",
+    "categoryId": "azure-management",
+    "explaination": "Azure RBAC permite asignar permisos específicos a usuarios, grupos y aplicaciones."
+  },
+  {
+    "id": 721,
+    "text": "¿Cuál es el número mínimo de zonas de disponibilidad necesarias para una aplicación altamente disponible?",
+    "options": [
+      "4",
+      "1",
+      "3",
+      "2"
+    ],
+    "correctAnswer": "2",
+    "categoryId": "azure-services",
+    "explaination": "Se requieren al menos dos Availability Zones para proteger aplicaciones contra fallas de zona."
+  },
+  {
+    "id": 722,
+    "text": "¿Cuál es un beneficio de usar regiones soberanas en Azure?",
+    "options": [
+      "Menor costo",
+      "Mayor flexibilidad",
+      "Mayor rendimiento",
+      "Reducir riesgos de cumplimiento"
+    ],
+    "correctAnswer": "Reducir riesgos de cumplimiento",
+    "categoryId": "azure-management",
+    "explaination": "Las regiones soberanas ayudan a cumplir requisitos legales y regulatorios específicos."
+  },
+  {
+    "id": 723,
+    "text": "¿Cuál es la principal diferencia entre Pay-As-You-Go y Reserved Instances?",
+    "options": [
+      "Reserved Instances tienen mayor rendimiento",
+      "Reserved Instances ofrecen descuentos por compromisos a largo plazo",
+      "Pay-As-You-Go requiere pago anticipado",
+      "Pay-As-You-Go solo funciona en nube pública"
+    ],
+    "correctAnswer": "Reserved Instances ofrecen descuentos por compromisos a largo plazo",
+    "categoryId": "azure-management",
+    "explaination": "Reserved Instances ofrecen precios reducidos a cambio de compromisos de uno o tres años."
+  },
+  {
+    "id": 724,
+    "text": "¿Qué beneficios ofrece Azure ExpressRoute frente a una VPN Site-to-Site?",
+    "options": [
+      "Los datos viajan por una red privada",
+      "Conexión más económica",
+      "Conexión más rápida a Azure",
+      "Acceso a VNets privadas sin IP pública"
+    ],
+    "correctAnswer": "Los datos viajan por una red privada",
+    "categoryId": "azure-services",
+    "explaination": "ExpressRoute utiliza conexiones privadas dedicadas, brindando mayor seguridad y rendimiento."
+  },
+  {
+    "id": 725,
+    "text": "¿Por qué Azure tiene centros de datos en múltiples regiones del mundo?",
+    "options": [
+      "Cumplir regulaciones locales",
+      "Reducir latencia",
+      "Todas las respuestas son correctas",
+      "Garantizar redundancia y alta disponibilidad"
+    ],
+    "correctAnswer": "Todas las respuestas son correctas",
+    "categoryId": "azure-services",
+    "explaination": "La distribución global permite cumplir normativas, reducir latencia y asegurar alta disponibilidad."
+  },
+  {
+    "id": 726,
+    "text": "¿Cuál es la principal ventaja de usar las características de seguridad integradas de Azure en comparación con administrar la seguridad localmente?",
+    "options": [
+      "Menor costo",
+      "Menor experiencia requerida",
+      "Menor flexibilidad",
+      "Mayor complejidad"
+    ],
+    "correctAnswer": "Menor experiencia requerida",
+    "categoryId": "azure-management",
+    "explaination": "Azure incluye herramientas y servicios de seguridad administrados que reducen la necesidad de contar con especialistas avanzados en seguridad, automatizando tareas como detección de amenazas, cifrado y control de acceso."
+  },
+  {
+    "id": 727,
+    "text": "¿Qué tipo de cómputo ofrece mayor flexibilidad y control sobre el hardware subyacente permitiendo personalizar el entorno según necesidades específicas?",
+    "options": [
+      "Contenedores",
+      "Serverless",
+      "Funciones",
+      "Máquinas virtuales"
+    ],
+    "correctAnswer": "Máquinas virtuales",
+    "categoryId": "azure-services",
+    "explaination": "Las máquinas virtuales permiten seleccionar el sistema operativo, configurar hardware e instalar software personalizado, ofreciendo el mayor nivel de control y flexibilidad."
+  },
+  {
+    "id": 728,
+    "text": "¿Qué tipo de escalamiento implica pasar de una máquina pequeña a una más grande y potente?",
+    "options": [
+      "Escalamiento vertical",
+      "Escalamiento horizontal",
+      "Escalamiento hacia afuera"
+    ],
+    "correctAnswer": "Escalamiento vertical",
+    "categoryId": "cloud-concepts",
+    "explaination": "El escalamiento vertical consiste en aumentar la capacidad de una sola máquina agregando más CPU, memoria RAM o almacenamiento."
+  },
+  {
+    "id": 729,
+    "text": "¿Qué herramienta permite centralizar archivos compartidos en Azure Files manteniendo la compatibilidad y rendimiento de un servidor de archivos Windows?",
+    "options": [
+      "Azure File Sync",
+      "Azure Storage Explorer",
+      "AzCopy"
+    ],
+    "correctAnswer": "Azure File Sync",
+    "categoryId": "azure-services",
+    "explaination": "Azure File Sync sincroniza servidores Windows locales con Azure Files, permitiendo un entorno híbrido con almacenamiento centralizado."
+  },
+  {
+    "id": 730,
+    "text": "¿Los grupos de recursos pueden anidarse en Azure?",
+    "options": [
+      "Sí",
+      "No"
+    ],
+    "correctAnswer": "No",
+    "categoryId": "azure-management",
+    "explaination": "Los grupos de recursos en Azure no pueden contener otros grupos de recursos. Cada grupo funciona como un contenedor independiente."
+  },
+  {
+    "id": 731,
+    "text": "¿Cuál es el propósito principal de un Virtual Machine Scale Set en Azure?",
+    "options": [
+      "Agrupar máquinas virtuales para facilitar la administración",
+      "Proporcionar balanceo de carga para aplicaciones web",
+      "Escalar automáticamente máquinas virtuales según la demanda",
+      "Garantizar redundancia y durabilidad de datos"
+    ],
+    "correctAnswer": "Escalar automáticamente máquinas virtuales según la demanda",
+    "categoryId": "azure-services",
+    "explaination": "Virtual Machine Scale Sets permiten aumentar o disminuir automáticamente la cantidad de máquinas virtuales según la carga de trabajo."
+  },
+  {
+    "id": 732,
+    "text": "¿Qué entidades pueden contener los Management Groups en Azure?",
+    "options": [
+      "Grupos de recursos",
+      "Suscripciones",
+      "Management Groups",
+      "Recursos"
+    ],
+    "correctAnswer": "Suscripciones",
+    "categoryId": "azure-management",
+    "explaination": "Los Management Groups se utilizan para organizar y administrar múltiples suscripciones aplicando políticas y controles de acceso."
+  },
+  {
+    "id": 733,
+    "text": "¿Qué opción de hospedaje de Azure App Service proporciona hardware y red aislados dedicados exclusivamente a un cliente?",
+    "options": [
+      "App Service Environment",
+      "Bare metal hosting",
+      "App Service Plan",
+      "Máquina virtual"
+    ],
+    "correctAnswer": "App Service Environment",
+    "categoryId": "azure-services",
+    "explaination": "App Service Environment proporciona un entorno aislado y dedicado para aplicaciones web con mayor seguridad y control de red."
+  },
+  {
+    "id": 734,
+    "text": "¿En qué escenario es más apropiado elegir una solución IaaS en la nube?",
+    "options": [
+      "Ejecutar una aplicación gratuita en la nube",
+      "Reducir al máximo la administración",
+      "Desarrollo completamente nuevo",
+      "Migración lift-and-shift"
+    ],
+    "correctAnswer": "Migración lift-and-shift",
+    "categoryId": "cloud-concepts",
+    "explaination": "IaaS es ideal para migraciones lift-and-shift porque permite mover aplicaciones y servidores existentes a la nube con mínimos cambios."
+  },
+  {
+    "id": 735,
+    "text": "¿Cuál es la característica clave de la computación serverless que la diferencia de la infraestructura tradicional?",
+    "options": [
+      "Escalamiento automático según demanda",
+      "Opciones limitadas de escalabilidad",
+      "Modelo de precio fijo",
+      "Requiere administración manual de servidores"
+    ],
+    "correctAnswer": "Escalamiento automático según demanda",
+    "categoryId": "cloud-concepts",
+    "explaination": "La computación serverless ajusta automáticamente los recursos según la carga de trabajo sin necesidad de administrar servidores."
+  },
+  {
+    "id": 736,
+    "text": "¿Qué recurso necesita una máquina virtual para ser accesible desde Internet?",
+    "options": [
+      "Servidor web IIS",
+      "Azure Firewall",
+      "Dirección IP pública",
+      "VPN Gateway"
+    ],
+    "correctAnswer": "Dirección IP pública",
+    "categoryId": "azure-services",
+    "explaination": "Una dirección IP pública permite que una máquina virtual tenga un endpoint accesible desde Internet."
+  },
+  {
+    "id": 737,
+    "text": "La computación en la nube entrega servicios de TI sobre Internet bajo un modelo de:",
+    "options": [
+      "Pago anticipado como gasto de capital",
+      "Pago por uso",
+      "Contrato a largo plazo",
+      "Caso por caso"
+    ],
+    "correctAnswer": "Pago por uso",
+    "categoryId": "cloud-concepts",
+    "explaination": "El modelo pay-as-you-go permite pagar solo por los recursos consumidos, evitando grandes inversiones iniciales."
+  },
+  {
+    "id": 738,
+    "text": "¿Cuál de los siguientes NO es un componente clave del modelo de seguridad Zero Trust?",
+    "options": [
+      "Microsegmentación",
+      "Acceso de mínimo privilegio",
+      "Monitoreo continuo",
+      "Contraseñas fuertes"
+    ],
+    "correctAnswer": "Contraseñas fuertes",
+    "categoryId": "azure-management",
+    "explaination": "Aunque las contraseñas fuertes son importantes, Zero Trust se centra principalmente en validación continua, mínimo privilegio y segmentación."
+  },
+  {
+    "id": 739,
+    "text": "¿Cuál es el tipo de cuenta de almacenamiento predeterminado utilizado por AzCopy?",
+    "options": [
+      "Blob Storage",
+      "Queue Storage",
+      "Table Storage",
+      "File Storage"
+    ],
+    "correctAnswer": "Blob Storage",
+    "categoryId": "azure-services",
+    "explaination": "AzCopy está diseñado principalmente para transferir datos hacia y desde Azure Blob Storage."
+  },
+  {
+    "id": 740,
+    "text": "¿Cuál es el principal beneficio de la alta disponibilidad en la computación en la nube?",
+    "options": [
+      "Reducir escalabilidad",
+      "Incrementar costos",
+      "Minimizar el tiempo de inactividad y garantizar continuidad",
+      "Requerir intervención manual"
+    ],
+    "correctAnswer": "Minimizar el tiempo de inactividad y garantizar continuidad",
+    "categoryId": "cloud-concepts",
+    "explaination": "La alta disponibilidad utiliza redundancia y mecanismos de failover para mantener los servicios operativos."
+  },
+  {
+    "id": 741,
+    "text": "¿Cuál es una diferencia clave entre Azure B2B y Azure B2C?",
+    "options": [
+      "B2B es para usuarios internos y B2C para externos",
+      "B2B es para aplicaciones cloud y B2C para aplicaciones locales",
+      "B2B es para colaboración entre empresas y B2C para interacción con clientes",
+      "No existe diferencia significativa"
+    ],
+    "correctAnswer": "B2B es para colaboración entre empresas y B2C para interacción con clientes",
+    "categoryId": "azure-management",
+    "explaination": "Azure B2B permite colaboración segura con organizaciones externas, mientras Azure B2C gestiona identidades de clientes."
+  },
+  {
+    "id": 742,
+    "text": "¿Qué modelo de nube es más adecuado para una startup pequeña con recursos TI limitados y necesidad de escalabilidad flexible?",
+    "options": [
+      "Nube comunitaria",
+      "Nube privada",
+      "Nube híbrida",
+      "Nube pública"
+    ],
+    "correctAnswer": "Nube pública",
+    "categoryId": "cloud-concepts",
+    "explaination": "La nube pública ofrece escalabilidad, flexibilidad y bajo costo inicial, ideal para startups."
+  },
+  {
+    "id": 743,
+    "text": "¿Cuáles son los dos tipos de administrabilidad en la computación en la nube?",
+    "options": [
+      "Recursos humanos",
+      "Administración de la nube",
+      "Administración en la nube",
+      "Reducción de costos mediante escalamiento automático"
+    ],
+    "correctAnswer": "Administración de la nube",
+    "categoryId": "cloud-concepts",
+    "explaination": "La administración de la nube se refiere a la gestión de la infraestructura y servicios cloud."
+  },
+  {
+    "id": 744,
+    "text": "¿Cuál es el segundo tipo de administrabilidad en la computación en la nube?",
+    "options": [
+      "Recursos humanos",
+      "Administración de la nube",
+      "Administración en la nube",
+      "Reducción de costos mediante escalamiento automático"
+    ],
+    "correctAnswer": "Administración en la nube",
+    "categoryId": "cloud-concepts",
+    "explaination": "La administración en la nube se refiere a la gestión de aplicaciones, datos y servicios hospedados en la nube."
+  },
+  {
+    "id": 745,
+    "text": "Según el modelo de responsabilidad compartida, ¿quién es responsable de mantener actualizado el sistema operativo invitado en una máquina virtual de Azure?",
+    "options": [
+      "El cliente",
+      "Nadie, es automático",
+      "Microsoft Azure"
+    ],
+    "correctAnswer": "El cliente",
+    "categoryId": "azure-management",
+    "explaination": "En máquinas virtuales Azure, el cliente es responsable del sistema operativo invitado y sus actualizaciones."
+  },
+  {
+    "id": 746,
+    "text": "¿Qué término describe las políticas, procesos y controles que garantizan que las iniciativas cloud estén alineadas con los objetivos y riesgos del negocio?",
+    "options": [
+      "Gobernanza",
+      "Seguridad",
+      "Administrabilidad",
+      "Confiabilidad"
+    ],
+    "correctAnswer": "Gobernanza",
+    "categoryId": "azure-management",
+    "explaination": "La gobernanza cloud asegura cumplimiento, control de riesgos y alineación con los objetivos organizacionales."
+  },
+   {
+    "id": 747,
+    "text": "En Azure, puedes reducir costos reservando recursos por un período de 1 a 3 años.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-management",
+    "explaination": "Azure ofrece descuentos de hasta 72% cuando reservas recursos como máquinas virtuales o bases de datos por 1 o 3 años. Esto se llama instancias reservadas y es ideal para cargas de trabajo predecibles."
+  },
+  {
+    "id": 748,
+    "text": "Las etiquetas (tags) de Azure permiten a las organizaciones gestionar mejor los costos categorizando recursos según metadatos específicos como centros de costos o entornos.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-management",
+    "explaination": "Las etiquetas ayudan a categorizar recursos con metadatos como nombres de departamento o centros de costos, facilitando el seguimiento y la rendición de cuentas por gastos."
+  },
+  {
+    "id": 749,
+    "text": "En Azure, mover datos entre regiones dentro de la misma zona no tiene costo.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-management",
+    "explaination": "Aunque algunas transferencias de datos entrantes son gratuitas, las transferencias salientes, incluso dentro de la misma región o zona de disponibilidad de Azure, generalmente tienen costo. Los precios varían según el destino y la dirección del flujo de datos."
+  },
+  {
+    "id": 750,
+    "text": "Azure CLI solo está disponible en Windows y no es compatible con otras plataformas como Linux y Mac.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-management",
+    "explaination": "Azure CLI es una herramienta multiplataforma. Puedes instalarla y usarla en Windows, Linux y macOS. Incluso es accesible a través de Azure Cloud Shell directamente desde el navegador."
+  },
+  {
+    "id": 751,
+    "text": "¿Cómo mejora la nube la seguridad de tu red contra ataques de denegación de servicio distribuido (DDoS)?",
+    "options": [
+      "Instala automáticamente firewalls que previenen los ataques DDoS",
+      "Requiere intervención manual para detener los ataques DDoS cuando ocurren",
+      "Los proveedores de nube están equipados para manejar ataques DDoS, haciendo tu red más robusta",
+      "Previene completamente todos los ciberataques"
+    ],
+    "correctAnswer": "Los proveedores de nube están equipados para manejar ataques DDoS, haciendo tu red más robusta",
+    "categoryId": "azure-management",
+    "explaination": "Los proveedores de nube invierten en infraestructura avanzada y herramientas de seguridad diseñadas para detectar y mitigar ataques DDoS automáticamente, filtrando el tráfico malicioso y manteniendo la disponibilidad del servicio. Sin embargo, ningún sistema garantiza inmunidad total ante ciberataques."
+  },
+  {
+    "id": 752,
+    "text": "La alta disponibilidad garantiza que los recursos de TI siempre sean accesibles cuando se necesitan.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "cloud-concepts",
+    "explaination": "La alta disponibilidad se refiere a que los sistemas y recursos sean accesibles de manera confiable cuando se necesitan, minimizando el tiempo de inactividad y asegurando que los servicios continúen funcionando incluso ante fallos."
+  },
+  {
+    "id": 753,
+    "text": "Los proveedores de nube como Azure ofrecen garantías de tiempo de actividad como parte de sus acuerdos de nivel de servicio (SLA).",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "cloud-concepts",
+    "explaination": "Los proveedores de nube definen compromisos de tiempo de actividad a través de acuerdos de nivel de servicio. Por ejemplo, Azure puede garantizar un 99.9% o más de tiempo de actividad, lo que brinda confianza en la disponibilidad de sus servicios."
+  },
+  {
+    "id": 754,
+    "text": "La alta disponibilidad elimina todas las posibles interrupciones de los servicios en la nube.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "cloud-concepts",
+    "explaination": "La alta disponibilidad reduce el riesgo de interrupciones pero no las elimina por completo. Pueden ocurrir interrupciones por interrupciones regionales, errores de configuración o desastres naturales. El objetivo es reducir su frecuencia e impacto, no garantizar inmunidad total."
+  },
+  {
+    "id": 755,
+    "text": "Diseñar para alta disponibilidad requiere redundancia y mecanismos de conmutación por error (failover).",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "cloud-concepts",
+    "explaination": "Diseñar para alta disponibilidad implica agregar redundancia, como servidores duplicados o múltiples rutas de red, y mecanismos de failover que trasladen automáticamente las cargas de trabajo si algo falla, garantizando la continuidad del servicio."
+  },
+  {
+    "id": 756,
+    "text": "¿Cuál es un ejemplo de elasticidad en la computación en la nube?",
+    "options": [
+      "Implementar nuevos servicios rápidamente",
+      "Escalar automáticamente una aplicación para asegurar que tenga los recursos necesarios para satisfacer la demanda",
+      "Distribuir servicios en diferentes ubicaciones geográficas",
+      "Mantener los servicios en funcionamiento cuando los componentes fallan"
+    ],
+    "correctAnswer": "Escalar automáticamente una aplicación para asegurar que tenga los recursos necesarios para satisfacer la demanda",
+    "categoryId": "cloud-concepts",
+    "explaination": "La elasticidad en la computación en la nube es la capacidad de ajustar automáticamente los recursos según la demanda actual. Por ejemplo, durante temporadas pico como el Black Friday, un sistema puede escalar hacia arriba añadiendo más máquinas virtuales y luego reducirse durante períodos más tranquilos para ahorrar costos."
+  },
+  {
+    "id": 757,
+    "text": "¿Qué ventajas principales ofrecen las máquinas virtuales de Azure a través de los conjuntos de disponibilidad y los conjuntos de escalado?",
+    "options": [
+      "Los conjuntos de disponibilidad garantizan tolerancia a fallos replicando VMs en zonas de disponibilidad, mientras que los conjuntos de escalado habilitan el escalado automático según la demanda",
+      "Los conjuntos de disponibilidad reducen costos y los conjuntos de escalado mejoran la seguridad",
+      "Los conjuntos de disponibilidad gestionan el tráfico de red y los conjuntos de escalado almacenan datos",
+      "Ambos sirven para la misma función de distribuir cargas de trabajo"
+    ],
+    "correctAnswer": "Los conjuntos de disponibilidad garantizan tolerancia a fallos replicando VMs en zonas de disponibilidad, mientras que los conjuntos de escalado habilitan el escalado automático según la demanda",
+    "categoryId": "azure-services",
+    "explaination": "Los conjuntos de disponibilidad distribuyen VMs en diferentes hardware físico para reducir la posibilidad de fallos simultáneos. Los conjuntos de escalado permiten ajustar automáticamente el número de instancias de VM según el uso, creando más cuando la demanda aumenta y eliminando el exceso cuando baja."
+  },
+  {
+    "id": 758,
+    "text": "Una empresa usa AWS para servicios en la nube, pero quiere comenzar a usar Azure para aplicaciones basadas en IA mientras mantiene sus recursos de AWS para otras tareas. ¿Qué tipo de modelo de nube representa esto?",
+    "options": ["Nube pública", "Multi-nube", "Nube híbrida", "Nube privada"],
+    "correctAnswer": "Multi-nube",
+    "categoryId": "cloud-concepts",
+    "explaination": "Multi-nube significa usar más de un proveedor de nube pública. En este caso, la empresa usa AWS y ahora quiere agregar Azure para servicios de IA. Esa combinación de dos plataformas de nube pública separadas define exactamente el modelo multi-nube. La nube híbrida combina nube privada y pública, no dos nubes públicas."
+  },
+  {
+    "id": 759,
+    "text": "¿Cuál de las siguientes describe mejor la alta disponibilidad en la computación en la nube?",
+    "options": [
+      "Garantizar que una aplicación esté disponible el 100% del tiempo sin interrupciones",
+      "Maximizar el tiempo de actividad de los servicios, minimizando el tiempo de inactividad debido a interrupciones o fallos",
+      "Garantizar que tu aplicación siempre pueda escalar para satisfacer la demanda",
+      "Ejecutar múltiples versiones de la misma aplicación simultáneamente"
+    ],
+    "correctAnswer": "Maximizar el tiempo de actividad de los servicios, minimizando el tiempo de inactividad debido a interrupciones o fallos",
+    "categoryId": "cloud-concepts",
+    "explaination": "La alta disponibilidad consiste en diseñar sistemas para que permanezcan funcionales incluso cuando algo sale mal. En lugar de prometer un servicio perfecto e ininterrumpido, se enfoca en reducir el tiempo de inactividad y garantizar una recuperación rápida. Ningún sistema puede garantizar un 100% de tiempo de actividad."
+  },
+  {
+    "id": 760,
+    "text": "¿Cuáles dos afirmaciones son verdaderas sobre el acceso de invitados externos en Azure?",
+    "options": [
+      "Habilita la seguridad fuera de los límites organizacionales",
+      "Requiere que los usuarios externos creen nuevos IDs para el acceso",
+      "Aplica políticas de acceso condicional a los usuarios invitados",
+      "Impide que los usuarios externos accedan a las aplicaciones"
+    ],
+    "correctAnswers": [
+      "Habilita la seguridad fuera de los límites organizacionales",
+      "Aplica políticas de acceso condicional a los usuarios invitados"
+    ],
+    "categoryId": "azure-management",
+    "explaination": "El acceso de invitados externos permite a las organizaciones colaborar de forma segura con usuarios fuera de su red. Las políticas de acceso condicional como MFA o restricciones de dispositivos pueden aplicarse a estos usuarios. Los usuarios externos no necesitan crear nuevos IDs; pueden iniciar sesión con sus credenciales existentes a través de Entra External ID."
+  },
+  {
+    "id": 761,
+    "text": "Las regiones de Azure generalmente están emparejadas con otra región en la misma geografía para mejorar la recuperación ante desastres.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Las regiones de Azure están emparejadas dentro de la misma área geográfica para mejorar la recuperación ante desastres. Si una región tiene un problema, la otra del par puede servir como respaldo."
+  },
+  {
+    "id": 762,
+    "text": "Los pares de regiones garantizan que ambas regiones siempre se restauren simultáneamente después de una interrupción.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-services",
+    "explaination": "En caso de una interrupción mayor, Microsoft prioriza restaurar primero una región para reducir el tiempo de inactividad general, en lugar de restaurar ambas simultáneamente."
+  },
+  {
+    "id": 763,
+    "text": "Los pares de regiones ayudan con las actualizaciones planificadas de Azure implementándolas en una región a la vez.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Azure implementa actualizaciones en solo una región de un par a la vez para minimizar el riesgo de tiempo de inactividad o interrupciones."
+  },
+  {
+    "id": 764,
+    "text": "Todos los servicios de Azure replican automáticamente datos entre pares de regiones.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-services",
+    "explaination": "No todos los servicios de Azure replican automáticamente datos entre pares de regiones. Muchos requieren configuración manual. Las organizaciones a menudo necesitan configurar ellas mismas la geo-redundancia o políticas de respaldo."
+  },
+  {
+    "id": 765,
+    "text": "Las máquinas virtuales de Azure proporcionan infraestructura como servicio (IaaS), lo que permite a los usuarios tener control total sobre el sistema operativo y la capacidad de ejecutar software personalizado.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "cloud-concepts",
+    "explaination": "Las VMs de Azure son IaaS: Microsoft proporciona la infraestructura subyacente mientras el usuario tiene acceso total al sistema operativo. Pueden instalar, configurar y gestionar el SO, además de desplegar sus propias aplicaciones y software personalizado."
+  },
+  {
+    "id": 766,
+    "text": "¿Qué herramienta de transferencia de datos de Azure es una utilidad de línea de comandos para transferir datos hacia almacenamiento de blobs y archivos de Azure?",
+    "options": ["AzCopy", "Azure Storage Explorer", "Azure File Sync", "Azure Data Box"],
+    "correctAnswer": "AzCopy",
+    "categoryId": "azure-services",
+    "explaination": "AzCopy es una herramienta de línea de comandos liviana diseñada para transferencias de alto rendimiento hacia y desde el almacenamiento de blobs y archivos de Azure. Es ideal para automatización y scripting en Bash o PowerShell."
+  },
+  {
+    "id": 767,
+    "text": "¿Qué herramienta de administración de almacenamiento de Azure ofrece una interfaz gráfica para gestionar y transferir datos en todos los tipos de almacenamiento de Azure?",
+    "options": ["AzCopy", "Azure Storage Explorer", "Azure File Sync", "Azure Data Box"],
+    "correctAnswer": "Azure Storage Explorer",
+    "categoryId": "azure-services",
+    "explaination": "Azure Storage Explorer es la herramienta gráfica que permite navegar, cargar, descargar y gestionar almacenamiento en servicios de blob, cola, tabla y archivos. Es ideal para usuarios que prefieren una GUI en lugar de escribir scripts."
+  },
+  {
+    "id": 768,
+    "text": "¿Qué servicio de Azure sincroniza servidores de archivos locales con Azure Files para almacenamiento en nube híbrida?",
+    "options": ["AzCopy", "Azure Storage Explorer", "Azure File Sync", "Azure Data Box"],
+    "correctAnswer": "Azure File Sync",
+    "categoryId": "azure-services",
+    "explaination": "Azure File Sync permite a los servidores Windows locales sincronizarse con Azure Files. Es útil para organizaciones que aún usan servidores de archivos locales pero quieren los beneficios del acceso y la redundancia en la nube."
+  },
+  {
+    "id": 769,
+    "text": "Las redes virtuales de Azure solo admiten comunicación entre recursos de Azure, no con redes locales.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-services",
+    "explaination": "Las redes virtuales de Azure admiten conectividad híbrida. Puedes conectar tus centros de datos locales a Azure mediante VPN o ExpressRoute, lo que permite extender la infraestructura local hacia la nube."
+  },
+  {
+    "id": 770,
+    "text": "Las rutas definidas por el usuario (UDR) permiten a los administradores modificar el comportamiento de enrutamiento predeterminado en las redes virtuales de Azure.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Las UDR permiten anular el comportamiento de enrutamiento predeterminado de Azure. Con ellas, puedes dirigir el tráfico a través de dispositivos virtuales específicos o puertas de enlace, lo cual es útil en topologías de red complejas."
+  },
+  {
+    "id": 771,
+    "text": "La cuenta gratuita de Azure incluye acceso gratuito a algunos servicios durante 12 meses.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-management",
+    "explaination": "La cuenta gratuita de Azure incluye acceso gratuito a ciertos servicios por 12 meses completos, como máquinas virtuales, bases de datos y almacenamiento, ideal para prueba y aprendizaje."
+  },
+  {
+    "id": 772,
+    "text": "Los usuarios de la cuenta gratuita de Azure deben pagar después de sus primeros 30 días, aunque no actualicen su cuenta.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-management",
+    "explaination": "Los usuarios no son cobrados automáticamente después de 30 días. Una vez que termina el período de prueba inicial con créditos gratuitos, solo se les cobra si eligen actualizar su cuenta a una suscripción de pago por uso."
+  },
+  {
+    "id": 773,
+    "text": "Azure Table Storage es una solución de base de datos relacional.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-services",
+    "explaination": "Azure Table Storage es un almacén NoSQL de clave-valor, no una base de datos relacional. No admite relaciones ni consultas estructuradas como SQL Server."
+  },
+  {
+    "id": 774,
+    "text": "Azure Queue Storage se utiliza para la comunicación asincrónica entre aplicaciones.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "Azure Queue Storage habilita la comunicación asincrónica entre aplicaciones distribuidas, permitiendo por ejemplo que una aplicación web ponga en cola elementos de trabajo que un servicio en segundo plano procese más tarde."
+  },
+  {
+    "id": 775,
+    "text": "Los mensajes en una cola de Azure se eliminan automáticamente después de ser recuperados una vez.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-services",
+    "explaination": "Cuando se recupera un mensaje de Azure Queue Storage, este no se elimina automáticamente. La aplicación debe eliminarlo explícitamente después de procesarlo exitosamente. Este diseño asegura que si un proceso falla a mitad, el mensaje pueda ser reprocesado."
+  },
+  {
+    "id": 776,
+    "text": "El tráfico de ExpressRoute se cifra automáticamente de forma predeterminada.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Falso",
+    "categoryId": "azure-services",
+    "explaination": "Aunque ExpressRoute proporciona una conexión privada entre tu red y Azure, no cifra automáticamente los datos. Si tu organización requiere cifrado, deberás implementar soluciones como VPNs con IPsec."
+  },
+  {
+    "id": 777,
+    "text": "ExpressRoute puede configurarse con conmutación por error (failover) de VPN para garantizar conectividad continua en caso de fallo.",
+    "options": ["Verdadero", "Falso"],
+    "correctAnswer": "Verdadero",
+    "categoryId": "azure-services",
+    "explaination": "ExpressRoute admite failover de VPN. Si la conexión privada falla, el tráfico puede redirigirse automáticamente a través de una puerta de enlace VPN de Azure para mantener la conectividad."
+  },
+  {
+    "id": 778,
+    "text": "Una empresa de retail quiere crear una tienda en línea con soporte para alto tráfico, escalado automático y tareas en segundo plano como la sincronización de inventario. También necesita una API REST y soporte para aplicaciones móviles. ¿Qué servicios de Azure debería usar?",
+    "options": [
+      "Azure App Service para aplicaciones web",
+      "Azure App Service para aplicaciones de API",
+      "Azure App Service para WebJobs",
+      "Máquinas virtuales de Azure con escalado automático personalizado"
+    ],
+    "correctAnswers": [
+      "Azure App Service para aplicaciones web",
+      "Azure App Service para aplicaciones de API",
+      "Azure App Service para WebJobs"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "App Service para web apps gestiona el escaparate con alto tráfico y escalado automático. App Service para API apps provee los endpoints RESTful para móviles y aplicaciones cliente. App Service para WebJobs soporta el procesamiento en segundo plano como la sincronización de inventario. Las VMs requieren más mantenimiento manual y no son ideales cuando la agilidad y automatización son prioridades."
+  },
+  {
+    "id": 779,
+    "text": "¿Cuáles son los modos de implementación disponibles para Azure Database for PostgreSQL?",
+    "options": [
+      "Servidor único",
+      "Servidor flexible",
+      "Servidor de propósito general",
+      "Servidor básico",
+      "Hyperscale (Citus)"
+    ],
+    "correctAnswers": [
+      "Servidor único",
+      "Servidor flexible",
+      "Hyperscale (Citus)"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Los tres modos de implementación oficiales de Azure para PostgreSQL son: Servidor único (ideal para cargas pequeñas con alta disponibilidad integrada), Servidor flexible (más control y personalización para cargas exigentes), e Hyperscale (Citus) (escala horizontalmente para aplicaciones con grandes volúmenes de datos). Servidor de propósito general y básico son niveles de rendimiento, no modos de implementación."
+  },
+  {
+    "id": 780,
+    "text": "¿Qué solución recomendarías para la ejecución bajo demanda de tareas automatizadas en Python con el mínimo costo?",
+    "options": ["Azure Monitor", "Azure Cloud Shell", "Azure Automation", "Azure Functions"],
+    "correctAnswer": "Azure Functions",
+    "categoryId": "azure-services",
+    "explaination": "Azure Functions es un servicio de cómputo serverless que permite ejecutar código en respuesta a eventos o disparadores sin necesitar aprovisionar infraestructura. Es ideal para tareas ocasionales como scripts Python bajo demanda, y como solo se paga por el tiempo que el código se ejecuta, es extremadamente rentable para cargas de trabajo ligeras o irregulares."
+  },
+  {
+    "id": 781,
+    "text": "¿Qué es verdadero sobre los conjuntos de escalado de máquinas virtuales (VMSS) de Azure?",
+    "options": [
+      "Permiten crear múltiples VMs, pero requieren configuración manual del balanceo de carga",
+      "Permiten crear y gestionar un grupo de VMs idénticas con balanceo de carga y escalado automático",
+      "Se usan para emparejar VMs en diferentes regiones para recuperación ante desastres",
+      "Son parte de la oferta de plataforma como servicio (PaaS) de Azure"
+    ],
+    "correctAnswer": "Permiten crear y gestionar un grupo de VMs idénticas con balanceo de carga y escalado automático",
+    "categoryId": "azure-services",
+    "explaination": "Los conjuntos de escalado de VMs de Azure escalan automáticamente el número de instancias según la demanda e integran el balanceo de carga automáticamente con Azure Load Balancer o Application Gateway. Son parte de IaaS, no PaaS, y no están relacionados con el emparejamiento de regiones para recuperación ante desastres."
+  },
+  {
+    "id": 782,
+    "text": "Estás diseñando una aplicación crítica que debe estar disponible incluso en caso de un desastre regional. ¿Cuáles dos opciones ayudarían a lograr resiliencia?",
+    "options": [
+      "Implementar la aplicación en múltiples zonas de disponibilidad dentro de una sola región",
+      "Usar pares de regiones para replicar datos en dos regiones dentro de la misma geografía",
+      "Colocar la aplicación en una región soberana para garantizar cumplimiento",
+      "Configurar servicios con redundancia de zona para recursos como bases de datos SQL y almacenamiento",
+      "Implementar la aplicación en una región sin zonas de disponibilidad"
+    ],
+    "correctAnswers": [
+      "Usar pares de regiones para replicar datos en dos regiones dentro de la misma geografía",
+      "Configurar servicios con redundancia de zona para recursos como bases de datos SQL y almacenamiento"
+    ],
+    "categoryId": "azure-services",
+    "explaination": "Los pares de regiones proporcionan redundancia geográfica; si un desastre afecta a una región, Azure puede conmutar a la región emparejada. Los servicios con redundancia de zona distribuyen los recursos entre múltiples zonas de disponibilidad dentro de una región, garantizando que la app siga operativa si una zona falla. Combinar ambos ofrece recuperación ante desastres regional y alta disponibilidad a nivel de zona."
+  },
+  {
+    "id": 783,
+    "text": "¿Qué servicio de almacenamiento de Azure deberías usar para almacenar datos del sistema operativo y de aplicaciones para múltiples máquinas virtuales?",
+    "options": ["Blob Storage", "File Storage", "Disk Storage", "Queue Storage"],
+    "correctAnswer": "Disk Storage",
+    "categoryId": "azure-services",
+    "explaination": "Disk Storage está diseñado específicamente para su uso con máquinas virtuales en Azure. Admite almacenamiento persistente, lo que significa que los discos del SO y los discos de datos se conservan incluso después de apagar una VM. Blob Storage es para datos no estructurados, File Storage para acceso compartido de archivos vía SMB, y Queue Storage para mensajería entre componentes de aplicaciones."
+  },
+  {
+    "id": 784,
+    "text": "¿Cuál es el propósito de los pares de regiones de Azure?",
+    "options": [
+      "Replicar datos entre diferentes geografías para recuperación ante desastres",
+      "Optimizar la facturación y el uso en diferentes geografías",
+      "Aumentar la velocidad de implementación de máquinas virtuales",
+      "Proporcionar acceso aislado para agencias gubernamentales y militares"
+    ],
+    "correctAnswer": "Replicar datos entre diferentes geografías para recuperación ante desastres",
+    "categoryId": "azure-services",
+    "explaination": "El propósito principal de los pares de regiones de Azure es mejorar la resiliencia y habilitar la recuperación ante desastres. Cada región de Azure se empareja estratégicamente con otra dentro de la misma geografía, permitiendo la replicación automática de datos y la conmutación por error si una región queda no disponible."
+  },
+  {
+    "id": 785,
+    "text": "¿Cuál de las siguientes NO es una característica de Azure Policy?",
+    "options": [
+      "Aplicar políticas automáticamente al crear recursos",
+      "Gestionar el cumplimiento para entornos multi-nube y SaaS",
+      "Definir políticas individuales o iniciativas",
+      "Remediar automáticamente recursos no conformes"
+    ],
+    "correctAnswer": "Gestionar el cumplimiento para entornos multi-nube y SaaS",
+    "categoryId": "azure-management",
+    "explaination": "Azure Policy está diseñado para aplicar estándares organizacionales dentro del entorno de Azure. La gestión del cumplimiento en entornos multi-nube o SaaS está fuera del alcance de Azure Policy; esa es una característica de Microsoft Purview, diseñado para la gobernanza de datos más amplia entre plataformas."
+  },
+  {
+    "id": 786,
+    "text": "¿Qué herramienta de Azure permite la implementación declarativa de infraestructura usando un archivo JSON?",
+    "options": ["Azure CLI", "Plantillas ARM", "Azure Cloud Shell", "Azure Arc"],
+    "correctAnswer": "Plantillas ARM",
+    "categoryId": "azure-management",
+    "explaination": "Las plantillas ARM (Azure Resource Manager) permiten definir infraestructura y configuraciones usando sintaxis declarativa en JSON. Describes qué recursos necesitas y Azure determina cómo implementarlos, permitiendo despliegues consistentes y repetibles. Azure CLI sigue un modelo imperativo, Cloud Shell es el entorno de ejecución, y Azure Arc gestiona recursos fuera de Azure."
   }
 ];
