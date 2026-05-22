@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, XCircle, ChevronDown, Search, Bookmark } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQuizStore } from "@/lib/store/quiz.store";
+import { QuestionNote } from "@/components/quiz/QuestionNote";
+import { QuestionHistory } from "@/components/quiz/QuestionHistory";
 import type { Question, Answer } from "@/types/quiz";
 
 interface QuestionReviewProps {
@@ -135,6 +137,8 @@ export function QuestionReview({ question, answer, index }: QuestionReviewProps)
               </AnimatePresence>
             </div>
           )}
+          <QuestionNote questionId={question.id} />
+          <QuestionHistory questionId={question.id} />
         </div>
       </div>
     </motion.div>

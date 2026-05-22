@@ -284,7 +284,7 @@ export function QuizMenu() {
         })()}
 
         {/* Config card */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm mb-4 space-y-5">
+        <div id="quiz-config" className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm mb-4 space-y-5">
           {/* Domain / category */}
           <div>
             <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">

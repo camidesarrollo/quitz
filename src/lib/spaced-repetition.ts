@@ -116,21 +116,6 @@ function interleaveCards<T>(reviews: T[], newCards: T[]): T[] {
   return result;
 }
 
-/** Legacy helper — use getSRSessionQuestions for new code. */
-export function getDueQuestions<T extends { id: number }>(
-  questions: T[],
-  cards: Record<number, SRCard>,
-  maxCount = 20
-): T[] {
-  const now = Date.now();
-  const due = questions.filter((q) => {
-    const card = cards[q.id];
-    return !card || card.nextReviewAt <= now;
-  });
-  due.sort((a, b) => (cards[a.id]?.nextReviewAt ?? 0) - (cards[b.id]?.nextReviewAt ?? 0));
-  return due.slice(0, maxCount);
-}
-
 export interface SRStats {
   new: number;
   learning: number;
