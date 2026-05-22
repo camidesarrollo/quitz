@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { AZ900 } from "@/data/courses";
 import type { Question } from "@/types/quiz";
 import { QuestionNote } from "@/components/quiz/QuestionNote";
+import { QuestionHistory } from "@/components/quiz/QuestionHistory";
 
 const COURSE = AZ900;
 
@@ -37,16 +38,31 @@ function isCorrectOption(q: Question, option: string): boolean {
 export function BrowseView() {
   const router = useRouter();
   const [filter, setFilter] = useState<Filter>("all");
+  const [search, setSearch] = useState("");
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [direction, setDirection] = useState<1 | -1>(1);
 
-  const questions = filter === "all" ? getAllQuestions() : getQuestionsByCategory(filter);
+  const baseQuestions = filter === "all" ? getAllQuestions() : getQuestionsByCategory(filter);
+  const query = search.trim().toLowerCase();
+  const questions = query
+    ? baseQuestions.filter(
+        (q) =>
+          q.text.toLowerCase().includes(query) ||
+          q.options.some((o) => o.toLowerCase().includes(query))
+      )
+    : baseQuestions;
   const total = questions.length;
   const q = questions[Math.min(index, total - 1)];
 
   function handleFilter(f: Filter) {
     setFilter(f);
+    setIndex(0);
+    setRevealed(false);
+  }
+
+  function handleSearch(value: string) {
+    setSearch(value);
     setIndex(0);
     setRevealed(false);
   }
@@ -65,7 +81,50 @@ export function BrowseView() {
     setRevealed(false);
   }
 
-  if (!q) return null;
+  if (!q) {
+    return (
+      <div className="max-w-lg mx-auto px-4 py-10">
+        <div className="flex items-center gap-3 mb-6">
+          <button
+            type="button"
+            onClick={() => router.push("/")}
+            title="Volver al menú"
+            className="w-9 h-9 rounded-xl border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:border-slate-300 dark:hover:border-slate-600 transition-colors shrink-0"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <h1 className="text-lg font-bold text-slate-900 dark:text-slate-50">Banco de preguntas</h1>
+        </div>
+        <div className="relative mb-4">
+          <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Buscar por texto u opciones…"
+            className="w-full pl-8 pr-8 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-300 dark:focus:ring-teal-700 focus:border-transparent transition-colors"
+          />
+          {search && (
+            <button
+              type="button"
+              onClick={() => handleSearch("")}
+              title="Limpiar búsqueda"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+            >
+              <X size={13} />
+            </button>
+          )}
+        </div>
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 text-center">
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Sin resultados</p>
+          <p className="text-xs text-slate-400 dark:text-slate-500">
+            Ninguna pregunta coincide con{" "}
+            <span className="font-semibold">"{search}"</span>
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   const isMulti = !!(q.correctAnswers && q.correctAnswers.length > 1);
   const categoryName = COURSE.categories.find((c) => c.id === q.categoryId)?.name;
@@ -117,6 +176,28 @@ export function BrowseView() {
             </span>
           </button>
         ))}
+      </div>
+
+      {/* Search */}
+      <div className="relative mb-4">
+        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none" />
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => handleSearch(e.target.value)}
+          placeholder="Buscar por texto u opciones…"
+          className="w-full pl-8 pr-8 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-300 dark:focus:ring-teal-700 focus:border-transparent transition-colors"
+        />
+        {search && (
+          <button
+            type="button"
+            onClick={() => handleSearch("")}
+            title="Limpiar búsqueda"
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+          >
+            <X size={13} />
+          </button>
+        )}
       </div>
 
       {/* Progress row */}
@@ -217,6 +298,7 @@ export function BrowseView() {
           ) : null}
 
           <QuestionNote questionId={q.id} accent="teal" />
+          <QuestionHistory questionId={q.id} />
         </motion.div>
       </AnimatePresence>
 
