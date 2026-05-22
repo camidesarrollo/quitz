@@ -5,6 +5,9 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark, Timer, Flame } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
+import { useSRStore } from "@/lib/store/sr.store";
+import { getMasteryLevel } from "@/lib/spaced-repetition";
+import { isAnswerCorrect } from "@/types/quiz";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
 import { getOptionLabel } from "@/lib/quiz-utils";
@@ -17,6 +20,7 @@ interface QuizPlayerProps {
 export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const router = useRouter();
   const { session, submitAnswer, advanceQuestion, skipQuestion, completeSession, markedQuestionIds, toggleMarkQuestion } = useQuizStore();
+  const { cards: srCards, updateCard: updateSRCard } = useSRStore();
   const [pendingSelections, setPendingSelections] = useState<string[]>([]);
   const [showExplanation, setShowExplanation] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
@@ -106,7 +110,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
         if (isExamMode) {
           setPendingSelections([option]);
         } else {
-          submitAnswer(currentIndex, option);
+          handleSubmit(currentIndex, option);
         }
       } else {
         setPendingSelections((prev) =>
@@ -122,7 +126,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
       if (hasAnswered) {
         advanceQuestion();
       } else if (canConfirm) {
-        submitAnswer(currentIndex, isMultiAnswer ? pendingSelections : pendingSelections[0]);
+        handleSubmit(currentIndex, isMultiAnswer ? pendingSelections : pendingSelections[0]);
       }
       return;
     }
@@ -138,6 +142,14 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
       toggleMarkQuestion(question.id);
     }
   };
+
+  function handleSubmit(idx: number, selected: string | string[]) {
+    submitAnswer(idx, selected);
+    if (session && session.config.mode === "spaced-repetition") {
+      const q = session.questions[idx];
+      updateSRCard(q.id, isAnswerCorrect(q, selected));
+    }
+  }
 
   function handleOptionClick(option: string) {
     if (hasAnswered) return;
@@ -245,6 +257,21 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
             </AnimatePresence>
           </div>
           <div className="flex items-center gap-3">
+            {session.config.mode === "spaced-repetition" && (() => {
+              const level = getMasteryLevel(srCards[question.id]);
+              const styles = {
+                new:       "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400",
+                learning:  "bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400",
+                reviewing: "bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400",
+                mastered:  "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400",
+              };
+              const labels = { new: "Nueva", learning: "Aprendiendo", reviewing: "Revisando", mastered: "Dominada" };
+              return (
+                <span className={cn("text-xs font-semibold px-2 py-0.5 rounded-full", styles[level])}>
+                  {labels[level]}
+                </span>
+              );
+            })()}
             {isExamMode && timeLeft !== null && (
               <span
                 className={cn(

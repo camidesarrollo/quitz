@@ -46,8 +46,7 @@ export function getWeightedQuestions(
   return shuffleArray(result);
 }
 
-const BINARY_OPTIONS = new Set(["Sí", "No"]);
-
+const BINARY_OPTIONS = new Set(["Sí", "No", "Verdadero", "Falso"]);
 export function shuffleQuestionOptions(questions: Question[]): Question[] {
   return questions.map((q) => {
     const isBinary = q.options.length === 2 && q.options.every((o) => BINARY_OPTIONS.has(o));

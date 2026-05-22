@@ -43,8 +43,17 @@ export interface Answer {
   answeredAt: number;
 }
 
-export type QuizMode = "random" | "sequential";
+export type QuizMode = "random" | "sequential" | "spaced-repetition";
 export type QuizStatus = "active" | "completed";
+
+export interface SRCard {
+  questionId: number;
+  easeFactor: number;
+  interval: number;       // days until next review
+  repetitions: number;    // consecutive correct answers
+  nextReviewAt: number;   // ms timestamp
+  lastReviewedAt?: number;
+}
 
 export interface QuizConfig {
   courseId: string;

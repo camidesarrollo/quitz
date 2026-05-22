@@ -19,11 +19,17 @@ import {
   GraduationCap,
   Timer,
   AlertCircle,
+  Brain,
+  CheckCircle2,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
+import { useSRStore } from "@/lib/store/sr.store";
 import { getCategoryCount, getAllQuestions } from "@/lib/repositories/QuestionRepository";
 import { formatDate, formatDuration } from "@/lib/utils";
 import { isPassing, PASS_THRESHOLD, getWrongQuestionsFromHistory } from "@/lib/quiz-utils";
+import { getSRSessionQuestions, getSRStats, SR_NEW_PER_SESSION, SR_REVIEW_PER_SESSION } from "@/lib/spaced-repetition";
+import { CategoryDashboard } from "@/components/quiz/CategoryDashboard";
+import { PassPredictor } from "@/components/quiz/PassPredictor";
 import { cn } from "@/lib/utils";
 import type { QuizConfig, QuizMode } from "@/types/quiz";
 import { AZ900 } from "@/data/courses";
@@ -42,8 +48,12 @@ function buildCountOptions(poolSize: number): number[] {
 export function QuizMenu() {
   const router = useRouter();
   const { session, history, markedQuestionIds, startSession, startSessionWithQuestions, clearSession, clearHistory } = useQuizStore();
+  const { cards: srCards } = useSRStore();
   const wrongQuestions = getWrongQuestionsFromHistory(history);
   const markedQuestions = getAllQuestions().filter((q) => markedQuestionIds.includes(q.id));
+  const allQuestions = getAllQuestions();
+  const srStats = getSRStats(allQuestions, srCards);
+  const srSession = getSRSessionQuestions(allQuestions, srCards);
 
   const [domain, setDomain] = useState<DomainOption>("simulacro");
   const [mode, setMode] = useState<QuizMode>("random");
@@ -123,6 +133,22 @@ export function QuizMenu() {
       label: `Repaso de errores · ${wrongQuestions.length} preg.`,
     };
     const sessionId = startSessionWithQuestions(config, wrongQuestions);
+    router.push(`/quiz/${sessionId}`);
+  }
+
+  function handleStartSR() {
+    if (srSession.questions.length === 0) return;
+    clearSession();
+    const parts: string[] = [];
+    if (srSession.reviewCount > 0) parts.push(`${srSession.reviewCount} repaso${srSession.reviewCount !== 1 ? "s" : ""}`);
+    if (srSession.newCount > 0) parts.push(`${srSession.newCount} nueva${srSession.newCount !== 1 ? "s" : ""}`);
+    const config: QuizConfig = {
+      courseId: COURSE.id,
+      questionCount: srSession.questions.length,
+      mode: "spaced-repetition",
+      label: `Repetición espaciada · ${parts.join(" + ")}`,
+    };
+    const sessionId = startSessionWithQuestions(config, srSession.questions);
     router.push(`/quiz/${sessionId}`);
   }
 
@@ -432,6 +458,96 @@ export function QuizMenu() {
             </button>
           </div>
         )}
+
+        {/* Spaced Repetition */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 p-5 mb-4">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center shrink-0">
+              <Brain size={18} className="text-emerald-600 dark:text-emerald-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                Repetición Espaciada
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                SM-2 · hasta {SR_NEW_PER_SESSION} nuevas + {SR_REVIEW_PER_SESSION} repasos por sesión
+              </p>
+            </div>
+            {srStats.dueReviews > 0 && (
+              <span className="shrink-0 text-xs font-bold bg-emerald-500 text-white rounded-full px-2 py-0.5">
+                {srStats.dueReviews}
+              </span>
+            )}
+          </div>
+
+          {/* Mastery breakdown */}
+          <div className="grid grid-cols-4 gap-1.5 mb-3">
+            <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-2 text-center">
+              <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{srStats.new}</p>
+              <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">Nuevas</p>
+            </div>
+            <div className="bg-amber-50 dark:bg-amber-950/30 rounded-xl p-2 text-center">
+              <p className="text-sm font-bold text-amber-600 dark:text-amber-400">{srStats.learning}</p>
+              <p className="text-[10px] text-amber-600 dark:text-amber-500 mt-0.5">Aprendiendo</p>
+            </div>
+            <div className="bg-blue-50 dark:bg-blue-950/30 rounded-xl p-2 text-center">
+              <p className="text-sm font-bold text-blue-600 dark:text-blue-400">{srStats.reviewing}</p>
+              <p className="text-[10px] text-blue-600 dark:text-blue-500 mt-0.5">Revisando</p>
+            </div>
+            <div className="bg-emerald-50 dark:bg-emerald-950/30 rounded-xl p-2 text-center">
+              <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{srStats.mastered}</p>
+              <p className="text-[10px] text-emerald-600 dark:text-emerald-500 mt-0.5">Dominadas</p>
+            </div>
+          </div>
+
+          {/* Session composition hint */}
+          {srSession.questions.length > 0 && (
+            <div className="flex items-center gap-2 mb-3 text-xs text-slate-400 dark:text-slate-500">
+              {srSession.reviewCount > 0 && (
+                <span className="bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full font-medium">
+                  {srSession.reviewCount} repasos
+                </span>
+              )}
+              {srSession.newCount > 0 && (
+                <span className="bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 px-2 py-0.5 rounded-full font-medium">
+                  {srSession.newCount} nuevas
+                </span>
+              )}
+              <span className="ml-auto">{srSession.questions.length} preg. en total</span>
+            </div>
+          )}
+
+          {srSession.questions.length > 0 ? (
+            <button
+              type="button"
+              onClick={handleStartSR}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-800 text-white font-semibold transition-colors text-sm"
+            >
+              <Brain size={15} />
+              {srSession.reviewCount > 0 && srSession.newCount > 0
+                ? `Estudiar · ${srSession.reviewCount} repasos + ${srSession.newCount} nuevas`
+                : srSession.reviewCount > 0
+                ? `Repasar · ${srSession.reviewCount} pregunta${srSession.reviewCount !== 1 ? "s" : ""}`
+                : `Aprender · ${srSession.newCount} nueva${srSession.newCount !== 1 ? "s" : ""}`}
+            </button>
+          ) : (
+            <div className="flex items-center gap-2 py-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 px-4">
+              <CheckCircle2 size={15} className="text-emerald-500 shrink-0" />
+              <p className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">
+                ¡Todo al día!
+              </p>
+              {srStats.nextReviewAt && (
+                <p className="text-xs text-slate-400 dark:text-slate-500 ml-auto">
+                  Próximo repaso {new Date(srStats.nextReviewAt).toLocaleDateString("es-AR", { weekday: "short", day: "numeric", month: "short" })}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Pass predictor + category breakdown */}
+        {history.length > 0 && <PassPredictor history={history} />}
+        {history.length > 0 && <CategoryDashboard history={history} />}
 
         {/* Wrong answers review */}
         {wrongQuestions.length > 0 && (

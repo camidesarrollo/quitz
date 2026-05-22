@@ -45,7 +45,9 @@ export const useQuizStore = create<QuizStore>()(
       startSessionWithQuestions: (config, questions) => {
         const sessionId = crypto.randomUUID();
         const ordered = shuffleQuestionOptions(
-          config.mode === "sequential" ? questions : shuffleArray(questions)
+          config.mode === "sequential" || config.mode === "spaced-repetition"
+            ? questions
+            : shuffleArray(questions)
         );
         const session: QuizSession = {
           id: sessionId,
