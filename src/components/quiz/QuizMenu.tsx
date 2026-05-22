@@ -21,6 +21,7 @@ import {
   AlertCircle,
   Brain,
   CheckCircle2,
+  Eye,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { useSRStore } from "@/lib/store/sr.store";
@@ -405,6 +406,26 @@ export function QuizMenu() {
             Comenzar quiz
           </button>
         </div>
+
+        {/* Browse mode */}
+        <button
+          type="button"
+          onClick={() => router.push("/browse")}
+          className="w-full bg-white dark:bg-slate-900 rounded-2xl border border-teal-200 dark:border-teal-800/60 p-4 mb-4 flex items-center gap-3 hover:border-teal-300 dark:hover:border-teal-700 transition-colors text-left"
+        >
+          <div className="w-9 h-9 rounded-xl bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center shrink-0">
+            <Eye size={18} className="text-teal-600 dark:text-teal-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+              Explorar banco
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Modo lectura · repasá sin ser evaluado
+            </p>
+          </div>
+          <ChevronRight size={16} className="text-slate-400 shrink-0" />
+        </button>
 
         {/* Exam mode card */}
         {COURSE.examConfig && (

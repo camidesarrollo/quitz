@@ -1104,11 +1104,20 @@ export const az900Questions: Question[] = [
   },
   {
     "id": 130,
-    "text": "Tu cuenta de prueba de Azure caducó. Ahora no puedes [crear cuentas de usuario adicionales de Microsoft Entra ID]. ¿Qué es correcto?",
-    "options": ["No es necesario realizar ningún cambio", "Iniciar una máquina virtual de Azure existente", "Acceder a tus datos almacenados en Azure", "Acceder al portal de Azure"],
-    "correctAnswer": "Iniciar una máquina virtual de Azure existente",
+    "text": "Tu cuenta de prueba de Azure caducó. ¿Qué acciones aún puedes realizar? (Selecciona todas las que correspondan)",
+    "options": [
+      "No es necesario realizar ningún cambio",
+      "Iniciar una máquina virtual de Azure existente",
+      "Acceder a tus datos almacenados en Azure",
+      "Acceder al portal de Azure"
+    ],
+    "correctAnswers": [
+      "Iniciar una máquina virtual de Azure existente",
+      "Acceder a tus datos almacenados en Azure",
+      "Acceder al portal de Azure"
+    ],
     "categoryId": "azure-management",
-    "explaination": "Cuando una cuenta de prueba de Azure caduca, no puedes crear nuevos recursos ni cuentas de usuario adicionales en Microsoft Entra ID. Sin embargo, aún puedes iniciar máquinas virtuales de Azure existentes y acceder a tus datos almacenados en Azure, pero no podrás acceder al portal de Azure para crear nuevos recursos."
+    "explaination": "Cuando una cuenta de prueba de Azure expira, no puedes crear nuevos recursos ni agregar nuevas cuentas de Microsoft Entra ID. Sin embargo, normalmente aún puedes acceder al portal de Azure, consultar recursos existentes y acceder a datos almacenados durante el período de retención."
   },
   {
     "id": 131,

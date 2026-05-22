@@ -10,6 +10,7 @@ import { getMasteryLevel } from "@/lib/spaced-repetition";
 import { isAnswerCorrect } from "@/types/quiz";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
+import { QuestionNote } from "./QuestionNote";
 import { getOptionLabel } from "@/lib/quiz-utils";
 import { cn } from "@/lib/utils";
 
@@ -510,6 +511,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                     </AnimatePresence>
                   </div>
                 )}
+                <QuestionNote questionId={question.id} />
               </div>
             </motion.div>
           )}
