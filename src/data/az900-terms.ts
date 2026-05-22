@@ -335,25 +335,25 @@ export const AZ900_TERMS: TermCard[] = [
   {
     id: 2050,
     term: "LRS (Locally Redundant Storage)",
-    definition: "Replica datos 3 veces dentro de un único datacenter en la misma región; mínimo nivel de redundancia disponible.",
+    definition: "Replica tus datos tres veces dentro de un mismo centro de datos en la región primaria. Es la opción más económica y con menor latencia, pero no protege contra fallos en el centro de datos físico.",
     categoryId: "storage",
   },
   {
     id: 2051,
     term: "ZRS (Zone-Redundant Storage)",
-    definition: "Replica datos de forma síncrona en 3 zonas de disponibilidad de la misma región; protege ante fallos de datacenter.",
+    definition: "Replica tus datos de forma síncrona en tres zonas de disponibilidad diferentes dentro de una misma región. Protege tus datos si una de las instalaciones físicas (centro de datos) falla.",
     categoryId: "storage",
   },
   {
     id: 2052,
     term: "GRS (Geo-Redundant Storage)",
-    definition: "Replica datos de forma asíncrona en una segunda región geográfica; protege ante desastres que afecten a toda una región.",
+    definition: ": Combina LRS y replicación regional. Guarda 3 copias a nivel local en la región primaria y luego las copia de forma asíncrona a una región secundaria ubicada a cientos de kilómetros de distancia. Brinda máxima protección contra desastres a gran escala.",
     categoryId: "storage",
   },
   {
     id: 2053,
     term: "RA-GRS (Read-Access Geo-Redundant Storage)",
-    definition: "Como GRS pero añade acceso de solo lectura a los datos replicados en la región secundaria, incluso sin failover.",
+    definition: "Es una función de replicación de Microsoft Azure que guarda tus datos en la región primaria y los copia de forma asíncrona a una secundaria. Permite leer información desde la segunda ubicación incluso si la principal falla, lo que aumenta la disponibilidad sin esperar a que se restablezca el servicio.",
     categoryId: "storage",
   },
 
