@@ -1,4 +1,3 @@
-import { AppHeader } from "@/components/layout/AppHeader";
 import { ResultsView } from "@/components/quiz/ResultsView";
 
 interface PageProps {
@@ -8,11 +7,8 @@ interface PageProps {
 export default async function ResultsPage({ params }: PageProps) {
   const { sessionId } = await params;
   return (
-    <>
-      <AppHeader />
-      <main>
-        <ResultsView sessionId={sessionId} />
-      </main>
-    </>
+    <main>
+      <ResultsView sessionId={sessionId} />
+    </main>
   );
 }

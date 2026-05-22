@@ -1,4 +1,3 @@
-import { AppHeader } from "@/components/layout/AppHeader";
 import { HistoryDetailView } from "@/components/quiz/HistoryDetailView";
 
 interface PageProps {
@@ -8,11 +7,8 @@ interface PageProps {
 export default async function HistoryDetailPage({ params }: PageProps) {
   const { sessionId } = await params;
   return (
-    <>
-      <AppHeader />
-      <main>
-        <HistoryDetailView sessionId={sessionId} />
-      </main>
-    </>
+    <main>
+      <HistoryDetailView sessionId={sessionId} />
+    </main>
   );
 }

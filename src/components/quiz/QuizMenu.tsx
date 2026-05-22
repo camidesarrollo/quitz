@@ -626,7 +626,7 @@ export function QuizMenu() {
 
         {/* History */}
         {history.length > 0 && (
-          <div>
+          <div id="historial">
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                 Historial reciente
