@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Eye, Clock } from "lucide-react";
+import { Home, Eye, Clock, BookMarked } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS: {
@@ -22,6 +22,12 @@ const NAV_ITEMS: {
     label: "Banco",
     icon: Eye,
     isActive: (p) => p === "/browse",
+  },
+  {
+    href: "/terms",
+    label: "Vocab",
+    icon: BookMarked,
+    isActive: (p) => p === "/terms",
   },
   {
     href: "/#historial",

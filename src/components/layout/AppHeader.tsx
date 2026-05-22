@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun, Home, Eye, Clock } from "lucide-react";
+import { Moon, Sun, Home, Eye, Clock, BookMarked } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS: {
@@ -23,6 +23,12 @@ const NAV_LINKS: {
     label: "Banco",
     icon: Eye,
     isActive: (p) => p === "/browse",
+  },
+  {
+    href: "/terms",
+    label: "Vocabulario",
+    icon: BookMarked,
+    isActive: (p) => p === "/terms",
   },
   {
     href: "/#historial",

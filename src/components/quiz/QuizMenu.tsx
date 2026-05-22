@@ -22,7 +22,9 @@ import {
   Brain,
   CheckCircle2,
   Eye,
+  BookMarked,
 } from "lucide-react";
+import { AZ900_TERMS } from "@/data/az900-terms";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { useSRStore } from "@/lib/store/sr.store";
 import { getCategoryCount, getAllQuestions } from "@/lib/repositories/QuestionRepository";
@@ -422,6 +424,26 @@ export function QuizMenu() {
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               Modo lectura · repasá sin ser evaluado
+            </p>
+          </div>
+          <ChevronRight size={16} className="text-slate-400 shrink-0" />
+        </button>
+
+        {/* Vocabulary study */}
+        <button
+          type="button"
+          onClick={() => router.push("/terms")}
+          className="w-full bg-white dark:bg-slate-900 rounded-2xl border border-orange-200 dark:border-orange-800/60 p-4 mb-4 flex items-center gap-3 hover:border-orange-300 dark:hover:border-orange-700 transition-colors text-left"
+        >
+          <div className="w-9 h-9 rounded-xl bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center shrink-0">
+            <BookMarked size={18} className="text-orange-600 dark:text-orange-400" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+              Vocabulario AZ-900
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              {AZ900_TERMS.length} términos clave · practica definiciones
             </p>
           </div>
           <ChevronRight size={16} className="text-slate-400 shrink-0" />
