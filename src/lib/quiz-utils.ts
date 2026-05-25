@@ -1,4 +1,14 @@
-import type { Question, CategoryWeight, CompletedSession } from "@/types/quiz";
+import type { Question, CategoryWeight, CompletedSession, MentalState } from "@/types/quiz";
+
+export function getMentalState(recentResults: boolean[]): MentalState {
+  const last = recentResults.slice(-3);
+  if (last.length < 2) return "neutral";
+  const correct = last.filter(Boolean).length;
+  const wrong = last.length - correct;
+  if (correct >= 2) return "hot";
+  if (wrong >= 2) return "cold";
+  return "neutral";
+}
 
 export function shuffleArray<T>(arr: T[]): T[] {
   const a = [...arr];

@@ -34,6 +34,7 @@ export interface Question {
   correctAnswer?: string;
   correctAnswers?: string[]; // multi-answer questions
   explaination?: string;
+  difficulty?: Difficulty;
 }
 
 export interface Answer {
@@ -43,7 +44,9 @@ export interface Answer {
   answeredAt: number;
 }
 
-export type QuizMode = "random" | "sequential" | "spaced-repetition";
+export type QuizMode = "random" | "sequential" | "spaced-repetition" | "sniper" | "mental-state";
+export type Difficulty = "easy" | "medium" | "hard";
+export type MentalState = "hot" | "neutral" | "cold";
 export type QuizStatus = "active" | "completed";
 
 export interface SRCard {

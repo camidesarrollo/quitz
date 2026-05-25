@@ -7,6 +7,7 @@ import {
   BookOpen,
   Shuffle,
   ListOrdered,
+  Crosshair,
   Trophy,
   Clock,
   LayoutGrid,
@@ -23,11 +24,13 @@ import {
   CheckCircle2,
   Eye,
   BookMarked,
+  Lightbulb,
 } from "lucide-react";
 import { AZ900_TERMS } from "@/data/az900-terms";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { useSRStore } from "@/lib/store/sr.store";
 import { getCategoryCount, getAllQuestions } from "@/lib/repositories/QuestionRepository";
+import { AZ900_STUDY_CATEGORIES, getStudyQuestionsByCategory, getStudyCategoryCount } from "@/lib/repositories/StudyRepository";
 import { formatDate, formatDuration } from "@/lib/utils";
 import { isPassing, PASS_THRESHOLD, getWrongQuestionsFromHistory } from "@/lib/quiz-utils";
 import { getSRSessionQuestions, getSRStats, SR_NEW_PER_SESSION, SR_REVIEW_PER_SESSION } from "@/lib/spaced-repetition";
@@ -62,6 +65,7 @@ export function QuizMenu() {
   const [mode, setMode] = useState<QuizMode>("random");
   const [customInput, setCustomInput] = useState("");
   const [isCustom, setIsCustom] = useState(false);
+  const [studyCategory, setStudyCategory] = useState<string>(AZ900_STUDY_CATEGORIES[0]?.id ?? "");
 
   // Pool size depends on selected domain
   const poolSize =
@@ -172,6 +176,23 @@ export function QuizMenu() {
     router.push(`/quiz/${sessionId}`);
   }
 
+  function handleStartStudy() {
+    if (!studyCategory) return;
+    const questions = getStudyQuestionsByCategory(studyCategory);
+    if (questions.length === 0) return;
+    clearSession();
+    const catName = AZ900_STUDY_CATEGORIES.find((c) => c.id === studyCategory)?.name ?? studyCategory;
+    const config: QuizConfig = {
+      courseId: "az-900-study",
+      categoryId: studyCategory,
+      questionCount: questions.length,
+      mode: "random",
+      label: `Estudio · ${catName}`,
+    };
+    const sessionId = startSessionWithQuestions(config, questions);
+    router.push(`/quiz/${sessionId}`);
+  }
+
   function handleStart() {
     clearSession();
 
@@ -180,6 +201,7 @@ export function QuizMenu() {
       ? undefined
       : COURSE.categories.find((c) => c.id === domain);
 
+    const modePrefix = mode === "sniper" ? "Sniper · " : mode === "mental-state" ? "Estado Mental · " : "";
     const config: QuizConfig = {
       courseId: COURSE.id,
       categoryId: isSimulacro ? undefined : domain,
@@ -187,8 +209,8 @@ export function QuizMenu() {
       questionCount: count,
       mode,
       label: isSimulacro
-        ? `Simulacro · ${count} preg.`
-        : `${category?.name ?? domain} · ${count} preg.`,
+        ? `${modePrefix}Simulacro · ${count} preg.`
+        : `${modePrefix}${category?.name ?? domain} · ${count} preg.`,
     };
 
     const sessionId = startSession(config);
@@ -380,6 +402,8 @@ export function QuizMenu() {
                 [
                   { value: "random", label: "Aleatorio", icon: Shuffle },
                   { value: "sequential", label: "Secuencial", icon: ListOrdered },
+                  { value: "sniper", label: "Sniper", icon: Crosshair },
+                  { value: "mental-state", label: "Estado Mental", icon: Brain },
                 ] as const
               ).map(({ value, label, icon: Icon }) => (
                 <button
@@ -406,6 +430,51 @@ export function QuizMenu() {
             className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold transition-colors text-sm"
           >
             Comenzar quiz
+          </button>
+        </div>
+
+        {/* Study section */}
+        <div className="bg-white dark:bg-slate-900 rounded-2xl border border-sky-200 dark:border-sky-800/60 p-5 mb-4">
+          <div className="flex items-start gap-3 mb-4">
+            <div className="w-9 h-9 rounded-xl bg-sky-100 dark:bg-sky-900/40 flex items-center justify-center shrink-0">
+              <Lightbulb size={18} className="text-sky-600 dark:text-sky-400" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-semibold text-slate-900 dark:text-slate-50">
+                Estudio de Conceptos
+              </p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Preguntas conceptuales por tema · no son de examen
+              </p>
+            </div>
+          </div>
+
+          <div className="mb-3">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
+              Tema
+            </p>
+            <select
+              value={studyCategory}
+              onChange={(e) => setStudyCategory(e.target.value)}
+              aria-label="Tema de estudio"
+              className="w-full px-3 py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold text-slate-700 dark:text-slate-300 outline-none focus:border-sky-500 dark:focus:border-sky-500 transition-colors"
+            >
+              {AZ900_STUDY_CATEGORIES.map((cat) => (
+                <option key={cat.id} value={cat.id}>
+                  {cat.name} · {getStudyCategoryCount(cat.id)} preg.
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+            type="button"
+            onClick={handleStartStudy}
+            disabled={!studyCategory}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 active:bg-sky-800 text-white font-semibold transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Lightbulb size={15} />
+            Comenzar estudio
           </button>
         </div>
 

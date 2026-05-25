@@ -3,11 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark, Timer, Flame } from "lucide-react";
+import { ArrowRight, CheckCircle2, XCircle, CheckSquare, ChevronDown, SkipForward, Bookmark, Timer, Flame, Crosshair, Snowflake, Minus } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { useSRStore } from "@/lib/store/sr.store";
 import { getMasteryLevel } from "@/lib/spaced-repetition";
 import { isAnswerCorrect } from "@/types/quiz";
+import type { Difficulty, MentalState } from "@/types/quiz";
+import { getMentalState } from "@/lib/quiz-utils";
 import { OptionButton } from "./OptionButton";
 import { QuizHeader } from "./QuizHeader";
 import { QuestionNote } from "./QuestionNote";
@@ -20,11 +22,18 @@ interface QuizPlayerProps {
 
 export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   const router = useRouter();
-  const { session, submitAnswer, advanceQuestion, skipQuestion, completeSession, markedQuestionIds, toggleMarkQuestion } = useQuizStore();
+  const { session, submitAnswer, advanceQuestion, skipQuestion, completeSession, reinsertCurrentQuestion, reorderForMentalState, markedQuestionIds, toggleMarkQuestion } = useQuizStore();
   const { cards: srCards, updateCard: updateSRCard } = useSRStore();
   const [pendingSelections, setPendingSelections] = useState<string[]>([]);
   const [showExplanation, setShowExplanation] = useState(false);
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const [sniperTimer, setSniperTimer] = useState<number | null>(null);
+  const isSniperMode = session?.config.mode === "sniper";
+  const isMentalStateMode = session?.config.mode === "mental-state";
+  // 15 chars/s reading speed; minimum 12 s
+  const sniperDuration = isSniperMode
+    ? Math.max(12, Math.ceil((session?.questions[session?.currentIndex ?? 0]?.text.length ?? 0) / 15))
+    : 12;
 
   useEffect(() => {
     if (!session || session.id !== sessionId) {
@@ -57,6 +66,31 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     if (timeLeft === 0) completeSession();
   }, [timeLeft, completeSession]);
 
+  // Sniper mode: reset per-question countdown on each new question
+  useEffect(() => {
+    if (!isSniperMode || !session || session.status !== "active") return;
+    setSniperTimer(sniperDuration);
+  }, [session?.currentIndex, isSniperMode, sniperDuration]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Sniper mode: tick down every second while unanswered
+  useEffect(() => {
+    const answered = session?.currentIndex !== undefined
+      && session.answers[session.currentIndex] !== undefined;
+    if (!isSniperMode || sniperTimer === null || sniperTimer <= 0 || answered) return;
+    const id = setTimeout(() => setSniperTimer((t) => (t !== null ? t - 1 : null)), 1000);
+    return () => clearTimeout(id);
+  }, [sniperTimer, isSniperMode, session?.currentIndex, session?.answers]);
+
+  // Sniper mode: auto-submit wrong when countdown hits zero
+  useEffect(() => {
+    if (!isSniperMode || sniperTimer !== 0) return;
+    const currentIdx = session?.currentIndex;
+    if (currentIdx === undefined) return;
+    if (session?.answers[currentIdx] !== undefined) return;
+    reinsertCurrentQuestion();
+    submitAnswer(currentIdx, "");
+  }, [sniperTimer, isSniperMode, session?.currentIndex, session?.answers, reinsertCurrentQuestion, submitAnswer]);
+
   // Keyboard shortcuts — stable listener, handler updated each render via ref
   const keyHandlerRef = useRef<(e: KeyboardEvent) => void>(() => {});
   useEffect(() => {
@@ -78,8 +112,9 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
 
   const pendingCount = (session.pendingIndices ?? []).length;
   const unansweredCount = questions.filter((_, i) => answers[i] === undefined).length;
-  const canSkip = !hasAnswered && unansweredCount > 1;
+  const canSkip = !hasAnswered && unansweredCount > 1 && !isSniperMode;
   const isMarked = markedQuestionIds.includes(question.id);
+  const sniperLocked = isSniperMode && !hasAnswered && sniperTimer !== null && sniperTimer > 5;
 
   const isExamMode = session.config.isExamMode ?? false;
 
@@ -90,6 +125,14 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     if (answers[answeredSorted[i]]?.isCorrect) streak++;
     else break;
   }
+
+  const mentalState: MentalState = (() => {
+    if (!isMentalStateMode) return "neutral";
+    const sorted = Object.keys(answers)
+      .map(Number)
+      .sort((a, b) => answers[a].answeredAt - answers[b].answeredAt);
+    return getMentalState(sorted.slice(-3).map((i) => answers[i].isCorrect));
+  })();
 
   const isMultiAnswer = (question.correctAnswers?.length ?? 0) > 1;
   const requiredCount = question.correctAnswers?.length ?? 1;
@@ -102,7 +145,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
     const key = e.key.toUpperCase();
 
     // A–D: select / toggle option
-    if (!hasAnswered && ["A", "B", "C", "D"].includes(key)) {
+    if (!hasAnswered && !sniperLocked && ["A", "B", "C", "D"].includes(key)) {
       const idx = key.charCodeAt(0) - 65;
       const option = question.options[idx];
       if (!option) return;
@@ -145,15 +188,26 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
   };
 
   function handleSubmit(idx: number, selected: string | string[]) {
+    const correct = isAnswerCorrect(session!.questions[idx], selected);
+    if (!correct && isSniperMode) reinsertCurrentQuestion();
     submitAnswer(idx, selected);
-    if (session && session.config.mode === "spaced-repetition") {
-      const q = session.questions[idx];
-      updateSRCard(q.id, isAnswerCorrect(q, selected));
+    if (isMentalStateMode) {
+      const sorted = Object.keys(session!.answers)
+        .map(Number)
+        .sort((a, b) => session!.answers[a].answeredAt - session!.answers[b].answeredAt);
+      const recent = [...sorted.slice(-2).map((i) => session!.answers[i].isCorrect), correct];
+      const state = getMentalState(recent);
+      const preferred: Difficulty = state === "hot" ? "hard" : state === "cold" ? "easy" : "medium";
+      reorderForMentalState(preferred);
+    }
+    if (session!.config.mode === "spaced-repetition") {
+      const q = session!.questions[idx];
+      updateSRCard(q.id, correct);
     }
   }
 
   function handleOptionClick(option: string) {
-    if (hasAnswered) return;
+    if (hasAnswered || sniperLocked) return;
 
     if (!isMultiAnswer) {
       if (isExamMode) {
@@ -288,6 +342,32 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                 {formatTimer(timeLeft)}
               </span>
             )}
+            {isMentalStateMode && Object.keys(answers).length >= 2 && (() => {
+              const cfg = {
+                hot:     { cls: "bg-orange-100 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400", Icon: Flame,     label: "caliente" },
+                cold:    { cls: "bg-blue-100 dark:bg-blue-900/40 text-blue-500 dark:text-blue-400",         Icon: Snowflake, label: "fría" },
+                neutral: { cls: "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400",        Icon: Minus,     label: "neutral" },
+              }[mentalState];
+              return (
+                <span className={cn("text-xs font-bold px-2 py-0.5 rounded-full flex items-center gap-1", cfg.cls)}>
+                  <cfg.Icon size={11} className={mentalState === "hot" ? "fill-current" : ""} />
+                  {cfg.label}
+                </span>
+              );
+            })()}
+            {isSniperMode && sniperTimer !== null && !hasAnswered && (
+              <span
+                className={cn(
+                  "text-sm font-bold tabular-nums flex items-center gap-1",
+                  sniperTimer <= 3
+                    ? "text-red-500 dark:text-red-400"
+                    : "text-slate-500 dark:text-slate-400"
+                )}
+              >
+                <Crosshair size={13} />
+                {sniperTimer}s
+              </span>
+            )}
             <button
               type="button"
               onClick={() => toggleMarkQuestion(question.id)}
@@ -325,6 +405,13 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
               {question.text}
             </h2>
 
+            {/* Sniper lock hint */}
+            {sniperLocked && (
+              <p className="text-xs text-slate-400 dark:text-slate-500 mb-3 text-center">
+                Opciones disponibles en {sniperTimer! - 5}s · lee el enunciado completo
+              </p>
+            )}
+
             {/* Multi-answer hint */}
             {isMultiAnswer && !hasAnswered && (
               <p className="text-xs text-indigo-600 dark:text-indigo-400 font-medium mb-4 flex items-center gap-1.5">
@@ -336,7 +423,7 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
             )}
             {!isMultiAnswer && <div className="mb-4" />}
 
-            <div className="space-y-2.5">
+            <div className={cn("space-y-2.5", sniperLocked && "opacity-50 pointer-events-none select-none")}>
               {question.options.map((option, i) => (
                 <OptionButton
                   key={option}
@@ -448,7 +535,13 @@ export function QuizPlayer({ sessionId }: QuizPlayerProps) {
                       : "text-red-700 dark:text-red-300"
                   )}
                 >
-                  {answer.isCorrect ? "¡Correcto!" : "Incorrecto"}
+                  {answer.isCorrect
+                    ? "¡Correcto!"
+                    : isSniperMode && answer.selectedOption === ""
+                    ? "Tiempo agotado · vuelve en 2 preguntas"
+                    : isSniperMode
+                    ? "Incorrecto · vuelve en 2 preguntas"
+                    : "Incorrecto"}
                 </p>
                 {!answer.isCorrect && (
                   <div className="text-sm text-slate-600 dark:text-slate-400 mt-0.5 space-y-0.5">

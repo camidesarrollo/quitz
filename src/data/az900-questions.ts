@@ -7,7 +7,7 @@ export const az900Questions: Question[] = [
     "options": ["Sí", "No"],
     "correctAnswer": "Sí",
     "categoryId": "azure-services",
-    "explaination": "Azure Web Apps es un servicio de plataforma como servicio (PaaS) que ofrece escalado automático, lo que permite a las aplicaciones web ajustarse automáticamente a la demanda sin necesidad de intervención manual."
+    "explaination": "Azure Web Apps es un servicio de plataforma como servicio (PaaS) que ofrece escalado automático, lo que permite a las aplicaciones web ajustarse automáticamente a la demanda sin necesidad de intervención manual.",
   },
   {
     "id": 2,

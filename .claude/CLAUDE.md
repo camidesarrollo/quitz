@@ -24,7 +24,7 @@ src/
 │   └── quiz/                     # Todos los componentes de quiz
 ├── data/
 │   ├── courses.ts                # Definición del curso AZ-900
-│   └── az900-questions.ts        # Banco de ~483 preguntas en español
+│   └── az900-questions.ts        # Banco de ~n preguntas en español
 ├── lib/
 │   ├── quiz-utils.ts             # Lógica de selección, shuffle, utilidades
 │   ├── utils.ts                  # cn(), formatDuration(), formatDate()

@@ -8,6 +8,7 @@ import type {
   Question,
   Answer,
   CompletedSession,
+  Difficulty,
 } from "@/types/quiz";
 import { isAnswerCorrect, getSessionScore } from "@/types/quiz";
 import { getAllQuestions, getQuestionsByCategory } from "@/lib/repositories/QuestionRepository";
@@ -29,6 +30,8 @@ interface QuizStore {
   submitAnswer: (questionIndex: number, selected: string | string[]) => void;
   advanceQuestion: () => void;
   skipQuestion: () => void;
+  reinsertCurrentQuestion: () => void;
+  reorderForMentalState: (preferred: Difficulty) => void;
   completeSession: () => void;
   clearSession: () => void;
   clearHistory: () => void;
@@ -144,6 +147,46 @@ export const useQuizStore = create<QuizStore>()(
         } else {
           set({ session: { ...session, currentIndex: next, pendingIndices: pending } });
         }
+      },
+
+      reinsertCurrentQuestion: () => {
+        const { session } = get();
+        if (!session || session.status !== "active") return;
+        const { questions, currentIndex } = session;
+        const question = questions[currentIndex];
+        // Insert the failed question 2 positions ahead (or at end if near the finish)
+        const insertIdx = Math.min(currentIndex + 2, questions.length);
+        const newQuestions = [
+          ...questions.slice(0, insertIdx),
+          question,
+          ...questions.slice(insertIdx),
+        ];
+        set({ session: { ...session, questions: newQuestions } });
+      },
+
+      reorderForMentalState: (preferred) => {
+        const { session } = get();
+        if (!session || session.status !== "active") return;
+        const { questions, currentIndex } = session;
+        const remaining = questions.slice(currentIndex + 1);
+        if (remaining.length <= 1) return;
+
+        let targetIdx = remaining.findIndex((q) => q.difficulty === preferred);
+        if (targetIdx === -1) {
+          // fallback: medium when preferred not found
+          targetIdx = remaining.findIndex((q) => q.difficulty === "medium");
+        }
+        if (targetIdx <= 0) return; // already first or not found
+
+        const newRemaining = [...remaining];
+        const [picked] = newRemaining.splice(targetIdx, 1);
+        newRemaining.unshift(picked);
+        set({
+          session: {
+            ...session,
+            questions: [...questions.slice(0, currentIndex + 1), ...newRemaining],
+          },
+        });
       },
 
       skipQuestion: () => {
