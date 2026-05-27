@@ -3853,7 +3853,7 @@ export const softwareAsServiceQuestions: Question[] = [
   },
 ];
 // ─────────────────────────────────────────────
-// software-as-service  (20301-20300)
+// azure accounts (20301-20330)
 // ─────────────────────────────────────────────
 export const azureAccountsQuestions: Question[] = [
   {
@@ -4277,3 +4277,428 @@ export const azureAccountsQuestions: Question[] = [
     "difficulty": "medium"
   }
 ];
+// ─────────────────────────────────────────────
+// azure infrastructure (20331-20360)
+// ─────────────────────────────────────────────
+export const azureInfrastructureQuestions: Question[] = [
+  {
+    "id": 20331,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué es un datacenter de Azure?",
+    "options": [
+      "Una instalación física con servidores, refrigeración, energía y conectividad de red organizados en racks",
+      "Una zona geográfica que agrupa varias regiones",
+      "Un servicio virtual de almacenamiento distribuido",
+      "Un centro de soporte técnico de Microsoft"
+    ],
+    "correctAnswer": "Una instalación física con servidores, refrigeración, energía y conectividad de red organizados en racks",
+    "explaination": "Los datacenters de Azure son instalaciones físicas que contienen servidores organizados en racks con alimentación eléctrica dedicada, refrigeración y conectividad de red de alta velocidad.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20332,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál es la unidad organizativa base de la infraestructura global de Azure?",
+    "options": [
+      "Las regiones geográficas",
+      "Los datacenters individuales",
+      "Los grupos de recursos",
+      "Las suscripciones"
+    ],
+    "correctAnswer": "Las regiones geográficas",
+    "explaination": "Las regiones son la unidad organizativa base de la infraestructura global de Azure. Cada región es un conjunto de datacenters conectados entre sí dentro de un perímetro de latencia definido.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20333,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué es una región de Azure?",
+    "options": [
+      "Un área geográfica que contiene al menos un datacenter, conectados en red con baja latencia",
+      "Un único datacenter físico de Microsoft",
+      "Un grupo de suscripciones de Azure agrupadas por país",
+      "Una zona de facturación independiente"
+    ],
+    "correctAnswer": "Un área geográfica que contiene al menos un datacenter, conectados en red con baja latencia",
+    "explaination": "Una región de Azure es un área geográfica que contiene uno o más datacenters próximos entre sí y conectados mediante una red de baja latencia.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20334,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Por qué es importante seleccionar la región correcta al implementar recursos en Azure?",
+    "options": [
+      "Porque afecta la latencia, disponibilidad de servicios, cumplimiento normativo y costos",
+      "Porque determina el idioma de la interfaz del portal",
+      "Porque solo algunas regiones permiten usar máquinas virtuales",
+      "Porque la región define el tipo de suscripción disponible"
+    ],
+    "correctAnswer": "Porque afecta la latencia, disponibilidad de servicios, cumplimiento normativo y costos",
+    "explaination": "La elección de región impacta directamente en la latencia para los usuarios, los servicios disponibles, los requisitos de residencia de datos y soberanía, y el costo de los recursos.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20335,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál de las siguientes afirmaciones sobre las regiones de Azure es CORRECTA?",
+    "options": [
+      "No todos los servicios de Azure están disponibles en todas las regiones",
+      "Todos los servicios de Azure están disponibles en todas las regiones",
+      "Cada región tiene exactamente tres datacenters",
+      "Las regiones no tienen relación con la latencia de red"
+    ],
+    "correctAnswer": "No todos los servicios de Azure están disponibles en todas las regiones",
+    "explaination": "Algunos servicios de Azure solo están disponibles en regiones específicas. Al elegir una región se debe verificar la disponibilidad del servicio requerido.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20336,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué son las zonas de disponibilidad de Azure?",
+    "options": [
+      "Datacenters físicamente separados dentro de una misma región, con energía, refrigeración y red independientes",
+      "Regiones alternativas para recuperación ante desastres",
+      "Grupos de suscripciones distribuidas geográficamente",
+      "Zonas de facturación separadas dentro de una región"
+    ],
+    "correctAnswer": "Datacenters físicamente separados dentro de una misma región, con energía, refrigeración y red independientes",
+    "explaination": "Las zonas de disponibilidad son ubicaciones físicamente aisladas dentro de una región de Azure, cada una con su propia infraestructura de energía, refrigeración y red para garantizar alta disponibilidad.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20337,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuántas zonas de disponibilidad mínimas debe tener una región para ser considerada compatible con zonas de disponibilidad?",
+    "options": [
+      "Al menos 2 zonas",
+      "Al menos 3 zonas",
+      "Al menos 5 zonas",
+      "Al menos 4 zonas"
+    ],
+    "correctAnswer": "Al menos 3 zonas",
+    "explaination": "Para que una región sea compatible con zonas de disponibilidad, debe tener un mínimo de tres zonas separadas físicamente, garantizando así redundancia y resiliencia.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20338,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál es el principal beneficio de usar zonas de disponibilidad en Azure?",
+    "options": [
+      "Proteger las aplicaciones y datos frente a fallos en un datacenter individual",
+      "Reducir el costo de los recursos de cómputo",
+      "Aumentar la velocidad de procesamiento de las VMs",
+      "Permitir el acceso a regiones soberanas"
+    ],
+    "correctAnswer": "Proteger las aplicaciones y datos frente a fallos en un datacenter individual",
+    "explaination": "Las zonas de disponibilidad protegen contra fallos de datacenter al distribuir recursos en ubicaciones físicas aisladas dentro de la misma región.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20339,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cómo están conectadas las zonas de disponibilidad entre sí dentro de una región de Azure?",
+    "options": [
+      "Mediante redes privadas de fibra óptica de alta velocidad y baja latencia",
+      "A través de Internet pública con cifrado SSL",
+      "Mediante VPN de sitio a sitio",
+      "No están conectadas entre sí directamente"
+    ],
+    "correctAnswer": "Mediante redes privadas de fibra óptica de alta velocidad y baja latencia",
+    "explaination": "Las zonas de disponibilidad están interconectadas mediante redes privadas de fibra óptica de muy alta velocidad para garantizar baja latencia en la comunicación entre ellas.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20340,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuáles son los tres tipos de categorías de servicios de Azure respecto a las zonas de disponibilidad?",
+    "options": [
+      "Servicios zonales, con redundancia de zona y no regionales",
+      "Servicios primarios, secundarios y terciarios",
+      "Servicios básicos, estándar y premium",
+      "Servicios locales, regionales y globales"
+    ],
+    "correctAnswer": "Servicios zonales, con redundancia de zona y no regionales",
+    "explaination": "Azure clasifica sus servicios respecto a zonas de disponibilidad en: zonales (fijados a una zona), con redundancia de zona (replicados automáticamente entre zonas) y no regionales (disponibles globalmente).",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20341,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué son los servicios 'zonales' en el contexto de zonas de disponibilidad?",
+    "options": [
+      "Servicios que se anclan a una zona de disponibilidad específica, como VMs o discos administrados",
+      "Servicios replicados automáticamente entre todas las zonas",
+      "Servicios disponibles solo en regiones sin zonas de disponibilidad",
+      "Servicios distribuidos globalmente sin zona asignada"
+    ],
+    "correctAnswer": "Servicios que se anclan a una zona de disponibilidad específica, como VMs o discos administrados",
+    "explaination": "Los servicios zonales se implementan en una zona de disponibilidad específica. Ejemplos incluyen máquinas virtuales, discos administrados y direcciones IP estándar.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20342,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué garantiza un SLA con zonas de disponibilidad frente a un SLA de una sola VM?",
+    "options": [
+      "Mayor porcentaje de tiempo de actividad garantizado al distribuir réplicas en múltiples zonas",
+      "Menor costo de operación mensual",
+      "Acceso exclusivo a hardware dedicado",
+      "Eliminación total de cualquier tiempo de inactividad"
+    ],
+    "correctAnswer": "Mayor porcentaje de tiempo de actividad garantizado al distribuir réplicas en múltiples zonas",
+    "explaination": "Al distribuir réplicas en múltiples zonas de disponibilidad, Azure puede ofrecer SLAs de mayor disponibilidad (por ejemplo, 99.99%) comparado con una sola VM en una sola zona.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20343,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Para qué tipo de cargas de trabajo se recomienda principalmente el uso de zonas de disponibilidad?",
+    "options": [
+      "Aplicaciones de misión crítica que requieren alta disponibilidad y resiliencia",
+      "Entornos de desarrollo y pruebas con bajo presupuesto",
+      "Cargas de trabajo de procesamiento por lotes sin requisitos de tiempo real",
+      "Aplicaciones de uso personal con tráfico muy bajo"
+    ],
+    "correctAnswer": "Aplicaciones de misión crítica que requieren alta disponibilidad y resiliencia",
+    "explaination": "Las zonas de disponibilidad están diseñadas para cargas de trabajo críticas donde el tiempo de inactividad tiene un impacto significativo, como bases de datos en producción, aplicaciones financieras o servicios de salud.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20344,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué son los pares de región en Azure?",
+    "options": [
+      "Dos regiones dentro de la misma geografía conectadas para recuperación ante desastres y replicación",
+      "Dos datacenters dentro de la misma zona de disponibilidad",
+      "Dos suscripciones vinculadas para facturación conjunta",
+      "Dos grupos de recursos que comparten políticas de acceso"
+    ],
+    "correctAnswer": "Dos regiones dentro de la misma geografía conectadas para recuperación ante desastres y replicación",
+    "explaination": "Los pares de región son dos regiones de Azure emparejadas dentro de la misma geografía (como Europa o América) a una distancia mínima de 300 millas, diseñadas para replicación y recuperación ante desastres.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20345,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál es la distancia mínima recomendada entre regiones emparejadas en Azure?",
+    "options": [
+      "Al menos 300 millas (aproximadamente 500 km)",
+      "Al menos 100 millas",
+      "Al menos 1000 millas",
+      "No existe un requisito de distancia mínima"
+    ],
+    "correctAnswer": "Al menos 300 millas (aproximadamente 500 km)",
+    "explaination": "Azure recomienda una separación de al menos 300 millas entre regiones emparejadas para garantizar que un desastre regional no afecte a ambas regiones simultáneamente.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20346,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál es una ventaja de los pares de región respecto a las actualizaciones de plataforma?",
+    "options": [
+      "Las actualizaciones se implementan en una región del par a la vez para evitar interrupciones simultáneas",
+      "Las actualizaciones se aplican a ambas regiones al mismo tiempo para mayor velocidad",
+      "Los pares de región no reciben actualizaciones automáticas",
+      "Solo la región secundaria recibe actualizaciones de plataforma"
+    ],
+    "correctAnswer": "Las actualizaciones se implementan en una región del par a la vez para evitar interrupciones simultáneas",
+    "explaination": "Azure implementa las actualizaciones de plataforma (mantenimiento planeado) secuencialmente en las regiones emparejadas, reduciendo el riesgo de interrupciones que afecten a ambas al mismo tiempo.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20347,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué ocurre con la replicación de datos entre regiones emparejadas en caso de una interrupción amplia?",
+    "options": [
+      "La región secundaria del par se prioriza para la recuperación de servicios",
+      "Ambas regiones quedan fuera de servicio simultáneamente",
+      "Los datos se pierden si la región primaria falla",
+      "Se activa automáticamente una tercera región de respaldo"
+    ],
+    "correctAnswer": "La región secundaria del par se prioriza para la recuperación de servicios",
+    "explaination": "En caso de una interrupción amplia que afecte a una región, Azure prioriza la recuperación de al menos una de las regiones del par para restaurar los servicios lo antes posible.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20348,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál es un ejemplo de par de regiones de Azure en América?",
+    "options": [
+      "Este de EE. UU. y Oeste de EE. UU.",
+      "Este de EE. UU. y Norte de Europa",
+      "Sur de Brasil y Japón Oriental",
+      "Canada Central y Sudeste de Asia"
+    ],
+    "correctAnswer": "Este de EE. UU. y Oeste de EE. UU.",
+    "explaination": "Este de EE. UU. (East US) y Oeste de EE. UU. (West US) son un ejemplo clásico de par de regiones de Azure dentro de la misma geografía americana.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20349,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué ventaja ofrecen los pares de región en cuanto a la residencia de datos?",
+    "options": [
+      "Garantizan que los datos replicados permanezcan dentro de la misma geografía para cumplimiento normativo",
+      "Permiten mover datos libremente entre cualquier región del mundo",
+      "Eliminan cualquier requisito legal sobre almacenamiento de datos",
+      "Los datos se replican automáticamente fuera de la geografía para mayor seguridad"
+    ],
+    "correctAnswer": "Garantizan que los datos replicados permanezcan dentro de la misma geografía para cumplimiento normativo",
+    "explaination": "Los pares de región mantienen la replicación dentro de la misma geografía (excepto Brasil Sur), lo que ayuda a cumplir requisitos de soberanía y residencia de datos.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20350,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué son las regiones soberanas de Azure?",
+    "options": [
+      "Instancias aisladas de Azure que sirven a necesidades específicas de cumplimiento o gubernamentales",
+      "Regiones de Azure con mayor ancho de banda disponible",
+      "Regiones exclusivas para clientes Enterprise",
+      "Zonas de disponibilidad con hardware dedicado premium"
+    ],
+    "correctAnswer": "Instancias aisladas de Azure que sirven a necesidades específicas de cumplimiento o gubernamentales",
+    "explaination": "Las regiones soberanas de Azure son instancias físicamente y lógicamente aisladas del resto de la nube pública de Azure, diseñadas para cumplir requisitos gubernamentales o de cumplimiento normativo específicos.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20351,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál es un ejemplo de región soberana de Azure para el gobierno de Estados Unidos?",
+    "options": [
+      "Azure Government (US Gov Virginia, US Gov Iowa)",
+      "Azure Public US East",
+      "Azure DoD Region Standard",
+      "Azure Federal Cloud"
+    ],
+    "correctAnswer": "Azure Government (US Gov Virginia, US Gov Iowa)",
+    "explaination": "Azure Government incluye regiones como US Gov Virginia y US Gov Iowa, diseñadas exclusivamente para agencias gubernamentales de EE. UU. y sus socios, con personal examinado y cumplimiento de normativas como FedRAMP.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20352,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué característica distingue a Azure Government del Azure comercial estándar?",
+    "options": [
+      "Solo puede ser accedida por entidades gubernamentales y socios autorizados de EE. UU.",
+      "Tiene mayor cantidad de regiones disponibles que el Azure comercial",
+      "Es más económica que el Azure estándar para todos los servicios",
+      "Usa una arquitectura de nube diferente basada en tecnología privada"
+    ],
+    "correctAnswer": "Solo puede ser accedida por entidades gubernamentales y socios autorizados de EE. UU.",
+    "explaination": "Azure Government está físicamente aislado del Azure comercial y solo pueden acceder a él entidades del gobierno federal, estatal y local de EE. UU., así como sus socios certificados.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20353,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué son las regiones de Azure China y cómo difieren del Azure global?",
+    "options": [
+      "Son regiones operadas por 21Vianet, físicamente separadas del Azure global y sujetas a leyes chinas",
+      "Son regiones estándar de Azure con interfaz en chino mandarín",
+      "Son regiones de Azure con menor latencia para usuarios asiáticos",
+      "Son regiones beta exclusivas para socios de Microsoft en Asia"
+    ],
+    "correctAnswer": "Son regiones operadas por 21Vianet, físicamente separadas del Azure global y sujetas a leyes chinas",
+    "explaination": "Azure China está operado por 21Vianet bajo un modelo de licencia única en China. Está físicamente aislado del Azure global y cumple con las regulaciones chinas sobre almacenamiento y gestión de datos.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20354,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué es una geografía de Azure?",
+    "options": [
+      "Un mercado discreto que suele contener dos o más regiones y preserva la residencia de datos",
+      "Un único datacenter con alta capacidad de almacenamiento",
+      "Una zona de facturación que agrupa países con la misma moneda",
+      "Un conjunto de zonas de disponibilidad distribuidas globalmente"
+    ],
+    "correctAnswer": "Un mercado discreto que suele contener dos o más regiones y preserva la residencia de datos",
+    "explaination": "Una geografía de Azure es un área del mundo que contiene al menos una región de Azure. Las geografías garantizan que los datos y las aplicaciones cumplan con los requisitos de residencia de datos dentro de sus fronteras.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20355,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué región tiene una excepción notable en la política de pares de región respecto a la residencia de datos?",
+    "options": [
+      "Sur de Brasil, cuyo par está en una geografía diferente (Sur Central de EE. UU.)",
+      "Norte de Europa, que se empareja con Asia Pacífico",
+      "Japón Oriental, que se empareja con Australia",
+      "India Central, que no tiene par de región asignado"
+    ],
+    "correctAnswer": "Sur de Brasil, cuyo par está en una geografía diferente (Sur Central de EE. UU.)",
+    "explaination": "Sur de Brasil es una excepción, ya que su región emparejada es Sur Central de EE. UU., ubicada en una geografía diferente. Esto significa que los datos pueden replicarse fuera de la geografía sudamericana.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20356,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuántas regiones de Azure existen aproximadamente a nivel global?",
+    "options": [
+      "Más de 60 regiones en todo el mundo",
+      "Exactamente 30 regiones",
+      "Menos de 20 regiones",
+      "Exactamente 50 regiones"
+    ],
+    "correctAnswer": "Más de 60 regiones en todo el mundo",
+    "explaination": "Azure cuenta con más de 60 regiones en todo el mundo, lo que lo convierte en el proveedor de nube con mayor presencia geográfica global.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20357,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué ventaja de recuperación ante desastres ofrecen los pares de región frente a zonas de disponibilidad?",
+    "options": [
+      "Protegen contra desastres a nivel regional, mientras que las zonas protegen contra fallos de datacenter individual",
+      "Los pares de región son más económicos que las zonas de disponibilidad",
+      "Los pares de región ofrecen menor latencia que las zonas de disponibilidad",
+      "No existe diferencia funcional entre ambos mecanismos"
+    ],
+    "correctAnswer": "Protegen contra desastres a nivel regional, mientras que las zonas protegen contra fallos de datacenter individual",
+    "explaination": "Las zonas de disponibilidad protegen contra fallos de un datacenter dentro de la misma región, mientras que los pares de región protegen contra eventos que afectan a toda una región, como desastres naturales a gran escala.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20358,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué tipo de servicios de Azure pueden implementarse usando zonas de disponibilidad para alta disponibilidad de bases de datos?",
+    "options": [
+      "Azure SQL Database con redundancia de zona y Azure Cosmos DB",
+      "Solo Azure Blob Storage",
+      "Únicamente Azure Table Storage",
+      "Solo servicios de red como Azure Load Balancer"
+    ],
+    "correctAnswer": "Azure SQL Database con redundancia de zona y Azure Cosmos DB",
+    "explaination": "Servicios como Azure SQL Database y Azure Cosmos DB soportan redundancia de zona de disponibilidad, replicando automáticamente los datos entre zonas para alta disponibilidad de bases de datos.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20359,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Qué significa que un servicio de Azure sea 'con redundancia de zona'?",
+    "options": [
+      "El servicio se replica y distribuye automáticamente entre varias zonas de disponibilidad",
+      "El servicio solo funciona en una zona de disponibilidad específica",
+      "El servicio está disponible únicamente en regiones sin zonas de disponibilidad",
+      "El servicio tiene copias de seguridad automáticas en otra región"
+    ],
+    "correctAnswer": "El servicio se replica y distribuye automáticamente entre varias zonas de disponibilidad",
+    "explaination": "Los servicios con redundancia de zona se replican automáticamente entre múltiples zonas de disponibilidad, por lo que si una zona falla, el servicio continúa disponible sin intervención manual.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20360,
+    "categoryId": "azure-infrastructure",
+    "text": "¿Cuál de las siguientes afirmaciones sobre las regiones soberanas de Azure es INCORRECTA?",
+    "options": [
+      "Cualquier cliente con suscripción estándar puede acceder a regiones soberanas sin restricciones",
+      "Están físicamente aisladas de la nube pública de Azure",
+      "Existen versiones para el gobierno de EE. UU. y para China",
+      "Cumplen con normativas específicas de seguridad y soberanía de datos"
+    ],
+    "correctAnswer": "Cualquier cliente con suscripción estándar puede acceder a regiones soberanas sin restricciones",
+    "explaination": "Las regiones soberanas tienen acceso restringido. Azure Government solo está disponible para entidades gubernamentales de EE. UU. autorizadas, y Azure China opera bajo un acuerdo específico con 21Vianet, no accesible con suscripciones estándar.",
+    "difficulty": "medium"
+  }
+]
