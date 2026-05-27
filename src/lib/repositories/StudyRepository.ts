@@ -10,6 +10,7 @@ import {
   infrastructureAsServiceQuestions,
   platformAsServiceQuestions,
   softwareAsServiceQuestions,
+  azureAccountsQuestions,
 } from "@/data/az900-study-questions";
 import { AZ900_STUDY_CATEGORIES } from "@/data/study-categories";
 import type { StudyCategory } from "@/data/study-categories";
@@ -28,6 +29,7 @@ const allStudyQuestions: Question[] = [
   ...infrastructureAsServiceQuestions,
   ...platformAsServiceQuestions,
   ...softwareAsServiceQuestions,
+  ...azureAccountsQuestions,
 ];
 
 export function getAllStudyQuestions(): Question[] {

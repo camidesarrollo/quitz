@@ -3850,5 +3850,430 @@ export const softwareAsServiceQuestions: Question[] = [
     correctAnswer: "IaaS: Azure VM — PaaS: Azure App Service — SaaS: Microsoft 365",
     explaination: "Azure VM = IaaS (control del SO). Azure App Service = PaaS (plataforma para desplegar código sin gestionar SO). Microsoft 365 = SaaS (aplicaciones completas listas para usar).",
     difficulty: "easy"
-  }
+  },
+];
+// ─────────────────────────────────────────────
+// software-as-service  (20301-20300)
+// ─────────────────────────────────────────────
+export const azureAccountsQuestions: Question[] = [
+{
+    id: 20301,
+    categoryId: "azure-accounts",
+    text: "¿Qué se necesita principalmente para crear una cuenta de Azure?",
+    options: [
+      "Una cuenta de Microsoft",
+      "Un servidor físico",
+      "Una licencia de Windows Server",
+      "Un dominio registrado"
+    ],
+    correctAnswer: "Una cuenta de Microsoft",
+    explaination: "Azure utiliza una cuenta de Microsoft o una identidad organizacional para autenticar a los usuarios.",
+    difficulty: "easy"
+  },
+  {
+    id: 20302,
+    categoryId: "azure-accounts",
+    text: "¿Qué permite hacer una cuenta gratuita de Azure?",
+    options: [
+      "Acceder únicamente a máquinas virtuales",
+      "Probar servicios de Azure con créditos y servicios gratuitos",
+      "Crear solo cuentas de almacenamiento",
+      "Administrar únicamente Microsoft 365"
+    ],
+    correctAnswer: "Probar servicios de Azure con créditos y servicios gratuitos",
+    explaination: "La cuenta gratuita entrega créditos iniciales y algunos servicios gratuitos por tiempo limitado o permanente.",
+    difficulty: "easy"
+  },
+  {
+    id: 20303,
+    categoryId: "azure-accounts",
+    text: "¿Cuál es el propósito principal de una suscripción de Azure?",
+    options: [
+      "Almacenar archivos",
+      "Administrar facturación y acceso a recursos",
+      "Crear usuarios locales",
+      "Ejecutar aplicaciones móviles"
+    ],
+    correctAnswer: "Administrar facturación y acceso a recursos",
+    explaination: "Las suscripciones organizan recursos y controlan la facturación y permisos.",
+    difficulty: "easy"
+  },
+  {
+    id: 20304,
+    categoryId: "azure-accounts",
+    text: "¿Qué tipo de cuenta suele utilizar una empresa para acceder a Azure?",
+    options: [
+      "Cuenta Xbox",
+      "Cuenta Hotmail temporal",
+      "Cuenta organizacional de Microsoft Entra ID",
+      "Cuenta FTP"
+    ],
+    correctAnswer: "Cuenta organizacional de Microsoft Entra ID",
+    explaination: "Las organizaciones normalmente usan identidades administradas mediante Microsoft Entra ID.",
+    difficulty: "easy"
+  },
+  {
+    id: 20305,
+    categoryId: "azure-accounts",
+    text: "¿Qué recurso permite agrupar servicios dentro de una suscripción de Azure?",
+    options: [
+      "Grupo de recursos",
+      "Directorio local",
+      "Balanceador de carga",
+      "Zona DNS"
+    ],
+    correctAnswer: "Grupo de recursos",
+    explaination: "Los grupos de recursos organizan y administran recursos relacionados.",
+    difficulty: "easy"
+  },
+  {
+    id: 20306,
+    categoryId: "azure-accounts",
+    text: "¿Qué portal web se utiliza principalmente para administrar Azure?",
+    options: [
+      "Azure Portal",
+      "Windows Admin Center",
+      "Visual Studio",
+      "Microsoft Teams"
+    ],
+    correctAnswer: "Azure Portal",
+    explaination: "Azure Portal es la interfaz web principal para administrar recursos de Azure.",
+    difficulty: "easy"
+  },
+  {
+    id: 20307,
+    categoryId: "azure-accounts",
+    text: "¿Qué ocurre si una organización tiene varias suscripciones de Azure?",
+    options: [
+      "Todas comparten automáticamente la misma facturación",
+      "No pueden compartir recursos",
+      "Pueden administrarse de forma independiente",
+      "Solo una puede estar activa"
+    ],
+    correctAnswer: "Pueden administrarse de forma independiente",
+    explaination: "Cada suscripción puede tener configuraciones y facturación separadas.",
+    difficulty: "medium"
+  },
+  {
+    id: 20308,
+    categoryId: "azure-accounts",
+    text: "¿Qué servicio ayuda a administrar identidades y accesos en Azure?",
+    options: [
+      "Azure DevOps",
+      "Microsoft Entra ID",
+      "Azure Backup",
+      "Azure Files"
+    ],
+    correctAnswer: "Microsoft Entra ID",
+    explaination: "Microsoft Entra ID administra autenticación y control de acceso.",
+    difficulty: "easy"
+  },
+  {
+    id: 20309,
+    categoryId: "azure-accounts",
+    text: "¿Qué opción describe mejor un inquilino (tenant) en Azure?",
+    options: [
+      "Una máquina virtual",
+      "Una instancia dedicada de Microsoft Entra ID",
+      "Un servidor físico",
+      "Una red privada"
+    ],
+    correctAnswer: "Una instancia dedicada de Microsoft Entra ID",
+    explaination: "El tenant representa la organización dentro de Microsoft Entra ID.",
+    difficulty: "medium"
+  },
+  {
+    id: 20310,
+    categoryId: "azure-accounts",
+    text: "¿Cuál es una ventaja de usar múltiples grupos de recursos?",
+    options: [
+      "Eliminar la necesidad de suscripciones",
+      "Organizar recursos según proyectos o departamentos",
+      "Reducir automáticamente el consumo de CPU",
+      "Duplicar máquinas virtuales"
+    ],
+    correctAnswer: "Organizar recursos según proyectos o departamentos",
+    explaination: "Los grupos de recursos facilitan la administración y organización.",
+    difficulty: "easy"
+  },
+  {
+    id: 20311,
+    categoryId: "azure-accounts",
+    text: "¿Qué modelo de pago utiliza principalmente Azure?",
+    options: [
+      "Pago único permanente",
+      "Pago por uso",
+      "Pago anual obligatorio",
+      "Licencia perpetua"
+    ],
+    correctAnswer: "Pago por uso",
+    explaination: "Azure cobra principalmente según el consumo de recursos.",
+    difficulty: "easy"
+  },
+  {
+    id: 20312,
+    categoryId: "azure-accounts",
+    text: "¿Qué herramienta permite administrar Azure desde línea de comandos?",
+    options: [
+      "Azure CLI",
+      "Bloc de notas",
+      "Administrador de tareas",
+      "Paint"
+    ],
+    correctAnswer: "Azure CLI",
+    explaination: "Azure CLI permite administrar recursos mediante comandos.",
+    difficulty: "easy"
+  },
+  {
+    id: 20313,
+    categoryId: "azure-accounts",
+    text: "¿Qué tipo de acceso permite controlar quién puede administrar recursos en Azure?",
+    options: [
+      "RBAC",
+      "SMTP",
+      "FTP",
+      "NAT"
+    ],
+    correctAnswer: "RBAC",
+    explaination: "RBAC permite asignar permisos específicos según roles.",
+    difficulty: "medium"
+  },
+  {
+    id: 20314,
+    categoryId: "azure-accounts",
+    text: "¿Qué sucede cuando se elimina un grupo de recursos?",
+    options: [
+      "Solo se elimina el nombre del grupo",
+      "Los recursos dentro del grupo también se eliminan",
+      "La suscripción completa se elimina",
+      "Los usuarios pierden acceso a internet"
+    ],
+    correctAnswer: "Los recursos dentro del grupo también se eliminan",
+    explaination: "Eliminar un grupo de recursos elimina todos los recursos contenidos en él.",
+    difficulty: "medium"
+  },
+  {
+    id: 20315,
+    categoryId: "azure-accounts",
+    text: "¿Cuál es el objetivo principal de las etiquetas (tags) en Azure?",
+    options: [
+      "Aumentar la velocidad de red",
+      "Clasificar y organizar recursos",
+      "Crear máquinas virtuales",
+      "Reducir automáticamente costos"
+    ],
+    correctAnswer: "Clasificar y organizar recursos",
+    explaination: "Las etiquetas ayudan a organizar y administrar recursos mediante metadatos.",
+    difficulty: "easy"
+  },
+  {
+    id: 20316,
+    categoryId: "azure-accounts",
+    text: "¿Qué componente define límites de facturación y acceso en Azure?",
+    options: [
+      "La suscripción",
+      "La máquina virtual",
+      "El grupo de seguridad",
+      "El disco administrado"
+    ],
+    correctAnswer: "La suscripción",
+    explaination: "La suscripción actúa como límite administrativo y de facturación.",
+    difficulty: "easy"
+  },
+  {
+    id: 20317,
+    categoryId: "azure-accounts",
+    text: "¿Qué servicio se usa para crear alertas de costos en Azure?",
+    options: [
+      "Azure Cost Management",
+      "Azure Boards",
+      "Azure Kubernetes Service",
+      "Azure DNS"
+    ],
+    correctAnswer: "Azure Cost Management",
+    explaination: "Azure Cost Management ayuda a monitorear y controlar gastos.",
+    difficulty: "medium"
+  },
+  {
+    id: 20318,
+    categoryId: "azure-accounts",
+    text: "¿Qué usuario tiene normalmente control total sobre una suscripción?",
+    options: [
+      "Lector",
+      "Colaborador",
+      "Propietario",
+      "Invitado"
+    ],
+    correctAnswer: "Propietario",
+    explaination: "El rol Propietario posee control completo sobre los recursos.",
+    difficulty: "medium"
+  },
+  {
+    id: 20319,
+    categoryId: "azure-accounts",
+    text: "¿Qué ventaja ofrece Azure Portal?",
+    options: [
+      "Administración gráfica centralizada",
+      "Crear hardware físico",
+      "Instalar BIOS",
+      "Configurar routers domésticos"
+    ],
+    correctAnswer: "Administración gráfica centralizada",
+    explaination: "Azure Portal permite administrar servicios desde una interfaz web.",
+    difficulty: "easy"
+  },
+  {
+    id: 20320,
+    categoryId: "azure-accounts",
+    text: "¿Qué permite Azure Policy?",
+    options: [
+      "Crear videojuegos",
+      "Aplicar reglas y estándares organizacionales",
+      "Editar imágenes",
+      "Administrar impresoras locales"
+    ],
+    correctAnswer: "Aplicar reglas y estándares organizacionales",
+    explaination: "Azure Policy ayuda a mantener cumplimiento y gobernanza.",
+    difficulty: "medium"
+  },
+  {
+    id: 20321,
+    categoryId: "azure-accounts",
+    text: "¿Qué característica permite separar ambientes de desarrollo y producción en Azure?",
+    options: [
+      "Múltiples suscripciones o grupos de recursos",
+      "Una sola máquina virtual",
+      "Un único usuario administrador",
+      "Uso exclusivo de almacenamiento"
+    ],
+    correctAnswer: "Múltiples suscripciones o grupos de recursos",
+    explaination: "Separar ambientes mejora organización y seguridad.",
+    difficulty: "medium"
+  },
+  {
+    id: 20322,
+    categoryId: "azure-accounts",
+    text: "¿Qué opción permite acceder a Azure usando scripts automatizados?",
+    options: [
+      "Azure CLI y PowerShell",
+      "Bloc de notas",
+      "Microsoft Paint",
+      "Explorador de archivos"
+    ],
+    correctAnswer: "Azure CLI y PowerShell",
+    explaination: "Azure CLI y PowerShell permiten automatización y administración avanzada.",
+    difficulty: "easy"
+  },
+  {
+    id: 20323,
+    categoryId: "azure-accounts",
+    text: "¿Qué servicio permite revisar el estado de salud de los servicios de Azure?",
+    options: [
+      "Azure Service Health",
+      "Azure Paint",
+      "Azure Maps",
+      "Azure Scheduler"
+    ],
+    correctAnswer: "Azure Service Health",
+    explaination: "Azure Service Health informa incidentes y mantenimientos.",
+    difficulty: "medium"
+  },
+  {
+    id: 20324,
+    categoryId: "azure-accounts",
+    text: "¿Qué rol puede ver recursos pero no modificarlos?",
+    options: [
+      "Lector",
+      "Propietario",
+      "Administrador global",
+      "Colaborador"
+    ],
+    correctAnswer: "Lector",
+    explaination: "El rol Lector posee acceso de solo lectura.",
+    difficulty: "easy"
+  },
+  {
+    id: 20325,
+    categoryId: "azure-accounts",
+    text: "¿Qué sucede con los costos cuando se consumen más recursos en Azure?",
+    options: [
+      "Los costos normalmente aumentan",
+      "Los costos desaparecen",
+      "Azure deja de funcionar",
+      "La suscripción se elimina automáticamente"
+    ],
+    correctAnswer: "Los costos normalmente aumentan",
+    explaination: "Azure cobra según el consumo utilizado.",
+    difficulty: "easy"
+  },
+  {
+    id: 20326,
+    categoryId: "azure-accounts",
+    text: "¿Qué característica ayuda a evitar gastos inesperados en Azure?",
+    options: [
+      "Presupuestos y alertas de costos",
+      "Formatear discos",
+      "Desinstalar Windows",
+      "Eliminar etiquetas"
+    ],
+    correctAnswer: "Presupuestos y alertas de costos",
+    explaination: "Los presupuestos permiten controlar el gasto y generar alertas.",
+    difficulty: "medium"
+  },
+  {
+    id: 20327,
+    categoryId: "azure-accounts",
+    text: "¿Qué componente se utiliza para administrar recursos relacionados como una unidad lógica?",
+    options: [
+      "Grupo de recursos",
+      "Dominio DNS",
+      "Firewall físico",
+      "Balanceador externo"
+    ],
+    correctAnswer: "Grupo de recursos",
+    explaination: "Los grupos de recursos facilitan la administración conjunta.",
+    difficulty: "easy"
+  },
+  {
+    id: 20328,
+    categoryId: "azure-accounts",
+    text: "¿Qué permite hacer Microsoft Entra ID en Azure?",
+    options: [
+      "Administrar identidades y autenticación",
+      "Reemplazar internet",
+      "Crear hardware",
+      "Actualizar BIOS"
+    ],
+    correctAnswer: "Administrar identidades y autenticación",
+    explaination: "Microsoft Entra ID proporciona servicios de identidad y acceso.",
+    difficulty: "easy"
+  },
+  {
+    id: 20329,
+    categoryId: "azure-accounts",
+    text: "¿Qué ventaja ofrece el modelo de nube de Azure frente a infraestructura física tradicional?",
+    options: [
+      "Escalabilidad bajo demanda",
+      "Necesidad de más hardware local",
+      "Mayor dependencia de CDs",
+      "Eliminación total de internet"
+    ],
+    correctAnswer: "Escalabilidad bajo demanda",
+    explaination: "Azure permite escalar recursos rápidamente según necesidad.",
+    difficulty: "medium"
+  },
+  {
+    id: 20330,
+    categoryId: "azure-accounts",
+    text: "¿Qué servicio ayuda a organizar recursos usando jerarquías y gobernanza empresarial?",
+    options: [
+      "Management Groups",
+      "Azure Paint",
+      "Azure Batch",
+      "Azure Media Services"
+    ],
+    correctAnswer: "Management Groups",
+    explaination: "Management Groups permiten organizar múltiples suscripciones bajo políticas comunes.",
+    difficulty: "hard"
+  },
 ];
