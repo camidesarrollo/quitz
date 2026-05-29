@@ -1,9 +1,9 @@
-import { QuizMenu } from "@/components/quiz/QuizMenu";
+import { HomeView } from "@/components/quiz/HomeView";
 
 export default function HomePage() {
   return (
     <main>
-      <QuizMenu />
+      <HomeView />
     </main>
   );
 }

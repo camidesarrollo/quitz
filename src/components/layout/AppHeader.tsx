@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun, Home, Eye, Clock, BookMarked } from "lucide-react";
+import { Moon, Sun, Home, GraduationCap, BookOpen, UserCircle, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV_LINKS: {
@@ -19,22 +19,28 @@ const NAV_LINKS: {
     isActive: (p) => p === "/",
   },
   {
-    href: "/browse",
-    label: "Banco",
-    icon: Eye,
-    isActive: (p) => p === "/browse",
+    href: "/exam",
+    label: "Examen",
+    icon: GraduationCap,
+    isActive: (p) => p === "/exam",
   },
   {
-    href: "/terms",
-    label: "Vocabulario",
-    icon: BookMarked,
-    isActive: (p) => p === "/terms",
+    href: "/study",
+    label: "Estudio",
+    icon: BookOpen,
+    isActive: (p) => p === "/study",
   },
   {
-    href: "/#historial",
-    label: "Historial",
-    icon: Clock,
-    isActive: (p) => p.startsWith("/history"),
+    href: "/profile",
+    label: "Mi Perfil",
+    icon: UserCircle,
+    isActive: (p) => p === "/profile",
+  },
+  {
+    href: "/social",
+    label: "Social",
+    icon: Users,
+    isActive: (p) => p === "/social",
   },
 ];
 

@@ -1,0 +1,440 @@
+
+<h2 class="sr-only">Rediseño de la app AZ-900 Quiz — reorganización por pestañas con mejoras propuestas</h2>
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.app { font-family: var(--font-sans); background: var(--color-background-tertiary); border-radius: var(--border-radius-lg); overflow: hidden; min-height: 600px; }
+.topbar { background: var(--color-background-primary); border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; height: 48px; }
+.logo { font-size: 14px; font-weight: 500; color: var(--color-text-primary); display: flex; align-items: center; gap: 6px; }
+.logo i { font-size: 18px; color: #534AB7; }
+.nav { display: flex; gap: 2px; }
+.nav-btn { background: none; border: none; padding: 6px 12px; border-radius: var(--border-radius-md); font-size: 12.5px; color: var(--color-text-secondary); cursor: pointer; display: flex; align-items: center; gap: 5px; font-family: var(--font-sans); transition: background .12s, color .12s; }
+.nav-btn i { font-size: 15px; }
+.nav-btn:hover { background: var(--color-background-secondary); color: var(--color-text-primary); }
+.nav-btn.active { background: #EEEDFE; color: #534AB7; font-weight: 500; }
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; background: #534AB7; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #EEEDFE; font-weight: 500; }
+.icon-btn { background: none; border: none; cursor: pointer; color: var(--color-text-secondary); padding: 4px; border-radius: 6px; }
+.icon-btn:hover { background: var(--color-background-secondary); }
+
+.screen { display: none; padding: 20px; }
+.screen.active { display: block; }
+
+.hero { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px 18px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+.hero-left { display: flex; align-items: center; gap: 12px; }
+.hero-icon { width: 40px; height: 40px; border-radius: 10px; background: #EEEDFE; display: flex; align-items: center; justify-content: center; }
+.hero-icon i { font-size: 20px; color: #534AB7; }
+.hero-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); }
+.hero-sub { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; }
+
+.stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 14px; }
+.stat { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 12px; text-align: center; }
+.stat-val { font-size: 22px; font-weight: 500; color: var(--color-text-primary); }
+.stat-lbl { font-size: 11px; color: var(--color-text-secondary); margin-top: 2px; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; }
+.card-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card-title i { font-size: 15px; color: var(--color-text-secondary); }
+
+.domain-bar { margin-bottom: 8px; }
+.domain-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.domain-name { font-size: 11.5px; color: var(--color-text-secondary); width: 90px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar-track { flex: 1; height: 5px; background: var(--color-background-tertiary); border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.domain-pct { font-size: 11px; color: var(--color-text-secondary); width: 28px; text-align: right; }
+
+.hist-item { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.hist-item:last-child { border-bottom: none; }
+.hist-name { font-size: 12px; color: var(--color-text-primary); }
+.hist-meta { font-size: 11px; color: var(--color-text-secondary); margin-top: 1px; }
+.hist-score { font-size: 13px; font-weight: 500; }
+.badge-new { font-size: 10px; padding: 1px 6px; border-radius: 10px; background: #EEEDFE; color: #534AB7; margin-left: 6px; vertical-align: middle; }
+
+.modes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+.mode-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 13px 14px; cursor: pointer; transition: border-color .12s, background .12s; }
+.mode-card:hover { border-color: #AFA9EC; background: #EEEDFE; }
+.mode-card.featured { border-color: #AFA9EC; border-width: 1.5px; }
+.mode-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; }
+.mode-icon i { font-size: 17px; }
+.mode-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 2px; }
+.mode-desc { font-size: 11px; color: var(--color-text-secondary); line-height: 1.4; }
+
+.config-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 0.5px solid var(--color-border-tertiary); }
+.config-row:last-child { border-bottom: none; }
+.config-label { font-size: 12.5px; color: var(--color-text-primary); }
+.config-sub { font-size: 11px; color: var(--color-text-secondary); }
+.chips { display: flex; gap: 5px; flex-wrap: wrap; }
+.chip { font-size: 11.5px; padding: 3px 10px; border-radius: 20px; border: 0.5px solid var(--color-border-secondary); color: var(--color-text-secondary); cursor: pointer; background: var(--color-background-primary); }
+.chip.sel { background: #EEEDFE; color: #534AB7; border-color: #AFA9EC; }
+
+.btn-primary { width: 100%; padding: 10px; border-radius: var(--border-radius-md); background: #534AB7; color: #EEEDFE; border: none; font-size: 13.5px; font-weight: 500; cursor: pointer; font-family: var(--font-sans); display: flex; align-items: center; justify-content: center; gap: 6px; margin-top: 14px; }
+.btn-primary i { font-size: 16px; }
+.btn-primary:hover { background: #3C3489; }
+
+.study-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); cursor: pointer; transition: border-color .12s; margin-bottom: 8px; }
+.study-item:hover { border-color: #AFA9EC; }
+.study-item-icon { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.study-item-icon i { font-size: 18px; }
+.study-item-title { font-size: 13px; font-weight: 500; color: var(--color-text-primary); }
+.study-item-sub { font-size: 11.5px; color: var(--color-text-secondary); margin-top: 2px; }
+.study-item-right { margin-left: auto; color: var(--color-text-secondary); }
+
+.srs-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 14px 16px; margin-bottom: 10px; }
+.srs-nums { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
+.srs-num { text-align: center; }
+.srs-val { font-size: 18px; font-weight: 500; }
+.srs-lbl { font-size: 10.5px; color: var(--color-text-secondary); }
+
+.section-header { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-text-tertiary); margin-bottom: 8px; margin-top: 4px; }
+
+.prog-ring-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 0; }
+.mental-row { display: flex; gap: 6px; margin-top: 8px; }
+.mental-pill { font-size: 11px; padding: 3px 10px; border-radius: 20px; }
+</style>
+
+<div class="app">
+  <div class="topbar">
+    <div class="logo"><i class="ti ti-brand-azure" aria-hidden="true"></i> QuizCraft AZ-900</div>
+    <div class="nav">
+      <button class="nav-btn active" onclick="showScreen('home',this)" aria-label="Inicio">
+        <i class="ti ti-home" aria-hidden="true"></i> Inicio
+      </button>
+      <button class="nav-btn" onclick="showScreen('quiz',this)" aria-label="Quiz">
+        <i class="ti ti-brain" aria-hidden="true"></i> Quiz
+      </button>
+      <button class="nav-btn" onclick="showScreen('study',this)" aria-label="Estudio">
+        <i class="ti ti-book" aria-hidden="true"></i> Estudio
+      </button>
+      <button class="nav-btn" onclick="showScreen('progress',this)" aria-label="Progreso">
+        <i class="ti ti-chart-bar" aria-hidden="true"></i> Progreso
+      </button>
+      <button class="nav-btn" onclick="showScreen('bank',this)" aria-label="Banco">
+        <i class="ti ti-database" aria-hidden="true"></i> Banco
+      </button>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" aria-label="Modo oscuro"><i class="ti ti-moon" style="font-size:17px"></i></button>
+      <div class="avatar" aria-label="Usuario">N</div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="screen active" id="s-home">
+    <div class="hero">
+      <div class="hero-left">
+        <div class="hero-icon"><i class="ti ti-brand-azure" aria-hidden="true"></i></div>
+        <div>
+          <div class="hero-title">Microsoft Azure Fundamentals</div>
+          <div class="hero-sub">895 preguntas · Umbral 70% · AZ-900</div>
+        </div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:22px;font-weight:500;color:#534AB7">72%</div>
+        <div style="font-size:11px;color:var(--color-text-secondary)">promedio global</div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat"><div class="stat-val">31</div><div class="stat-lbl">Quiz completados</div></div>
+      <div class="stat"><div class="stat-val" style="color:#534AB7">7</div><div class="stat-lbl">Racha actual</div></div>
+      <div class="stat"><div class="stat-val" style="color:#0F6E56">284</div><div class="stat-lbl">Dominadas</div></div>
+      <div class="stat"><div class="stat-val" style="color:#BA7517">143</div><div class="stat-lbl">En revisión</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title"><i class="ti ti-chart-dots" aria-hidden="true"></i> Rendimiento por dominio</div>
+        <div class="domain-bar">
+          <div class="domain-row">
+            <span class="domain-name">Conceptos</span>
+            <div class="bar-track"><div class="bar-fill" style="width:78%;background:#534AB7"></div></div>
+            <span class="domain-pct">78%</span>
+          </div>
+          <div class="domain-row">
+            <span class="domain-name">Arquitectura</span>
+            <div class="bar-track"><div class="bar-fill" style="width:65%;background:#1D9E75"></div></div>
+            <span class="domain-pct">65%</span>
+          </div>
+          <div class="domain-row">
+            <span class="domain-name">Gobernanza</span>
+            <div class="bar-track"><div class="bar-fill" style="width:58%;background:#BA7517"></div></div>
+            <span class="domain-pct">58%</span>
+          </div>
+        </div>
+        <div style="font-size:11.5px;color:var(--color-text-secondary);margin-top:8px;padding-top:8px;border-top:0.5px solid var(--color-border-tertiary)">
+          <i class="ti ti-alert-triangle" style="font-size:13px;vertical-align:-2px;color:#BA7517" aria-hidden="true"></i>
+          Gobernanza necesita atención
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-history" aria-hidden="true"></i> Últimos intentos</div>
+        <div class="hist-item">
+          <div><div class="hist-name">Simulacro completo</div><div class="hist-meta">Hoy, 10:32</div></div>
+          <div class="hist-score" style="color:#0F6E56">82%</div>
+        </div>
+        <div class="hist-item">
+          <div><div class="hist-name">Gobernanza · Sniper</div><div class="hist-meta">Ayer, 18:14</div></div>
+          <div class="hist-score" style="color:#BA7517">58%</div>
+        </div>
+        <div class="hist-item">
+          <div><div class="hist-name">Conceptos · 10 pregs</div><div class="hist-meta">Hace 2 días</div></div>
+          <div class="hist-score" style="color:#0F6E56">78%</div>
+        </div>
+        <div style="font-size:11.5px;color:#534AB7;margin-top:8px;cursor:pointer" onclick="showScreen('progress',document.querySelectorAll('.nav-btn')[3])">Ver historial completo →</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title"><i class="ti ti-bolt" aria-hidden="true"></i> Acción recomendada <span class="badge-new">IA</span></div>
+      <div style="font-size:12.5px;color:var(--color-text-secondary);line-height:1.6">
+        Tu rendimiento en <strong style="color:var(--color-text-primary)">Gobernanza → SLA y ciclo de vida</strong> bajó un 12% esta semana. Te recomiendo una sesión de Repetición Espaciada enfocada en ese subdominio antes de intentar otro simulacro completo.
+      </div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <button class="btn-primary" style="margin-top:0;flex:1;padding:8px" onclick="showScreen('study',document.querySelectorAll('.nav-btn')[2])"><i class="ti ti-player-play" aria-hidden="true"></i> Iniciar sesión SRS</button>
+        <button style="flex:1;padding:8px;border-radius:var(--border-radius-md);border:0.5px solid var(--color-border-secondary);background:none;font-size:13px;color:var(--color-text-secondary);cursor:pointer;font-family:var(--font-sans)">Ignorar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="screen" id="s-quiz">
+    <div class="section-header">Modo de práctica</div>
+    <div class="modes-grid">
+      <div class="mode-card featured" onclick="selectMode(this)">
+        <div class="mode-icon" style="background:#EEEDFE"><i class="ti ti-arrows-shuffle" style="color:#534AB7" aria-hidden="true"></i></div>
+        <div class="mode-name">Aleatorio</div>
+        <div class="mode-desc">Preguntas mezcladas de todos los dominios</div>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <div class="mode-icon" style="background:#E1F5EE"><i class="ti ti-list-numbers" style="color:#0F6E56" aria-hidden="true"></i></div>
+        <div class="mode-name">Secuencial</div>
+        <div class="mode-desc">En orden por dominio y subdominio</div>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <div class="mode-icon" style="background:#FDE8EA"><i class="ti ti-target" style="color:#A32D2D" aria-hidden="true"></i></div>
+        <div class="mode-name">Sniper <span class="badge-new">presión</span></div>
+        <div class="mode-desc">8 seg por pregunta · botones bloqueados 3 seg</div>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <div class="mode-icon" style="background:#FAEEDA"><i class="ti ti-brain" style="color:#BA7517" aria-hidden="true"></i></div>
+        <div class="mode-name">Estado mental</div>
+        <div class="mode-desc">La IA adapta dificultad a tu rendimiento en vivo</div>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <div class="mode-icon" style="background:#FCEBEB"><i class="ti ti-link" style="color:#A32D2D" aria-hidden="true"></i></div>
+        <div class="mode-name">Cadena <span class="badge-new">nuevo</span></div>
+        <div class="mode-desc">Correctas suman tiempo · incorrectas restan 15s</div>
+      </div>
+      <div class="mode-card" onclick="selectMode(this)">
+        <div class="mode-icon" style="background:#E6F1FB"><i class="ti ti-clock" style="color:#185FA5" aria-hidden="true"></i></div>
+        <div class="mode-name">Examen real</div>
+        <div class="mode-desc">45 pregs · 65 min · sin feedback inmediato</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-title"><i class="ti ti-adjustments" aria-hidden="true"></i> Configuración</div>
+      <div class="config-row">
+        <div><div class="config-label">Dominio</div></div>
+        <div class="chips">
+          <span class="chip sel">Todos</span>
+          <span class="chip">Conceptos</span>
+          <span class="chip">Arquitectura</span>
+          <span class="chip">Gobernanza</span>
+        </div>
+      </div>
+      <div class="config-row">
+        <div><div class="config-label">Preguntas</div></div>
+        <div class="chips">
+          <span class="chip sel">10</span>
+          <span class="chip">20</span>
+          <span class="chip">40</span>
+          <span class="chip">Todo</span>
+        </div>
+      </div>
+      <div class="config-row">
+        <div><div class="config-label">Dificultad</div></div>
+        <div class="chips">
+          <span class="chip sel">Mixta</span>
+          <span class="chip">Fácil</span>
+          <span class="chip">Media</span>
+          <span class="chip">Difícil</span>
+        </div>
+      </div>
+      <div class="config-row" style="border:none">
+        <div><div class="config-label">Solo no respondidas</div><div class="config-sub">Excluye preguntas ya dominadas</div></div>
+        <div style="width:34px;height:18px;background:#534AB7;border-radius:9px;cursor:pointer;position:relative">
+          <div style="width:14px;height:14px;background:white;border-radius:50%;position:absolute;right:2px;top:2px"></div>
+        </div>
+      </div>
+    </div>
+    <button class="btn-primary"><i class="ti ti-player-play" aria-hidden="true"></i> Comenzar quiz</button>
+  </div>
+
+  <!-- STUDY -->
+  <div class="screen" id="s-study">
+    <div class="srs-card">
+      <div class="card-title"><i class="ti ti-repeat" aria-hidden="true"></i> Repetición espaciada <span style="font-size:11px;color:var(--color-text-secondary);font-weight:400">SM-2</span></div>
+      <div class="srs-nums">
+        <div class="srs-num"><div class="srs-val">895</div><div class="srs-lbl">Total</div></div>
+        <div class="srs-num"><div class="srs-val" style="color:#BA7517">0</div><div class="srs-lbl">Aprendiendo</div></div>
+        <div class="srs-num"><div class="srs-val" style="color:#534AB7">0</div><div class="srs-lbl">Revisando</div></div>
+        <div class="srs-num"><div class="srs-val" style="color:#0F6E56">0</div><div class="srs-lbl">Dominadas</div></div>
+      </div>
+      <button class="btn-primary" style="margin-top:4px"><i class="ti ti-player-play" aria-hidden="true"></i> Aprender · 10 nuevas</button>
+    </div>
+
+    <div class="section-header">Recursos de estudio</div>
+
+    <div class="study-item">
+      <div class="study-item-icon" style="background:#EEEDFE"><i class="ti ti-bulb" style="color:#534AB7" aria-hidden="true"></i></div>
+      <div>
+        <div class="study-item-title">Estudio de conceptos</div>
+        <div class="study-item-sub">Preguntas por tema · no son de examen</div>
+      </div>
+      <div class="study-item-right"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+    </div>
+
+    <div class="study-item">
+      <div class="study-item-icon" style="background:#FAEEDA"><i class="ti ti-vocabulary" style="color:#BA7517" aria-hidden="true"></i></div>
+      <div>
+        <div class="study-item-title">Vocabulario AZ-900</div>
+        <div class="study-item-sub">78 términos clave · practica definiciones</div>
+      </div>
+      <div class="study-item-right"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+    </div>
+
+    <div class="study-item">
+      <div class="study-item-icon" style="background:#E1F5EE"><i class="ti ti-eye" style="color:#0F6E56" aria-hidden="true"></i></div>
+      <div>
+        <div class="study-item-title">Explorar banco</div>
+        <div class="study-item-sub">Modo lectura · repasa sin ser evaluado</div>
+      </div>
+      <div class="study-item-right"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+    </div>
+
+    <div class="study-item" style="border-color:#AFA9EC">
+      <div class="study-item-icon" style="background:#EEEDFE"><i class="ti ti-video" style="color:#534AB7" aria-hidden="true"></i></div>
+      <div>
+        <div class="study-item-title">Mis videos <span class="badge-new">nuevo</span></div>
+        <div class="study-item-sub">Preguntas generadas desde tus clases</div>
+      </div>
+      <div class="study-item-right"><i class="ti ti-chevron-right" aria-hidden="true"></i></div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="screen" id="s-progress">
+    <div class="two-col" style="margin-bottom:14px">
+      <div class="card" style="text-align:center">
+        <div class="card-title" style="justify-content:center"><i class="ti ti-chart-pie" aria-hidden="true"></i> Predicción AZ-900</div>
+        <div style="font-size:36px;font-weight:500;color:#534AB7;margin:8px 0">68%</div>
+        <div style="font-size:11.5px;color:var(--color-text-secondary);line-height:1.5">probabilidad de aprobar<br>con tu rendimiento actual</div>
+        <div style="margin-top:10px;font-size:11.5px;background:#FAEEDA;color:#633806;padding:6px 10px;border-radius:var(--border-radius-md)">
+          Faltan ~12h en Gobernanza para llegar a 85%
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title"><i class="ti ti-map" aria-hidden="true"></i> Mapa de conocimiento</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:6px">
+          <div style="height:28px;border-radius:4px;background:#534AB7;opacity:0.9"></div>
+          <div style="height:28px;border-radius:4px;background:#534AB7;opacity:0.6"></div>
+          <div style="height:28px;border-radius:4px;background:#BA7517;opacity:0.7"></div>
+          <div style="height:28px;border-radius:4px;background:#0F6E56;opacity:0.8"></div>
+          <div style="height:28px;border-radius:4px;background:#BA7517;opacity:0.5"></div>
+          <div style="height:28px;border-radius:4px;background:#534AB7;opacity:0.4"></div>
+        </div>
+        <div style="display:flex;gap:10px;font-size:10.5px;color:var(--color-text-secondary)">
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#0F6E56;display:inline-block"></span>Dominado</span>
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#534AB7;display:inline-block"></span>En progreso</span>
+          <span style="display:flex;align-items:center;gap:3px"><span style="width:8px;height:8px;border-radius:2px;background:#BA7517;display:inline-block"></span>Débil</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><i class="ti ti-chart-bar" aria-hidden="true"></i> Detalle por dominio</div>
+      <div style="font-size:12px;color:var(--color-text-secondary);margin-bottom:10px">Haz clic en un dominio para ver subdominios</div>
+      <div class="domain-bar">
+        <div class="domain-row">
+          <span class="domain-name" style="width:160px">Conceptos de la nube</span>
+          <div class="bar-track"><div class="bar-fill" style="width:78%;background:#534AB7"></div></div>
+          <span class="domain-pct">78%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-name" style="width:160px">Arquitectura y servicios</span>
+          <div class="bar-track"><div class="bar-fill" style="width:65%;background:#1D9E75"></div></div>
+          <span class="domain-pct">65%</span>
+        </div>
+        <div class="domain-row">
+          <span class="domain-name" style="width:160px">Administración y gobernanza</span>
+          <div class="bar-track"><div class="bar-fill" style="width:58%;background:#BA7517"></div></div>
+          <span class="domain-pct">58%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BANK -->
+  <div class="screen" id="s-bank">
+    <div class="card" style="margin-bottom:12px">
+      <div style="display:flex;gap:8px;align-items:center">
+        <div style="flex:1;display:flex;align-items:center;gap:6px;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:7px 10px">
+          <i class="ti ti-search" style="color:var(--color-text-secondary);font-size:15px" aria-hidden="true"></i>
+          <span style="font-size:12.5px;color:var(--color-text-tertiary)">Buscar pregunta...</span>
+        </div>
+        <div class="chips">
+          <span class="chip sel">Todos</span>
+          <span class="chip">Conceptos</span>
+          <span class="chip">Arquitectura</span>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <div class="study-item">
+        <div style="width:6px;height:6px;border-radius:50%;background:#0F6E56;flex-shrink:0"></div>
+        <div style="flex:1">
+          <div class="study-item-title" style="font-size:12.5px">¿Cuál es la principal ventaja del modelo de responsabilidad compartida?</div>
+          <div class="study-item-sub">Conceptos · Fácil · Dominada</div>
+        </div>
+        <i class="ti ti-video" style="font-size:14px;color:#534AB7" title="Tiene origen en video" aria-label="Tiene origen en video"></i>
+      </div>
+      <div class="study-item">
+        <div style="width:6px;height:6px;border-radius:50%;background:#BA7517;flex-shrink:0"></div>
+        <div style="flex:1">
+          <div class="study-item-title" style="font-size:12.5px">¿Qué diferencia a Azure Policy de Azure Blueprints?</div>
+          <div class="study-item-sub">Gobernanza · Difícil · En revisión</div>
+        </div>
+        <i class="ti ti-video" style="font-size:14px;color:#534AB7" title="Tiene origen en video" aria-label="Tiene origen en video"></i>
+      </div>
+      <div class="study-item">
+        <div style="width:6px;height:6px;border-radius:50%;background:#E24B4A;flex-shrink:0"></div>
+        <div style="flex:1">
+          <div class="study-item-title" style="font-size:12.5px">¿Cuándo conviene usar Azure ExpressRoute en lugar de VPN Gateway?</div>
+          <div class="study-item-sub">Arquitectura · Difícil · Sin responder</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showScreen(id, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('s-' + id).classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+function selectMode(card) {
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('featured'));
+  card.classList.add('featured');
+}
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', function() {
+    const siblings = this.parentElement.querySelectorAll('.chip');
+    siblings.forEach(s => s.classList.remove('sel'));
+    this.classList.add('sel');
+  });
+});
+</script>
