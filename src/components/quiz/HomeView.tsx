@@ -96,8 +96,15 @@ export function HomeView() {
         if (q) xp += DIFFICULTY_XP[q.difficulty ?? "easy"];
       }
     }
+    if (session && session.startedAt >= ms) {
+      for (const [idxStr, answer] of Object.entries(session.answers)) {
+        if (!answer.isCorrect) continue;
+        const q = session.questions[parseInt(idxStr, 10)];
+        if (q) xp += DIFFICULTY_XP[q.difficulty ?? "easy"];
+      }
+    }
     return xp;
-  }, [history]);
+  }, [history, session]);
   const nextMilestone = (Math.floor(todayXP / 1000) + 1) * 1000;
   const dailyBarPct = Math.round((todayXP / nextMilestone) * 100);
 
