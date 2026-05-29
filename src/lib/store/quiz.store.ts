@@ -24,6 +24,9 @@ interface QuizStore {
   session: QuizSession | null;
   history: CompletedSession[];
   markedQuestionIds: number[];
+  studyProgress: Record<string, number>;
+  studyLastAttempt: Record<string, number[]>;
+  chapterExamProgress: Record<string, number>;
 
   startSession: (config: QuizConfig) => string;
   startSessionWithQuestions: (config: QuizConfig, questions: Question[]) => string;
@@ -44,6 +47,9 @@ export const useQuizStore = create<QuizStore>()(
       session: null,
       history: [],
       markedQuestionIds: [],
+      studyProgress: {},
+      studyLastAttempt: {},
+      chapterExamProgress: {},
 
       startSessionWithQuestions: (config, questions) => {
         const sessionId = crypto.randomUUID();
@@ -226,7 +232,7 @@ export const useQuizStore = create<QuizStore>()(
       },
 
       completeSession: () => {
-        const { session, history } = get();
+        const { session, history, studyProgress, studyLastAttempt, chapterExamProgress } = get();
         if (!session) return;
 
         const now = Date.now();
@@ -247,6 +253,22 @@ export const useQuizStore = create<QuizStore>()(
           answers: session.answers,
         };
 
+        const newStudyProgress = { ...studyProgress };
+        const newStudyLastAttempt = { ...studyLastAttempt };
+        const newChapterExamProgress = { ...chapterExamProgress };
+        const catId = session.config.categoryId;
+        if (session.config.courseId === "az-900-study" && catId) {
+          newStudyProgress[catId] = Math.max(studyProgress[catId] ?? 0, percentage);
+          const incorrectIds = session.questions
+            .map((q, i) => ({ q, answer: session.answers[i] }))
+            .filter(({ answer }) => !answer || !answer.isCorrect)
+            .map(({ q }) => q.id);
+          newStudyLastAttempt[catId] = incorrectIds;
+        }
+        if (session.config.courseId === "az-900-chapter-exam" && catId) {
+          newChapterExamProgress[catId] = Math.max(chapterExamProgress[catId] ?? 0, percentage);
+        }
+
         set({
           session: {
             ...session,
@@ -254,6 +276,9 @@ export const useQuizStore = create<QuizStore>()(
             completedAt: now,
           },
           history: [completed, ...history].slice(0, 10),
+          studyProgress: newStudyProgress,
+          studyLastAttempt: newStudyLastAttempt,
+          chapterExamProgress: newChapterExamProgress,
         });
       },
 
@@ -266,6 +291,9 @@ export const useQuizStore = create<QuizStore>()(
         session: state.session,
         history: state.history,
         markedQuestionIds: state.markedQuestionIds,
+        studyProgress: state.studyProgress,
+        studyLastAttempt: state.studyLastAttempt,
+        chapterExamProgress: state.chapterExamProgress,
       }),
     }
   )

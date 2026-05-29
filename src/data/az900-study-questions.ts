@@ -4702,3 +4702,1295 @@ export const azureInfrastructureQuestions: Question[] = [
     "difficulty": "medium"
   }
 ]
+
+// ─────────────────────────────────────────────
+// azure management infrastructure (20361-20390)
+// ─────────────────────────────────────────────
+export const azureManagementInfrastructureQuestions: Question[] = [
+{
+    "id": 20361,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Resource Manager (ARM) y cuál es su función principal?",
+    "options": [
+      "Es un servicio de monitoreo que registra eventos de recursos de Azure",
+      "Es la capa de administración que permite crear, actualizar y eliminar recursos en Azure",
+      "Es una herramienta de migración para mover recursos entre regiones",
+      "Es un servicio de copia de seguridad para recursos críticos de Azure"
+    ],
+    "correctAnswer": "Es la capa de administración que permite crear, actualizar y eliminar recursos en Azure",
+    "explaination": "Azure Resource Manager (ARM) es la capa de administración de Azure que proporciona una manera coherente de administrar los recursos. Actúa como intermediario entre las herramientas de administración (portal, CLI, SDK) y los recursos de Azure, gestionando autenticación, autorización y la aplicación de políticas.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20362,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es la jerarquía correcta de organización de recursos en Azure, de mayor a menor nivel?",
+    "options": [
+      "Suscripción → Grupo de administración → Grupo de recursos → Recursos",
+      "Grupo de administración → Suscripción → Grupo de recursos → Recursos",
+      "Tenant → Suscripción → Recursos → Grupo de recursos",
+      "Grupo de recursos → Suscripción → Grupo de administración → Recursos"
+    ],
+    "correctAnswer": "Grupo de administración → Suscripción → Grupo de recursos → Recursos",
+    "explaination": "La jerarquía correcta en Azure es: Grupos de administración (nivel más alto) → Suscripciones → Grupos de recursos → Recursos individuales. Esta estructura permite aplicar gobernanza, políticas y control de acceso de forma jerárquica.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20363,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué son los grupos de recursos en Azure?",
+    "options": [
+      "Contenedores lógicos que agrupan recursos relacionados de Azure para facilitar su administración",
+      "Conjuntos de permisos que se asignan a usuarios para acceder a recursos",
+      "Regiones geográficas donde se despliegan los servicios de Azure",
+      "Planes de facturación que agrupan múltiples suscripciones"
+    ],
+    "correctAnswer": "Contenedores lógicos que agrupan recursos relacionados de Azure para facilitar su administración",
+    "explaination": "Los grupos de recursos son contenedores lógicos en Azure que permiten organizar y administrar recursos relacionados como una unidad. Todos los recursos deben pertenecer a un grupo de recursos y cada recurso solo puede pertenecer a un grupo a la vez.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20364,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué son los grupos de administración de Azure y para qué se utilizan?",
+    "options": [
+      "Son grupos de usuarios administradores con acceso privilegiado a Azure",
+      "Son contenedores que ayudan a administrar el acceso, las políticas y el cumplimiento de múltiples suscripciones",
+      "Son conjuntos de máquinas virtuales administradas de forma centralizada",
+      "Son regiones lógicas que agrupan zonas de disponibilidad cercanas"
+    ],
+    "correctAnswer": "Son contenedores que ayudan a administrar el acceso, las políticas y el cumplimiento de múltiples suscripciones",
+    "explaination": "Los grupos de administración permiten organizar suscripciones en contenedores jerárquicos y aplicar condiciones de gobernanza. Las directivas y asignaciones de roles aplicadas a un grupo de administración se heredan por todas las suscripciones que contiene.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20365,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuántos niveles de profundidad puede tener la jerarquía de grupos de administración en Azure?",
+    "options": [
+      "Hasta 4 niveles",
+      "Hasta 6 niveles",
+      "Hasta 10 niveles",
+      "Sin límite de niveles"
+    ],
+    "correctAnswer": "Hasta 6 niveles",
+    "explaination": "Azure permite hasta 6 niveles de profundidad en la jerarquía de grupos de administración, sin contar el nivel raíz ni el nivel de suscripción. Esto proporciona flexibilidad para modelar estructuras organizacionales complejas.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20366,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es una suscripción de Azure?",
+    "options": [
+      "Un plan de soporte técnico contratado con Microsoft",
+      "Una unidad lógica de servicios de Azure vinculada a una cuenta que permite aprovisionar recursos",
+      "Un tipo de licencia para usar software de Microsoft en la nube",
+      "Un contrato de nivel de servicio (SLA) con Microsoft Azure"
+    ],
+    "correctAnswer": "Una unidad lógica de servicios de Azure vinculada a una cuenta que permite aprovisionar recursos",
+    "explaination": "Una suscripción de Azure es una unidad lógica que proporciona acceso autenticado y autorizado a los servicios de Azure. Está vinculada a una cuenta y define los límites de facturación y control de acceso. Una cuenta puede tener múltiples suscripciones.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20367,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Policy y cuál es su propósito principal?",
+    "options": [
+      "Una herramienta de facturación para controlar el gasto en Azure",
+      "Un servicio que permite crear, asignar y administrar directivas para controlar o auditar recursos",
+      "Un sistema de autenticación multifactor para acceder al portal de Azure",
+      "Una plataforma de documentación para las mejores prácticas de Azure"
+    ],
+    "correctAnswer": "Un servicio que permite crear, asignar y administrar directivas para controlar o auditar recursos",
+    "explaination": "Azure Policy ayuda a garantizar el cumplimiento de los estándares corporativos y los acuerdos de nivel de servicio. Permite crear, asignar y administrar directivas que aplican reglas a los recursos de Azure, asegurando que permanezcan en conformidad con los estándares.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20368,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es el Control de acceso basado en roles (RBAC) en Azure?",
+    "options": [
+      "Un sistema para cifrar datos en reposo en recursos de Azure",
+      "Un sistema de autorización que proporciona administración de acceso detallado a los recursos de Azure",
+      "Una herramienta para auditar el acceso físico a los centros de datos de Azure",
+      "Un servicio de monitoreo de actividad de usuarios en el portal de Azure"
+    ],
+    "correctAnswer": "Un sistema de autorización que proporciona administración de acceso detallado a los recursos de Azure",
+    "explaination": "Azure RBAC es un sistema de autorización basado en Azure Resource Manager que proporciona administración de acceso detallado a los recursos de Azure. Permite conceder acceso mínimo necesario a los usuarios para que puedan realizar su trabajo, asignando roles específicos.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20369,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuáles son los tres elementos principales de una asignación de roles en Azure RBAC?",
+    "options": [
+      "Usuario, contraseña y recurso",
+      "Entidad de seguridad, definición de rol y ámbito",
+      "Suscripción, grupo de recursos y directiva",
+      "Administrador, colaborador y lector"
+    ],
+    "correctAnswer": "Entidad de seguridad, definición de rol y ámbito",
+    "explaination": "Una asignación de roles en Azure RBAC consta de tres elementos: la entidad de seguridad (quién obtiene acceso: usuario, grupo, entidad de servicio o identidad administrada), la definición de rol (qué puede hacer) y el ámbito (sobre qué recursos aplica).",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20370,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Resource Manager (ARM) Templates?",
+    "options": [
+      "Plantillas de diseño para el portal de Azure",
+      "Archivos JSON que definen la infraestructura y configuración de un proyecto de Azure",
+      "Scripts de PowerShell para automatizar la gestión de recursos",
+      "Documentos de configuración para máquinas virtuales de Azure"
+    ],
+    "correctAnswer": "Archivos JSON que definen la infraestructura y configuración de un proyecto de Azure",
+    "explaination": "Las plantillas ARM son archivos JSON que definen la infraestructura y la configuración del proyecto. Las plantillas usan sintaxis declarativa, lo que permite especificar lo que se quiere implementar sin necesidad de escribir la secuencia de comandos de programación para crearlo.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20371,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué ventaja ofrece la implementación declarativa con plantillas ARM frente a la imperativa?",
+    "options": [
+      "Es más rápida porque omite las validaciones de seguridad",
+      "Permite especificar el estado final deseado sin detallar los pasos para alcanzarlo",
+      "Requiere menos permisos de administrador para ejecutarse",
+      "Solo puede usarse con recursos de red en Azure"
+    ],
+    "correctAnswer": "Permite especificar el estado final deseado sin detallar los pasos para alcanzarlo",
+    "explaination": "La implementación declarativa con ARM Templates permite definir qué recursos se necesitan (estado deseado) sin especificar el orden de creación o los pasos exactos. ARM se encarga de determinar el orden de operaciones y de crear o actualizar los recursos para alcanzar ese estado.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20372,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Blueprints y en qué se diferencia de Azure Policy?",
+    "options": [
+      "Azure Blueprints es exclusivamente para gestión de redes, mientras que Azure Policy aplica a todos los recursos",
+      "Azure Blueprints permite empaquetar directivas, roles y plantillas en un solo artefacto reutilizable para entornos conformes",
+      "Azure Blueprints es una versión más antigua y menos funcional de Azure Policy",
+      "No hay diferencia, son servicios equivalentes con diferentes nombres"
+    ],
+    "correctAnswer": "Azure Blueprints permite empaquetar directivas, roles y plantillas en un solo artefacto reutilizable para entornos conformes",
+    "explaination": "Azure Blueprints permite empaquetar directivas de Azure, asignaciones de roles y plantillas ARM en un solo artefacto de plano técnico. A diferencia de Policy, un plano técnico crea una relación entre la definición y la implementación, lo que permite rastrear y auditar las implementaciones.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20373,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Monitor y cuál es su función principal?",
+    "options": [
+      "Un servicio de antivirus para proteger máquinas virtuales en Azure",
+      "Una solución completa para recopilar, analizar y actuar sobre telemetría de entornos cloud y locales",
+      "Una herramienta de facturación para supervisar el gasto en Azure",
+      "Un servicio de respaldo automático para bases de datos en Azure"
+    ],
+    "correctAnswer": "Una solución completa para recopilar, analizar y actuar sobre telemetría de entornos cloud y locales",
+    "explaination": "Azure Monitor maximiza la disponibilidad y el rendimiento de las aplicaciones y servicios. Recopila, analiza y actúa sobre datos de telemetría de entornos cloud y locales, ayudando a comprender el rendimiento de las aplicaciones e identificar proactivamente los problemas.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20374,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Cost Management + Billing?",
+    "options": [
+      "Un servicio para gestionar contratos de licencias de software de Microsoft",
+      "Una herramienta para supervisar, asignar y optimizar los costos de los servicios de Azure",
+      "Un sistema de facturación automática para clientes empresariales de Azure",
+      "Una plataforma para comparar precios entre diferentes proveedores de nube"
+    ],
+    "correctAnswer": "Una herramienta para supervisar, asignar y optimizar los costos de los servicios de Azure",
+    "explaination": "Azure Cost Management + Billing ayuda a comprender la factura de Azure, administrar la cuenta y las suscripciones, supervisar y controlar el gasto de Azure, y optimizar el uso de recursos. Proporciona análisis de costos, presupuestos y recomendaciones de optimización.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20375,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué son las etiquetas (tags) en Azure y para qué se utilizan?",
+    "options": [
+      "Son identificadores únicos generados automáticamente para cada recurso de Azure",
+      "Son pares nombre-valor que permiten organizar, identificar y categorizar recursos de Azure",
+      "Son marcadores de versión para plantillas ARM en el repositorio de Azure",
+      "Son alertas visuales que indican el estado de salud de los recursos en el portal"
+    ],
+    "correctAnswer": "Son pares nombre-valor que permiten organizar, identificar y categorizar recursos de Azure",
+    "explaination": "Las etiquetas son pares nombre-valor metadata que se pueden aplicar a los recursos, grupos de recursos y suscripciones de Azure. Permiten organizar los recursos lógicamente, hacer seguimiento de costos por proyecto o departamento, y facilitar la automatización.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20376,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Advisor y cómo ayuda en la administración de Azure?",
+    "options": [
+      "Es un asistente de chat para responder preguntas sobre servicios de Azure",
+      "Es un consultor personalizado en la nube que analiza configuraciones y recomienda mejoras",
+      "Es una herramienta de documentación que explica cómo usar los servicios de Azure",
+      "Es un servicio de soporte técnico premium disponible para suscriptores Enterprise"
+    ],
+    "correctAnswer": "Es un consultor personalizado en la nube que analiza configuraciones y recomienda mejoras",
+    "explaination": "Azure Advisor analiza las configuraciones de recursos y la telemetría de uso, y recomienda soluciones para mejorar la confiabilidad, seguridad, excelencia operativa, rendimiento y reducir costos. Las recomendaciones se dividen en cinco categorías: Confiabilidad, Seguridad, Rendimiento, Costos y Excelencia operativa.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20377,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Service Health y en qué se diferencia del Azure Status?",
+    "options": [
+      "Son el mismo servicio, solo con diferentes nombres en distintas regiones",
+      "Azure Service Health monitorea la salud personalizada de los servicios usados, mientras que Azure Status muestra el estado global de todos los servicios",
+      "Azure Service Health es de pago, mientras que Azure Status es gratuito",
+      "Azure Service Health solo cubre Azure, mientras que Azure Status incluye otros servicios de Microsoft"
+    ],
+    "correctAnswer": "Azure Service Health monitorea la salud personalizada de los servicios usados, mientras que Azure Status muestra el estado global de todos los servicios",
+    "explaination": "Azure Service Health proporciona una vista personalizada del estado de los servicios y regiones de Azure que realmente se usan. Azure Status, en cambio, muestra una vista global del estado de todos los servicios de Azure en todas las regiones en una página pública.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20378,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es el Azure Portal y cuáles son sus características principales?",
+    "options": [
+      "Un cliente de escritorio exclusivo para administradores de Azure en entornos empresariales",
+      "Una consola web unificada que proporciona una alternativa gráfica a las herramientas de línea de comandos",
+      "Un marketplace donde se compran licencias de software para usar en Azure",
+      "Una plataforma de aprendizaje interactivo para certificaciones de Azure"
+    ],
+    "correctAnswer": "Una consola web unificada que proporciona una alternativa gráfica a las herramientas de línea de comandos",
+    "explaination": "El Azure Portal es una consola unificada basada en web que proporciona una alternativa a las herramientas de línea de comandos. Permite crear, administrar y supervisar todos los recursos de Azure en una única interfaz gráfica, con paneles personalizables y opciones de accesibilidad.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20379,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Cloud Shell y cuáles son sus dos entornos disponibles?",
+    "options": [
+      "Es una máquina virtual ligera con entornos Windows y Linux",
+      "Es un shell interactivo autenticado accesible desde el navegador con entornos Bash y PowerShell",
+      "Es un terminal local que se conecta a Azure con soporte para CMD y PowerShell",
+      "Es un IDE en la nube con soporte para Python y JavaScript"
+    ],
+    "correctAnswer": "Es un shell interactivo autenticado accesible desde el navegador con entornos Bash y PowerShell",
+    "explaination": "Azure Cloud Shell es un shell interactivo y autenticado accesible desde un navegador para administrar recursos de Azure. Ofrece la flexibilidad de elegir la experiencia de shell que mejor se adapte a la forma de trabajar: Bash o PowerShell. No requiere instalación local.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20380,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es la Azure CLI y en qué situaciones es más útil que el portal de Azure?",
+    "options": [
+      "Es una interfaz web alternativa al portal, útil cuando hay problemas de conectividad",
+      "Es un conjunto de comandos de texto para administrar Azure, ideal para automatización y scripts repetibles",
+      "Es una API REST exclusiva para desarrolladores que integran sistemas con Azure",
+      "Es un plugin de Visual Studio Code solo disponible en sistemas Windows"
+    ],
+    "correctAnswer": "Es un conjunto de comandos de texto para administrar Azure, ideal para automatización y scripts repetibles",
+    "explaination": "La Azure CLI es una herramienta de línea de comandos multiplataforma para administrar recursos de Azure. Es especialmente útil para automatización, scripting de operaciones repetibles, integración en pipelines de CI/CD y cuando se prefiere trabajar sin interfaz gráfica.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20381,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure PowerShell y en qué se diferencia de la Azure CLI?",
+    "options": [
+      "Azure PowerShell solo funciona en Windows, mientras que Azure CLI es multiplataforma",
+      "Azure PowerShell usa cmdlets de PowerShell para administrar Azure, mientras que la CLI usa comandos az",
+      "Azure PowerShell es más antiguo y está en desuso, la Azure CLI es la herramienta moderna recomendada",
+      "No hay diferencias funcionales, son herramientas completamente equivalentes"
+    ],
+    "correctAnswer": "Azure PowerShell usa cmdlets de PowerShell para administrar Azure, mientras que la CLI usa comandos az",
+    "explaination": "Azure PowerShell es un módulo que extiende PowerShell con cmdlets específicos de Azure (como New-AzVM). La Azure CLI usa comandos que comienzan con 'az'. Ambas son multiplataforma, pero PowerShell integra mejor en entornos donde ya se usa PowerShell para automatización.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20382,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué son los bloqueos de recursos (Resource Locks) en Azure y qué tipos existen?",
+    "options": [
+      "Son restricciones de red que bloquean el acceso a los recursos desde Internet",
+      "Son controles que impiden que los recursos sean modificados o eliminados accidentalmente; existen de tipo CanNotDelete y ReadOnly",
+      "Son cuotas de uso que limitan cuántos recursos puede crear una suscripción",
+      "Son permisos especiales que solo los administradores globales pueden asignar"
+    ],
+    "correctAnswer": "Son controles que impiden que los recursos sean modificados o eliminados accidentalmente; existen de tipo CanNotDelete y ReadOnly",
+    "explaination": "Los bloqueos de recursos evitan que otros usuarios en la organización eliminen o modifiquen accidentalmente recursos críticos. Existen dos tipos: CanNotDelete (impide eliminar pero permite leer y modificar) y ReadOnly (impide modificar y eliminar, solo permite leer).",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20383,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Bicep en el contexto de Azure y cuál es su ventaja sobre las plantillas ARM JSON?",
+    "options": [
+      "Es un servicio de compilación de código para aplicaciones .NET en Azure",
+      "Es un lenguaje de dominio específico que ofrece sintaxis más sencilla para crear plantillas ARM",
+      "Es una herramienta de terceros no compatible con Azure Resource Manager",
+      "Es una extensión de Kubernetes para desplegar contenedores en Azure"
+    ],
+    "correctAnswer": "Es un lenguaje de dominio específico que ofrece sintaxis más sencilla para crear plantillas ARM",
+    "explaination": "Bicep es un lenguaje de dominio específico (DSL) que usa sintaxis declarativa para implementar recursos de Azure. Es una abstracción transparente sobre las plantillas ARM JSON, ofrece sintaxis más concisa, mejor soporte de herramientas y se compila en JSON compatible con ARM.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20384,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué información proporciona el Azure Activity Log?",
+    "options": [
+      "Registros de rendimiento de CPU y memoria de las máquinas virtuales",
+      "Un registro de las operaciones realizadas en los recursos a nivel de suscripción, como quién hizo qué y cuándo",
+      "Estadísticas de acceso a sitios web hospedados en Azure",
+      "Métricas de disponibilidad de los servicios de Azure a nivel global"
+    ],
+    "correctAnswer": "Un registro de las operaciones realizadas en los recursos a nivel de suscripción, como quién hizo qué y cuándo",
+    "explaination": "El Azure Activity Log es un registro de plataforma que proporciona información sobre los eventos a nivel de suscripción. Incluye información como cuándo se modificó un recurso, quién lo modificó y el estado de la operación. Es útil para auditoría y diagnóstico.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20385,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué son las iniciativas de Azure Policy?",
+    "options": [
+      "Documentos de planificación estratégica para la migración a la nube",
+      "Colecciones de definiciones de directivas agrupadas para lograr un objetivo de cumplimiento específico",
+      "Planes de suscripción premium con directivas de soporte incluidas",
+      "Reglas de firewall predefinidas para grupos de seguridad de red"
+    ],
+    "correctAnswer": "Colecciones de definiciones de directivas agrupadas para lograr un objetivo de cumplimiento específico",
+    "explaination": "Las iniciativas de Azure Policy son colecciones de definiciones de directivas que se agrupan para lograr un objetivo de cumplimiento específico. Por ejemplo, la iniciativa 'Habilitar supervisión en Azure Security Center' contiene más de 100 definiciones de directivas individuales relacionadas con la seguridad.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20386,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es el Grupo de administración raíz (Root Management Group) en Azure?",
+    "options": [
+      "El grupo de administración predeterminado al que pertenecen todos los nuevos recursos creados",
+      "El nivel más alto en la jerarquía de grupos de administración que contiene todos los grupos y suscripciones del tenant",
+      "Un grupo especial reservado para las suscripciones de pago por uso",
+      "El grupo de seguridad que controla el acceso de los administradores globales"
+    ],
+    "correctAnswer": "El nivel más alto en la jerarquía de grupos de administración que contiene todos los grupos y suscripciones del tenant",
+    "explaination": "El grupo de administración raíz es el nivel más alto de la jerarquía. Existe uno por directorio (tenant) de Azure AD y todas las suscripciones y grupos de administración se encuentran dentro de él. Las directivas aplicadas al grupo raíz se aplican a todos los recursos del tenant.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20387,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es el principio del mínimo privilegio (least privilege) en Azure RBAC?",
+    "options": [
+      "Asignar el rol de Propietario a todos los usuarios para simplificar la administración",
+      "Conceder a los usuarios solo los permisos necesarios para realizar sus tareas específicas",
+      "Restringir el acceso a Azure únicamente a los administradores globales",
+      "Eliminar todos los permisos de los usuarios externos de la organización"
+    ],
+    "correctAnswer": "Conceder a los usuarios solo los permisos necesarios para realizar sus tareas específicas",
+    "explaination": "El principio de mínimo privilegio en Azure RBAC significa otorgar a los usuarios, grupos y aplicaciones únicamente el nivel de acceso necesario para que puedan realizar su trabajo. Esto reduce el riesgo de cambios accidentales o maliciosos y es una práctica de seguridad fundamental.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20388,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué herramienta de Azure permite ver el cumplimiento de las directivas y el estado de los recursos de forma centralizada?",
+    "options": [
+      "Azure Monitor",
+      "Azure Security Center",
+      "Azure Policy Compliance Dashboard",
+      "Azure Advisor"
+    ],
+    "correctAnswer": "Azure Policy Compliance Dashboard",
+    "explaination": "El panel de cumplimiento de Azure Policy proporciona una vista agregada del estado general del entorno con respecto a las directivas asignadas. Permite ver cuántos recursos cumplen o no cumplen las directivas, desglosado por iniciativas, directivas individuales y recursos.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20389,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es la diferencia entre los roles integrados 'Propietario', 'Colaborador' y 'Lector' en Azure RBAC?",
+    "options": [
+      "Propietario puede crear recursos, Colaborador puede modificarlos y Lector puede eliminarlos",
+      "Propietario tiene acceso completo incluida la gestión de acceso; Colaborador puede administrar recursos pero no gestionar acceso; Lector solo puede ver recursos",
+      "Son equivalentes pero se aplican a diferentes tipos de recursos",
+      "Solo difieren en el número de recursos que pueden administrar simultáneamente"
+    ],
+    "correctAnswer": "Propietario tiene acceso completo incluida la gestión de acceso; Colaborador puede administrar recursos pero no gestionar acceso; Lector solo puede ver recursos",
+    "explaination": "Los tres roles integrados principales son: Propietario (acceso completo a todos los recursos + puede delegar acceso a otros), Colaborador (puede crear y administrar todos los recursos pero no puede gestionar el acceso de otros) y Lector (puede ver los recursos existentes pero no puede modificarlos).",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20390,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es la herencia de directivas en la jerarquía de Azure y cómo funciona?",
+    "options": [
+      "Las directivas solo se aplican al nivel donde se asignan y no afectan a los niveles inferiores",
+      "Las directivas asignadas en niveles superiores de la jerarquía se heredan automáticamente por todos los recursos en niveles inferiores",
+      "Cada recurso debe tener sus propias directivas configuradas individualmente",
+      "La herencia solo funciona entre grupos de administración, no entre suscripciones y grupos de recursos"
+    ],
+    "correctAnswer": "Las directivas asignadas en niveles superiores de la jerarquía se heredan automáticamente por todos los recursos en niveles inferiores",
+    "explaination": "En Azure, las directivas asignadas a un grupo de administración se aplican a todas las suscripciones dentro de él, y a su vez a todos los grupos de recursos y recursos individuales de esas suscripciones. Esta herencia permite aplicar gobernanza de forma consistente en toda la organización desde un único punto.",
+    "difficulty": "hard"
+  }
+];
+
+// ─────────────────────────────────────────────
+// azure virtual machines (20391-20420)
+// ─────────────────────────────────────────────
+export const azureVirtualMachinesQuestions: Question[] = [
+  {
+    "id": 20391,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué modelo de servicio en la nube representa Azure Virtual Machines?",
+    "options": [
+      "Software como servicio (SaaS)",
+      "Plataforma como servicio (PaaS)",
+      "Infraestructura como servicio (IaaS)",
+      "Función como servicio (FaaS)"
+    ],
+    "correctAnswer": "Infraestructura como servicio (IaaS)",
+    "explaination": "Azure Virtual Machines representa el modelo IaaS (Infraestructura como servicio). Permite ejecutar servidores virtualizados en Azure donde el cliente controla el sistema operativo y el software instalado, similar a un servidor físico, pero sin necesidad de comprar ni mantener hardware.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20392,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es una de las principales ventajas de Azure Virtual Machines respecto a los servidores físicos?",
+    "options": [
+      "Eliminan completamente la necesidad de gestionar parches, actualizaciones y configuraciones",
+      "Eliminan la necesidad de comprar y mantener hardware de servidor físico",
+      "Proporcionan mayor rendimiento que cualquier servidor físico disponible",
+      "Incluyen licencias de software ilimitadas sin costo adicional"
+    ],
+    "correctAnswer": "Eliminan la necesidad de comprar y mantener hardware de servidor físico",
+    "explaination": "Las máquinas virtuales de Azure eliminan la necesidad de comprar y mantener hardware de servidor físico. Sin embargo, como servicio IaaS, el cliente sigue siendo responsable de gestionar parches, actualizaciones y la configuración dentro de la máquina virtual.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20393,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es una imagen de máquina virtual en Azure?",
+    "options": [
+      "Una captura de pantalla del estado actual de la máquina virtual",
+      "Una plantilla que ya incluye un sistema operativo y herramientas, usada para implementar VMs rápidamente",
+      "Un archivo de respaldo completo de todos los datos de la VM",
+      "Un certificado digital que autentica la identidad de la máquina virtual"
+    ],
+    "correctAnswer": "Una plantilla que ya incluye un sistema operativo y herramientas, usada para implementar VMs rápidamente",
+    "explaination": "Una imagen es una plantilla precompilada que ya incluye un sistema operativo y herramientas como componentes de hospedaje web. Permite implementar máquinas virtuales rápidamente sin tener que configurar el sistema operativo desde cero.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20394,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál de los siguientes es un caso de uso recomendado para Azure Virtual Machines?",
+    "options": [
+      "Almacenar archivos estáticos como imágenes y videos",
+      "Ejecutar funciones sin servidor activadas por eventos",
+      "Pruebas y desarrollo con diferentes configuraciones de SO y aplicación",
+      "Enviar notificaciones push a dispositivos móviles"
+    ],
+    "correctAnswer": "Pruebas y desarrollo con diferentes configuraciones de SO y aplicación",
+    "explaination": "Las pruebas y el desarrollo son un caso de uso común de las VMs: se pueden crear diferentes configuraciones de sistema operativo y aplicación rápidamente y luego eliminar la VM cuando se complete la prueba, pagando solo por el tiempo de uso.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20395,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué significa 'migración mediante lift-and-shift' en el contexto de Azure Virtual Machines?",
+    "options": [
+      "Rediseñar completamente una aplicación para aprovechar las funcionalidades nativas de la nube",
+      "Mover cargas de trabajo de servidor existentes a Azure con un rediseño mínimo de la aplicación",
+      "Trasladar datos de un centro de datos a otro dentro de la misma región de Azure",
+      "Elevar los límites de recursos de una VM existente sin interrumpir el servicio"
+    ],
+    "correctAnswer": "Mover cargas de trabajo de servidor existentes a Azure con un rediseño mínimo de la aplicación",
+    "explaination": "La migración lift-and-shift consiste en mover las cargas de trabajo de servidor existentes a Azure con un rediseño mínimo de la aplicación. Es ideal para organizaciones que quieren migrar a la nube rápidamente sin invertir tiempo en reescribir sus aplicaciones.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20396,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es el caso de uso de 'recuperación ante desastres' con Azure Virtual Machines?",
+    "options": [
+      "Usar Azure como entorno de pruebas para nuevas versiones del software",
+      "Mantener capacidad de conmutación por error en Azure y ejecutar cargas de trabajo críticas si el sitio primario no está disponible",
+      "Escalar automáticamente las VMs cuando aumenta la demanda de usuarios",
+      "Reducir costos apagando VMs cuando no se usan durante la noche"
+    ],
+    "correctAnswer": "Mantener capacidad de conmutación por error en Azure y ejecutar cargas de trabajo críticas si el sitio primario no está disponible",
+    "explaination": "En el escenario de recuperación ante desastres, se mantiene capacidad de conmutación por error (failover) en Azure, de modo que si el sitio primario falla, las cargas de trabajo críticas pueden ejecutarse en Azure mientras se restaura el entorno principal.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20397,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué tres categorías principales de recursos se eligen al aprovisionar una máquina virtual en Azure?",
+    "options": [
+      "Sistema operativo, región y grupo de recursos",
+      "Tamaño, discos de almacenamiento y configuración de red",
+      "Licencia, zona de disponibilidad y etiquetas",
+      "Imagen, suscripción y grupo de administración"
+    ],
+    "correctAnswer": "Tamaño, discos de almacenamiento y configuración de red",
+    "explaination": "Al aprovisionar una máquina virtual en Azure, se eligen tres categorías principales de recursos: el tamaño (propósito, número de núcleos de procesador y cantidad de RAM), los discos de almacenamiento (HDD, SSD, etc.) y la configuración de red (red virtual, dirección IP pública y configuración de puertos).",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20398,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Para qué tipo de cargas de trabajo está optimizada la Serie N de máquinas virtuales de Azure?",
+    "options": [
+      "Bases de datos empresariales de gran tamaño con mucha memoria",
+      "Cargas de trabajo de aprendizaje e inferencia de IA y procesamiento de gráficos (GPU habilitada)",
+      "Servidores web y aplicaciones de uso general",
+      "Almacenamiento y procesamiento de datos de alto rendimiento"
+    ],
+    "correctAnswer": "Cargas de trabajo de aprendizaje e inferencia de IA y procesamiento de gráficos (GPU habilitada)",
+    "explaination": "La Serie N está diseñada para cargas de trabajo que requieren GPU, como el aprendizaje automático, la inferencia de inteligencia artificial y el procesamiento de gráficos avanzados. Es la familia adecuada cuando se necesita poder de cómputo de GPU en lugar de solo CPU.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20399,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué familia de máquinas virtuales de Azure está orientada a cargas de trabajo elásticas y económicas, como desarrollo y pruebas con picos de CPU ocasionales?",
+    "options": [
+      "Serie D",
+      "Serie M",
+      "Serie B",
+      "Serie F"
+    ],
+    "correctAnswer": "Serie B",
+    "explaination": "La Serie B es elástica y económica, diseñada para cargas de trabajo de desarrollo y pruebas con picos de CPU ocasionales. Permite acumular créditos de CPU cuando la VM usa menos recursos y utilizarlos durante picos de demanda, siendo una opción rentable para cargas de trabajo intermitentes.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20400,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Para qué tipo de carga de trabajo está diseñada la Serie E de máquinas virtuales de Azure?",
+    "options": [
+      "Cargas de trabajo intensivas en CPU como compilación de código",
+      "Almacenamiento y procesamiento de datos de alto rendimiento",
+      "Bases de datos en memoria y cargas de trabajo de análisis (optimización de memoria)",
+      "Servidores web con tráfico moderado y uso general"
+    ],
+    "correctAnswer": "Bases de datos en memoria y cargas de trabajo de análisis (optimización de memoria)",
+    "explaination": "La Serie E está optimizada para memoria y es ideal para bases de datos en memoria y cargas de trabajo de análisis intensivo en RAM, como SAP HANA u otras aplicaciones que requieren grandes cantidades de memoria para operar eficientemente.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20401,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué indica la letra 's' en el nombre de tamaño de VM 'Standard_D2s_v5'?",
+    "options": [
+      "Que la VM tiene soporte para sistemas operativos de servidor (server)",
+      "Que la VM admite almacenamiento SSD Premium",
+      "Que la VM tiene una capacidad de almacenamiento especial (storage)",
+      "Que la VM está en modo de espera (standby) para escalado automático"
+    ],
+    "correctAnswer": "Que la VM admite almacenamiento SSD Premium",
+    "explaination": "En la nomenclatura de Azure VMs, la letra 's' en el nombre indica que el tamaño admite almacenamiento SSD Premium (discos administrados Premium). Esto es importante para cargas de trabajo que requieren alto rendimiento de E/S en disco.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20402,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué indica el número '2' en el nombre de tamaño de VM 'Standard_D2s_v5'?",
+    "options": [
+      "La cantidad de discos de datos que puede tener la VM",
+      "La generación de hardware de la plataforma",
+      "El número de vCPUs del tamaño",
+      "La cantidad de gigabytes de RAM incluidos"
+    ],
+    "correctAnswer": "El número de vCPUs del tamaño",
+    "explaination": "En la nomenclatura de tamaños de Azure VMs, el número que sigue a la letra de familia indica la cantidad de vCPUs. En 'Standard_D2s_v5', el '2' significa que este tamaño tiene 2 CPU virtuales (vCPU).",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20403,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué indica 'v5' en el nombre de tamaño de VM 'Standard_D2s_v5'?",
+    "options": [
+      "La quinta versión del sistema operativo compatible",
+      "La generación de hardware de la familia de VMs",
+      "El nivel de rendimiento de red de la VM",
+      "La cantidad de versiones de imagen disponibles"
+    ],
+    "correctAnswer": "La generación de hardware de la familia de VMs",
+    "explaination": "El sufijo 'v5' en el nombre indica la generación de hardware de esa familia de máquinas virtuales. Las generaciones más recientes suelen ofrecer mejor rendimiento de línea base. En 'Standard_D2s_v5', 'v5' indica que se trata de la quinta generación de la familia D.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20404,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué dimensión de una VM de Azure afecta a la capacidad de proceso para cargas de trabajo simultáneas y enlazadas a CPU?",
+    "options": [
+      "La configuración del disco (IOPS)",
+      "La cantidad de RAM",
+      "El recuento de vCPUs",
+      "El rendimiento de red"
+    ],
+    "correctAnswer": "El recuento de vCPUs",
+    "explaination": "El recuento de vCPUs (CPUs virtuales) afecta directamente a la capacidad de proceso para cargas de trabajo simultáneas y enlazadas a CPU. A mayor número de vCPUs, mayor capacidad para procesar múltiples tareas en paralelo.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20405,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué dimensión de una VM de Azure afecta a la cantidad de datos de trabajo que la máquina virtual puede mantener activos?",
+    "options": [
+      "El recuento de vCPUs",
+      "La RAM",
+      "La configuración del disco",
+      "La compatibilidad con SSD Premium"
+    ],
+    "correctAnswer": "La RAM",
+    "explaination": "La RAM (memoria de acceso aleatorio) afecta a la cantidad de datos de trabajo que la máquina virtual puede mantener en memoria de forma activa. Más RAM permite manejar conjuntos de datos más grandes en memoria, reduciendo la necesidad de acceder a disco y mejorando el rendimiento.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20406,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué dimensión de una VM de Azure afecta a la capacidad de almacenamiento, las IOPS y el rendimiento de lectura/escritura?",
+    "options": [
+      "El recuento de vCPUs",
+      "La RAM",
+      "La configuración del disco",
+      "La generación de hardware"
+    ],
+    "correctAnswer": "La configuración del disco",
+    "explaination": "La configuración del disco afecta a la capacidad total de almacenamiento, las IOPS (operaciones de entrada/salida por segundo) y el rendimiento de lectura/escritura. Elegir entre HDD estándar, SSD estándar o SSD Premium impacta directamente en el desempeño de las aplicaciones con E/S intensiva.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20407,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué son los conjuntos de escalado de máquinas virtuales (VM Scale Sets) en Azure?",
+    "options": [
+      "Grupos de VMs con diferentes configuraciones para comparar rendimiento",
+      "Herramientas para aumentar manualmente el tamaño de disco de las VMs",
+      "Grupos de máquinas virtuales idénticas con equilibrio de carga que pueden escalar automáticamente",
+      "Colecciones de snapshots de VMs para recuperación ante desastres"
+    ],
+    "correctAnswer": "Grupos de máquinas virtuales idénticas con equilibrio de carga que pueden escalar automáticamente",
+    "explaination": "Los conjuntos de escalado de máquinas virtuales permiten crear y administrar grupos de VMs idénticas con equilibrio de carga. Centralizan la configuración, pueden escalar automáticamente según la demanda o los horarios, y se integran con el equilibrio de carga para distribuir el tráfico eficazmente.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20408,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué problema resuelven los conjuntos de escalado frente a la administración manual de múltiples VMs?",
+    "options": [
+      "Eliminan la necesidad de configurar redes virtuales para las VMs",
+      "Evitan tener que mantener manualmente la coherencia de configuración, supervisar la utilización y ajustar instancias",
+      "Proporcionan licencias de sistema operativo gratuitas para todas las instancias",
+      "Garantizan que las VMs nunca necesiten actualizaciones de parches de seguridad"
+    ],
+    "correctAnswer": "Evitan tener que mantener manualmente la coherencia de configuración, supervisar la utilización y ajustar instancias",
+    "explaination": "Sin conjuntos de escalado, se debe mantener manualmente la coherencia de configuración entre VMs, supervisar su utilización y ajustar la cantidad de instancias. Los conjuntos de escalado centralizan todo esto, automatizando el escalado según la demanda.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20409,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es el propósito principal de los conjuntos de disponibilidad de máquinas virtuales en Azure?",
+    "options": [
+      "Aumentar el rendimiento de las VMs distribuyéndolas en múltiples regiones",
+      "Mejorar la resistencia de las VMs dentro de una región, reduciendo la probabilidad de que todas sean afectadas por un mismo evento",
+      "Permitir el escalado automático de VMs basado en métricas de CPU y memoria",
+      "Agrupar VMs por proyecto para facilitar la facturación y el control de costos"
+    ],
+    "correctAnswer": "Mejorar la resistencia de las VMs dentro de una región, reduciendo la probabilidad de que todas sean afectadas por un mismo evento",
+    "explaination": "Los conjuntos de disponibilidad mejoran la resistencia de las máquinas virtuales dentro de una región. Reducen la posibilidad de que todas las VMs se vean afectadas simultáneamente por un evento de mantenimiento o un error de hardware, garantizando mayor disponibilidad del servicio.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20410,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es un dominio de actualización (update domain) en el contexto de los conjuntos de disponibilidad?",
+    "options": [
+      "Un grupo de VMs que comparten el mismo hardware físico y fuente de alimentación",
+      "Una agrupación de VMs que pueden reiniciarse juntas durante el mantenimiento planeado",
+      "Un conjunto de VMs en la misma región geográfica que se actualizan simultáneamente",
+      "Una zona de red aislada donde se aplican actualizaciones de seguridad"
+    ],
+    "correctAnswer": "Una agrupación de VMs que pueden reiniciarse juntas durante el mantenimiento planeado",
+    "explaination": "Un dominio de actualización agrupa máquinas virtuales que pueden reiniciarse juntas durante el mantenimiento planeado. Azure se asegura de que no todos los dominios de actualización se reinicien al mismo tiempo, garantizando que siempre haya VMs disponibles durante el mantenimiento.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20411,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es un dominio de error (fault domain) en el contexto de los conjuntos de disponibilidad?",
+    "options": [
+      "Un grupo de VMs que se reinician durante el mantenimiento planeado de Azure",
+      "Una agrupación de VMs que comparten un posible punto común de fallo de alimentación o red",
+      "Una región de Azure que ha experimentado interrupciones frecuentes",
+      "Un tipo de VM diseñada específicamente para detectar y reportar errores de hardware"
+    ],
+    "correctAnswer": "Una agrupación de VMs que comparten un posible punto común de fallo de alimentación o red",
+    "explaination": "Un dominio de error agrupa máquinas virtuales que comparten un posible punto de fallo común, como la fuente de alimentación o el switch de red. Al distribuir VMs entre múltiples dominios de error, se garantiza que un fallo de hardware no derribe todas las instancias simultáneamente.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20412,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Los conjuntos de disponibilidad tienen algún costo adicional en Azure?",
+    "options": [
+      "Sí, tienen un costo fijo mensual independientemente del número de VMs",
+      "Sí, se cobra una tarifa por hora por cada dominio de actualización configurado",
+      "No, los conjuntos de disponibilidad no agregan costo; solo se paga por las instancias de VM",
+      "Solo tienen costo cuando se usan con más de 5 máquinas virtuales"
+    ],
+    "correctAnswer": "No, los conjuntos de disponibilidad no agregan costo; solo se paga por las instancias de VM",
+    "explaination": "Los propios conjuntos de disponibilidad no agregan costo adicional. Solo se paga por las instancias de máquina virtual incluidas en el conjunto. Esto los convierte en una forma económica de mejorar la resiliencia de las aplicaciones.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20413,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuándo se prefieren los diseños basados en Zonas de disponibilidad frente a los conjuntos de disponibilidad?",
+    "options": [
+      "Cuando se necesita escalar automáticamente según la demanda de CPU",
+      "En regiones que admiten Zonas de disponibilidad, ya que proporcionan un aislamiento de error más amplio",
+      "Cuando el presupuesto es limitado y se busca la opción más económica",
+      "Cuando todas las VMs deben estar en el mismo edificio del centro de datos"
+    ],
+    "correctAnswer": "En regiones que admiten Zonas de disponibilidad, ya que proporcionan un aislamiento de error más amplio",
+    "explaination": "En las regiones que admiten Zonas de disponibilidad, a menudo se prefieren los diseños basados en zonas porque proporcionan un aislamiento de error más amplio que los conjuntos de disponibilidad. Las zonas separan físicamente los centros de datos dentro de una región, ofreciendo mayor resiliencia.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20414,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué familia de máquinas virtuales de Azure está orientada al uso general, como servidores web y aplicaciones pequeñas a medianas?",
+    "options": [
+      "Serie N",
+      "Serie L",
+      "Serie M",
+      "Serie D"
+    ],
+    "correctAnswer": "Serie D",
+    "explaination": "La Serie D está diseñada para uso general y es adecuada para servidores web y servidores de aplicaciones pequeños a medianos. Ofrece un balance equilibrado entre CPU, memoria y almacenamiento temporal, siendo la familia más versátil para cargas de trabajo comunes.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20415,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Para qué tipo de carga de trabajo está diseñada la Serie F de máquinas virtuales de Azure?",
+    "options": [
+      "Bases de datos empresariales de gran tamaño que requieren mucha memoria",
+      "Niveles de aplicaciones intensivos en CPU (optimización informática)",
+      "Cargas de trabajo de GPU para inteligencia artificial y gráficos",
+      "Almacenamiento y procesamiento de datos de alto rendimiento con muchos IOPS"
+    ],
+    "correctAnswer": "Niveles de aplicaciones intensivos en CPU (optimización informática)",
+    "explaination": "La Serie F está optimizada para cómputo y es ideal para niveles de aplicaciones intensivos en CPU, como procesamiento por lotes, servidores de juegos, servidores de aplicaciones y procesamiento analítico. Ofrece una alta proporción de CPU por unidad de memoria.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20416,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Para qué está diseñada la Serie L de máquinas virtuales de Azure?",
+    "options": [
+      "Cargas de trabajo ligeras con bajo consumo de CPU y memoria",
+      "Bases de datos de gran tamaño que requieren máxima cantidad de RAM",
+      "Almacenamiento y procesamiento de datos de alto rendimiento",
+      "Cargas de trabajo de aprendizaje automático con requisitos de GPU"
+    ],
+    "correctAnswer": "Almacenamiento y procesamiento de datos de alto rendimiento",
+    "explaination": "La Serie L está optimizada para almacenamiento y es ideal para cargas de trabajo que requieren alto rendimiento en operaciones de almacenamiento, como bases de datos NoSQL (Cassandra, MongoDB), almacenes de datos y otras aplicaciones que dependen de un alto rendimiento de disco con latencia baja.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20417,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es el caso de uso más apropiado para la Serie M de máquinas virtuales de Azure?",
+    "options": [
+      "Aplicaciones móviles con muchos usuarios concurrentes",
+      "Bases de datos empresariales de gran tamaño que requieren enorme cantidad de memoria",
+      "Cargas de trabajo de machine learning con procesamiento masivo en GPU",
+      "Microservicios con alta demanda de CPU y bajo uso de memoria"
+    ],
+    "correctAnswer": "Bases de datos empresariales de gran tamaño que requieren enorme cantidad de memoria",
+    "explaination": "La Serie M está diseñada para uso de memoria grande y es ideal para bases de datos empresariales de gran tamaño como SAP HANA, que requieren cantidades masivas de RAM (hasta varios TB). Es la familia adecuada para las cargas de trabajo más exigentes en términos de memoria.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20418,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué ventaja ofrece el hospedaje de aplicaciones en la nube con Azure Virtual Machines respecto a un servidor físico propio?",
+    "options": [
+      "Las aplicaciones se ejecutan sin necesidad de un sistema operativo",
+      "Se puede escalar o reducir verticalmente la capacidad a medida que cambia la demanda",
+      "Las aplicaciones no necesitan actualizaciones de seguridad",
+      "El rendimiento es siempre constante sin importar la carga de trabajo"
+    ],
+    "correctAnswer": "Se puede escalar o reducir verticalmente la capacidad a medida que cambia la demanda",
+    "explaination": "Una de las principales ventajas del hospedaje de aplicaciones con Azure VMs es la capacidad de escalar o reducir verticalmente la capacidad según la demanda. Esto permite pagar solo por los recursos necesarios en cada momento, algo imposible de lograr con un servidor físico fijo.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20419,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué responsabilidades conserva el cliente al usar Azure Virtual Machines como servicio IaaS?",
+    "options": [
+      "Ninguna, Azure se encarga de todo incluyendo el sistema operativo y las aplicaciones",
+      "Solo la configuración de red, Azure gestiona el sistema operativo",
+      "La gestión de parches, actualizaciones y configuración dentro de la máquina virtual",
+      "Solo el despliegue inicial; Azure gestiona el mantenimiento posterior"
+    ],
+    "correctAnswer": "La gestión de parches, actualizaciones y configuración dentro de la máquina virtual",
+    "explaination": "Como servicio IaaS, el cliente sigue siendo responsable de gestionar los parches de seguridad, las actualizaciones del sistema operativo y el software, y la configuración dentro de la máquina virtual. Azure gestiona la infraestructura física subyacente, pero no el contenido de la VM.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20420,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es la estrategia correcta para seleccionar el tamaño de una máquina virtual de Azure según el módulo de Microsoft Learn?",
+    "options": [
+      "Elegir siempre el tamaño más grande disponible para garantizar rendimiento futuro",
+      "Seleccionar la familia que coincida con el comportamiento de la carga de trabajo y luego elegir el tamaño que satisfaga las necesidades de rendimiento",
+      "Comenzar con el tamaño más pequeño y cambiarlo solo si la VM se apaga inesperadamente",
+      "Elegir el tamaño más económico sin importar los requisitos de la carga de trabajo"
+    ],
+    "correctAnswer": "Seleccionar la familia que coincida con el comportamiento de la carga de trabajo y luego elegir el tamaño que satisfaga las necesidades de rendimiento",
+    "explaination": "Según el módulo, la estrategia correcta es: primero seleccionar una familia que coincida con el comportamiento de la carga de trabajo (uso general, optimizada para memoria, para cómputo, etc.) y luego elegir el tamaño específico dentro de esa familia que satisfaga las necesidades de rendimiento, escalando según crece la demanda.",
+    "difficulty": "medium"
+  }
+]; 
+
+// ─────────────────────────────────────────────
+// azure container instances (20420-20450)
+// ─────────────────────────────────────────────
+export const azureContainerInstancesQuestions: Question[] = [
+  {
+    "id": 20421,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué es Azure Virtual Desktop?",
+    "options": [
+      "Un servicio de máquinas virtuales para ejecutar cargas de trabajo de servidor en Azure",
+      "Un servicio de virtualización de aplicaciones y de escritorio en Azure",
+      "Una herramienta de administración remota de servidores Windows en centros de datos locales",
+      "Un sistema operativo en la nube exclusivo para dispositivos Surface de Microsoft"
+    ],
+    "correctAnswer": "Un servicio de virtualización de aplicaciones y de escritorio en Azure",
+    "explaination": "Azure Virtual Desktop es un servicio de virtualización de aplicaciones y de escritorio en Azure. Permite a los usuarios acceder de forma segura a escritorios y aplicaciones de Windows desde muchos tipos de dispositivos y ubicaciones.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20422,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Dónde residen los escritorios y las aplicaciones en Azure Virtual Desktop?",
+    "options": [
+      "En los dispositivos locales de cada usuario",
+      "En servidores físicos ubicados en las oficinas de la organización",
+      "En la nube, en lugar de en dispositivos locales",
+      "En discos duros externos conectados a los equipos de los usuarios"
+    ],
+    "correctAnswer": "En la nube, en lugar de en dispositivos locales",
+    "explaination": "En Azure Virtual Desktop los escritorios y las aplicaciones permanecen en la nube en lugar de en dispositivos locales. Es una opción administrada para el acceso a Escritorio remoto donde toda la sesión se ejecuta en Azure.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20423,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cómo se describe Azure Virtual Desktop en su nivel más fundamental?",
+    "options": [
+      "Una plataforma de desarrollo de aplicaciones web hospedadas en Azure",
+      "Una opción administrada para el acceso a Escritorio remoto con escritorios y aplicaciones en la nube",
+      "Un sistema de copias de seguridad automáticas para escritorios físicos empresariales",
+      "Un servicio de streaming de video optimizado para aplicaciones de productividad"
+    ],
+    "correctAnswer": "Una opción administrada para el acceso a Escritorio remoto con escritorios y aplicaciones en la nube",
+    "explaination": "A nivel fundamental, Azure Virtual Desktop es una opción administrada para el acceso a Escritorio remoto donde los escritorios y las aplicaciones permanecen en la nube en lugar de en dispositivos locales, gestionada por Microsoft como servicio.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20424,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Desde qué tipos de dispositivos pueden los usuarios acceder a Azure Virtual Desktop?",
+    "options": [
+      "Únicamente desde equipos de escritorio con Windows 11",
+      "Solo desde dispositivos corporativos administrados por la organización",
+      "Desde muchos tipos de dispositivos y ubicaciones de forma segura",
+      "Solo desde equipos con el cliente de Escritorio remoto de Microsoft instalado"
+    ],
+    "correctAnswer": "Desde muchos tipos de dispositivos y ubicaciones de forma segura",
+    "explaination": "Azure Virtual Desktop permite a los usuarios acceder de forma segura a escritorios y aplicaciones de Windows desde muchos tipos de dispositivos y ubicaciones, incluyendo equipos de escritorio, portátiles, tabletas y smartphones, independientemente del sistema operativo del dispositivo cliente.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20425,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Con qué servicio de identidad se integra Azure Virtual Desktop para los controles de identidad y acceso?",
+    "options": [
+      "Active Directory local (AD DS)",
+      "Microsoft Entra ID (anteriormente Azure Active Directory)",
+      "LDAP genérico de terceros",
+      "Azure Key Vault"
+    ],
+    "correctAnswer": "Microsoft Entra ID (anteriormente Azure Active Directory)",
+    "explaination": "Azure Virtual Desktop centraliza la entrega de aplicaciones y escritorio en Azure y se integra con Microsoft Entra ID (anteriormente conocido como Azure Active Directory) para los controles de identidad y acceso, proporcionando autenticación segura y gestión de identidades.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20426,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es uno de los beneficios de seguridad clave de Azure Virtual Desktop respecto a los datos?",
+    "options": [
+      "Cifra automáticamente todos los datos almacenados en los dispositivos locales de los usuarios",
+      "Ayuda a reducir la exposición de datos en dispositivos locales porque aplicaciones y datos pueden permanecer en sesiones hospedadas en Azure",
+      "Impide que los usuarios descarguen cualquier archivo desde Internet",
+      "Realiza análisis de amenazas en tiempo real en cada dispositivo cliente conectado"
+    ],
+    "correctAnswer": "Ayuda a reducir la exposición de datos en dispositivos locales porque aplicaciones y datos pueden permanecer en sesiones hospedadas en Azure",
+    "explaination": "Un beneficio clave de seguridad es que Azure Virtual Desktop ayuda a reducir la exposición de datos en dispositivos locales, ya que las aplicaciones y los datos pueden permanecer en sesiones hospedadas en Azure. Si el dispositivo del usuario es robado o comprometido, los datos corporativos no están almacenados en él.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20427,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué tipo de experiencias de Windows admite Azure Virtual Desktop?",
+    "options": [
+      "Solo experiencias de sesión única por usuario",
+      "Solo experiencias de múltiples sesiones compartidas por todos los usuarios",
+      "Experiencias de Windows de sesión única y de varias sesiones, según las necesidades",
+      "Únicamente experiencias de Windows Server, no Windows de escritorio"
+    ],
+    "correctAnswer": "Experiencias de Windows de sesión única y de varias sesiones, según las necesidades",
+    "explaination": "Azure Virtual Desktop admite tanto experiencias de Windows de sesión única (un usuario por máquina virtual) como de varias sesiones (múltiples usuarios en una misma VM), en función de las necesidades del usuario y la carga de trabajo, lo que lo hace flexible para diferentes escenarios.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20428,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Para qué escenario de usuarios está especialmente recomendado Azure Virtual Desktop?",
+    "options": [
+      "Desarrolladores de software que necesitan entornos aislados con máxima personalización",
+      "Usuarios distribuidos, contratistas o trabajadores híbridos que necesitan acceso centralizado a escritorios y aplicaciones",
+      "Administradores de bases de datos que requieren acceso de baja latencia a instancias SQL locales",
+      "Diseñadores gráficos que necesitan alto rendimiento de GPU para renderizado local"
+    ],
+    "correctAnswer": "Usuarios distribuidos, contratistas o trabajadores híbridos que necesitan acceso centralizado a escritorios y aplicaciones",
+    "explaination": "Azure Virtual Desktop es ideal cuando un equipo necesita acceso centralizado a escritorios y aplicaciones entre usuarios distribuidos, contratistas o trabajadores híbridos. Centraliza la administración mientras permite el acceso remoto seguro desde cualquier lugar.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20429,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué ventaja ofrece Azure Virtual Desktop para equipos de soporte técnico con múltiples turnos?",
+    "options": [
+      "Cada agente puede personalizar su entorno de escritorio de forma independiente sin afectar a otros",
+      "Cada turno tiene las mismas herramientas, directivas de acceso y controles de seguridad en escritorios estandarizados",
+      "Los agentes de soporte pueden acceder a los equipos físicos de los usuarios de forma remota sin VPN",
+      "Permite grabar automáticamente todas las sesiones de soporte para auditoría"
+    ],
+    "correctAnswer": "Cada turno tiene las mismas herramientas, directivas de acceso y controles de seguridad en escritorios estandarizados",
+    "explaination": "Un ejemplo de uso mencionado en el módulo es el equipo de soporte técnico que usa escritorios estandarizados hospedados en la nube, garantizando que cada turno tenga las mismas herramientas, directivas de acceso y controles de seguridad, lo que simplifica la gestión y asegura la coherencia.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20430,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Por qué Azure Virtual Desktop suele ser más fácil de operar que crear entornos de escritorio basados en VMs individuales para cada grupo de usuarios?",
+    "options": [
+      "Porque Azure Virtual Desktop no requiere ninguna configuración inicial",
+      "Porque proporciona administración centralizada de la experiencia de escritorio completa para muchos usuarios",
+      "Porque elimina completamente la necesidad de licencias de Windows para los usuarios",
+      "Porque funciona sin conexión a Internet en todos los dispositivos cliente"
+    ],
+    "correctAnswer": "Porque proporciona administración centralizada de la experiencia de escritorio completa para muchos usuarios",
+    "explaination": "Cuando se necesita una experiencia de escritorio completa para muchos usuarios, Azure Virtual Desktop suele ser más fácil de operar que crear entornos de escritorio independientes basados en VMs para cada grupo, gracias a su administración centralizada de escritorios, aplicaciones, políticas y seguridad.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20431,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué centraliza Azure Virtual Desktop en Azure?",
+    "options": [
+      "La facturación de todos los servicios de la organización en una sola suscripción",
+      "La entrega de aplicaciones y de escritorio, integrándose con Microsoft Entra ID",
+      "El almacenamiento de datos corporativos en un repositorio único cifrado",
+      "La gestión de licencias de software de Microsoft para todos los usuarios"
+    ],
+    "correctAnswer": "La entrega de aplicaciones y de escritorio, integrándose con Microsoft Entra ID",
+    "explaination": "Azure Virtual Desktop centraliza la entrega de aplicaciones y de escritorio en Azure, integrándose con Microsoft Entra ID para los controles de identidad y acceso. Esta centralización permite gestionar de forma unificada quién puede acceder a qué aplicaciones y escritorios.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20432,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué tipo de servicio es Azure Virtual Desktop en cuanto a su modelo de administración?",
+    "options": [
+      "Un servicio no administrado que requiere que el cliente gestione toda la infraestructura subyacente",
+      "Un servicio administrado (managed service) donde Microsoft gestiona la infraestructura de la plataforma",
+      "Un servicio de código abierto administrado por la comunidad de Azure",
+      "Un servicio exclusivo para organizaciones con más de 500 usuarios"
+    ],
+    "correctAnswer": "Un servicio administrado (managed service) donde Microsoft gestiona la infraestructura de la plataforma",
+    "explaination": "Azure Virtual Desktop es una opción administrada (managed service) para el acceso a Escritorio remoto. Microsoft gestiona la infraestructura de la plataforma subyacente, lo que reduce la carga operativa del equipo de TI de la organización.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20433,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es la diferencia principal entre Azure Virtual Desktop y una máquina virtual estándar de Azure en términos del uso final?",
+    "options": [
+      "Las VMs estándar tienen mayor rendimiento que Azure Virtual Desktop",
+      "Azure Virtual Desktop está diseñado para proporcionar escritorios y aplicaciones a usuarios finales de forma centralizada, mientras que las VMs se usan típicamente para cargas de trabajo de servidor",
+      "Las VMs estándar admiten múltiples usuarios simultáneos y Azure Virtual Desktop solo uno",
+      "No hay diferencia relevante, ambos servicios son equivalentes para cualquier caso de uso"
+    ],
+    "correctAnswer": "Azure Virtual Desktop está diseñado para proporcionar escritorios y aplicaciones a usuarios finales de forma centralizada, mientras que las VMs se usan típicamente para cargas de trabajo de servidor",
+    "explaination": "Aunque ambos usan virtualización, Azure Virtual Desktop está específicamente diseñado para la entrega centralizada de escritorios y aplicaciones a usuarios finales (VDI), con integración de identidad, soporte multi-sesión y administración orientada al usuario. Las VMs estándar de Azure están orientadas a cargas de trabajo de servidor e infraestructura.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20434,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué beneficio aporta la integración de Azure Virtual Desktop con Microsoft Entra ID?",
+    "options": [
+      "Permite usar el servicio sin necesidad de credenciales de usuario",
+      "Proporciona controles de identidad y acceso para gestionar quién puede conectarse y a qué recursos",
+      "Elimina la necesidad de usar contraseñas en los escritorios virtuales",
+      "Garantiza que todos los usuarios tengan acceso de administrador en sus escritorios"
+    ],
+    "correctAnswer": "Proporciona controles de identidad y acceso para gestionar quién puede conectarse y a qué recursos",
+    "explaination": "La integración con Microsoft Entra ID proporciona controles de identidad y acceso, permitiendo gestionar de forma segura quién puede conectarse a los escritorios virtuales, con soporte para autenticación multifactor (MFA), acceso condicional y políticas de seguridad empresariales.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20435,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿En qué situación la opción de varias sesiones de Azure Virtual Desktop es más apropiada que la de sesión única?",
+    "options": [
+      "Cuando cada usuario necesita un entorno completamente personalizado e independiente",
+      "Cuando se quiere maximizar la eficiencia de recursos permitiendo que múltiples usuarios compartan una misma VM",
+      "Cuando los usuarios ejecutan aplicaciones con alta demanda de GPU",
+      "Cuando se requiere el máximo aislamiento entre sesiones de usuarios diferentes"
+    ],
+    "correctAnswer": "Cuando se quiere maximizar la eficiencia de recursos permitiendo que múltiples usuarios compartan una misma VM",
+    "explaination": "La experiencia de varias sesiones es más apropiada cuando se busca maximizar la eficiencia de recursos, permitiendo que múltiples usuarios compartan una misma máquina virtual simultáneamente. Es ideal para usuarios que realizan tareas de productividad similares y no requieren recursos dedicados exclusivos.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20436,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué riesgo de seguridad específico ayuda a mitigar Azure Virtual Desktop al mantener datos en sesiones hospedadas en Azure?",
+    "options": [
+      "El riesgo de ataques de denegación de servicio (DDoS) contra los servidores de la organización",
+      "La exposición de datos corporativos en dispositivos locales ante pérdida, robo o compromiso del dispositivo",
+      "El riesgo de que aplicaciones maliciosas se instalen en los servidores de Azure",
+      "La posibilidad de que usuarios no autorizados accedan a los centros de datos de Microsoft"
+    ],
+    "correctAnswer": "La exposición de datos corporativos en dispositivos locales ante pérdida, robo o compromiso del dispositivo",
+    "explaination": "Al mantener las aplicaciones y los datos en sesiones hospedadas en Azure, se reduce la exposición en dispositivos locales. Si un dispositivo del usuario es perdido, robado o comprometido, los datos corporativos no están en él, ya que todo permanece en la sesión en la nube.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20437,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué tipo de acceso proporciona Azure Virtual Desktop a los usuarios finales?",
+    "options": [
+      "Acceso exclusivo a aplicaciones de línea de negocio sin escritorio completo",
+      "Acceso seguro a escritorios y aplicaciones de Windows desde cualquier dispositivo y ubicación",
+      "Acceso administrativo a la infraestructura de Azure de la organización",
+      "Acceso de solo lectura a documentos almacenados en SharePoint Online"
+    ],
+    "correctAnswer": "Acceso seguro a escritorios y aplicaciones de Windows desde cualquier dispositivo y ubicación",
+    "explaination": "Azure Virtual Desktop proporciona a los usuarios acceso seguro a escritorios y aplicaciones de Windows desde muchos tipos de dispositivos y ubicaciones, permitiendo trabajar desde cualquier lugar como si estuvieran frente a su equipo de oficina.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20438,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es una ventaja operativa de Azure Virtual Desktop sobre entornos de escritorio independientes basados en VMs para cada grupo de usuarios?",
+    "options": [
+      "Azure Virtual Desktop no requiere licencias de Windows para ningún usuario",
+      "Es más fácil de operar porque centraliza la administración en lugar de gestionar VMs independientes por grupo",
+      "Ofrece rendimiento de red superior porque evita el uso de Internet para las conexiones",
+      "Permite instalar cualquier sistema operativo, no solo Windows"
+    ],
+    "correctAnswer": "Es más fácil de operar porque centraliza la administración en lugar de gestionar VMs independientes por grupo",
+    "explaination": "Azure Virtual Desktop suele ser más fácil de operar que crear entornos de escritorio independientes basados en máquinas virtuales para cada grupo de usuarios, porque centraliza la administración: actualizaciones, políticas de seguridad, configuraciones y control de acceso se gestionan desde un único punto.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20439,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué perfil de usuario sería un candidato ideal para usar Azure Virtual Desktop según el módulo?",
+    "options": [
+      "Un desarrollador de software que necesita compilar aplicaciones con acceso a GPU local",
+      "Un contratista externo que necesita acceso temporal y seguro a aplicaciones corporativas desde su propio dispositivo",
+      "Un administrador de sistemas que gestiona servidores físicos en un centro de datos",
+      "Un diseñador que trabaja con software de renderizado 3D intensivo en recursos locales"
+    ],
+    "correctAnswer": "Un contratista externo que necesita acceso temporal y seguro a aplicaciones corporativas desde su propio dispositivo",
+    "explaination": "Los contratistas son un perfil ideal para Azure Virtual Desktop, ya que el módulo menciona explícitamente a usuarios distribuidos, contratistas y trabajadores híbridos. Un contratista puede acceder a las aplicaciones corporativas desde su propio dispositivo sin que los datos residan en él, y el acceso puede revocarse fácilmente al terminar el contrato.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20440,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué componente de Azure Virtual Desktop se muestra en el diagrama del módulo como punto central de conexión de los usuarios?",
+    "options": [
+      "Azure Load Balancer",
+      "Un grupo de hosts (host pool) al que los usuarios se conectan a través de Microsoft Entra ID",
+      "Una red virtual privada (VPN) de punto a sitio",
+      "Azure Firewall que filtra las conexiones entrantes"
+    ],
+    "correctAnswer": "Un grupo de hosts (host pool) al que los usuarios se conectan a través de Microsoft Entra ID",
+    "explaination": "El diagrama del módulo muestra usuarios que se conectan a través de Microsoft Entra ID a un grupo de hosts (host pool). El host pool es la colección de máquinas virtuales que ejecutan las sesiones de escritorio y aplicaciones en Azure Virtual Desktop.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20441,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué diferencia fundamental existe entre Azure Virtual Desktop y una solución tradicional de Escritorio remoto (RDS) on-premises?",
+    "options": [
+      "Azure Virtual Desktop solo admite Windows 10, mientras que RDS soporta cualquier versión de Windows",
+      "En Azure Virtual Desktop la infraestructura está en la nube y es administrada por Microsoft, mientras que RDS on-premises requiere que la organización gestione sus propios servidores",
+      "Azure Virtual Desktop no permite acceso desde Internet, solo desde redes privadas",
+      "RDS es más seguro porque los datos nunca salen del centro de datos de la organización"
+    ],
+    "correctAnswer": "En Azure Virtual Desktop la infraestructura está en la nube y es administrada por Microsoft, mientras que RDS on-premises requiere que la organización gestione sus propios servidores",
+    "explaination": "La diferencia fundamental es que Azure Virtual Desktop es un servicio administrado en la nube donde Microsoft gestiona la infraestructura subyacente. Una solución RDS tradicional on-premises requiere que la organización compre, instale, configure y mantenga sus propios servidores de Servicios de Escritorio remoto.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20442,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué significa que Azure Virtual Desktop sea una solución de 'escritorio estandarizado hospedado en la nube'?",
+    "options": [
+      "Que todos los usuarios reciben exactamente el mismo hardware virtual sin posibilidad de personalización",
+      "Que los escritorios se configuran de forma uniforme en la nube, garantizando las mismas herramientas, políticas y controles para todos los usuarios que lo usan",
+      "Que el escritorio está preconfigurado con todas las aplicaciones del mercado instaladas por defecto",
+      "Que Microsoft elige la configuración del escritorio sin intervención del administrador de TI"
+    ],
+    "correctAnswer": "Que los escritorios se configuran de forma uniforme en la nube, garantizando las mismas herramientas, políticas y controles para todos los usuarios que lo usan",
+    "explaination": "Un escritorio estandarizado hospedado en la nube significa que los administradores configuran de forma uniforme los entornos de escritorio en Azure, garantizando que todos los usuarios que acceden a ese pool tengan las mismas herramientas disponibles, las mismas directivas de acceso aplicadas y los mismos controles de seguridad, independientemente del dispositivo desde el que se conecten.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20443,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Por qué Azure Virtual Desktop es beneficioso para organizaciones con trabajadores híbridos?",
+    "options": [
+      "Porque permite a los trabajadores híbridos instalar cualquier software sin restricciones corporativas",
+      "Porque garantiza que los trabajadores híbridos tengan acceso seguro y consistente a sus aplicaciones y escritorios tanto desde la oficina como desde casa u otras ubicaciones",
+      "Porque elimina la necesidad de conexión a Internet para los trabajadores en la oficina",
+      "Porque reduce el consumo de energía en los equipos físicos de la oficina al apagarse automáticamente"
+    ],
+    "correctAnswer": "Porque garantiza que los trabajadores híbridos tengan acceso seguro y consistente a sus aplicaciones y escritorios tanto desde la oficina como desde casa u otras ubicaciones",
+    "explaination": "Para los trabajadores híbridos, Azure Virtual Desktop garantiza una experiencia consistente y segura independientemente de dónde trabajen. Al estar los escritorios y aplicaciones en la nube, el trabajador accede al mismo entorno desde la oficina, desde casa o desde cualquier otro lugar.",
+    "difficulty": "easy"
+  },
+  {
+    "id": 20444,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué característica de Azure Virtual Desktop lo hace más seguro que dar acceso VPN directo a los recursos corporativos?",
+    "options": [
+      "Azure Virtual Desktop no usa ningún tipo de cifrado en las comunicaciones",
+      "Las aplicaciones y los datos permanecen en sesiones en Azure y no se transfieren al dispositivo local del usuario",
+      "Azure Virtual Desktop permite acceso solo desde dispositivos con Windows 11 actualizados",
+      "Solo los administradores con rol de Propietario en Azure pueden conectarse al servicio"
+    ],
+    "correctAnswer": "Las aplicaciones y los datos permanecen en sesiones en Azure y no se transfieren al dispositivo local del usuario",
+    "explaination": "Una ventaja de seguridad clave frente a VPN es que con Azure Virtual Desktop las aplicaciones y los datos permanecen en sesiones hospedadas en Azure, sin transferirse al dispositivo local. Con VPN, los datos pueden descargarse al dispositivo del usuario, aumentando el riesgo de exposición.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20445,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué aspecto de la administración se simplifica especialmente cuando se usa Azure Virtual Desktop con múltiples turnos de trabajo?",
+    "options": [
+      "La gestión del hardware de los equipos físicos de cada turno",
+      "La garantía de que cada turno usa las mismas herramientas, directivas y controles de seguridad en escritorios estandarizados",
+      "La sincronización de archivos personales de cada empleado entre turnos",
+      "La programación de los horarios de inicio y fin de turno de los empleados"
+    ],
+    "correctAnswer": "La garantía de que cada turno usa las mismas herramientas, directivas y controles de seguridad en escritorios estandarizados",
+    "explaination": "En un escenario de múltiples turnos, Azure Virtual Desktop simplifica la administración al garantizar que cada turno acceda a los mismos escritorios estandarizados hospedados en la nube, con las mismas herramientas, directivas de acceso y controles de seguridad, sin necesidad de configurar equipos físicos para cada turno.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20446,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál de los siguientes puntos NO es un punto clave de Azure Virtual Desktop según el módulo de Microsoft Learn?",
+    "options": [
+      "Centraliza la entrega de aplicaciones y de escritorio en Azure",
+      "Se integra con Microsoft Entra ID para controles de identidad y acceso",
+      "Proporciona almacenamiento ilimitado de archivos para cada sesión de usuario",
+      "Admite experiencias de Windows de sesión única y de varias sesiones"
+    ],
+    "correctAnswer": "Proporciona almacenamiento ilimitado de archivos para cada sesión de usuario",
+    "explaination": "Los puntos clave del módulo son: centralizar la entrega de aplicaciones y escritorio en Azure con integración de Microsoft Entra ID, reducir la exposición de datos en dispositivos locales, y admitir experiencias de sesión única y varias sesiones. El almacenamiento ilimitado de archivos no se menciona como punto clave del servicio.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20447,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Qué tipo de experiencia de Windows es más adecuada para usuarios que requieren entornos completamente aislados y personalizados en Azure Virtual Desktop?",
+    "options": [
+      "Experiencia de varias sesiones, para compartir recursos de forma eficiente",
+      "Experiencia de sesión única, donde cada usuario tiene su propia máquina virtual dedicada",
+      "Experiencia de sesión compartida con particiones de memoria fijas por usuario",
+      "Experiencia de contenedor, donde cada aplicación se ejecuta en su propio entorno aislado"
+    ],
+    "correctAnswer": "Experiencia de sesión única, donde cada usuario tiene su propia máquina virtual dedicada",
+    "explaination": "La experiencia de sesión única es más adecuada para usuarios que requieren entornos completamente aislados y personalizados, ya que cada usuario tiene su propia máquina virtual dedicada. Esto proporciona mayor aislamiento y permite personalización completa del entorno, a costa de un mayor uso de recursos.",
+    "difficulty": "medium"
+  },
+  {
+    "id": 20448,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿A qué hace referencia el término 'grupo de hosts' (host pool) en el diagrama de Azure Virtual Desktop?",
+    "options": [
+      "Un grupo de administradores que gestionan el servicio de escritorio virtual",
+      "La colección de máquinas virtuales en Azure que ejecutan las sesiones de escritorio y aplicaciones",
+      "Un conjunto de dispositivos cliente autorizados para conectarse al servicio",
+      "El grupo de reglas de firewall que protegen las conexiones de escritorio remoto"
+    ],
+    "correctAnswer": "La colección de máquinas virtuales en Azure que ejecutan las sesiones de escritorio y aplicaciones",
+    "explaination": "El diagrama del módulo muestra usuarios conectándose a través de Microsoft Entra ID a un grupo de hosts (host pool). El host pool es la colección de máquinas virtuales en Azure que ejecutan las sesiones de escritorio virtual y aplicaciones a las que los usuarios se conectan remotamente.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20449,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál es la principal ventaja de Azure Virtual Desktop frente a soluciones VDI (Virtual Desktop Infrastructure) tradicionales administradas por la propia organización?",
+    "options": [
+      "Azure Virtual Desktop es completamente gratuito para todas las organizaciones",
+      "Al ser un servicio administrado en la nube, reduce la carga de gestionar y mantener la infraestructura subyacente de VDI",
+      "Azure Virtual Desktop solo requiere conexión a Internet de 1 Mbps para funcionar correctamente",
+      "Permite acceder a escritorios sin necesidad de autenticación para mayor agilidad"
+    ],
+    "correctAnswer": "Al ser un servicio administrado en la nube, reduce la carga de gestionar y mantener la infraestructura subyacente de VDI",
+    "explaination": "La ventaja principal frente a VDI tradicional es que Azure Virtual Desktop es un servicio administrado, lo que significa que Microsoft gestiona la infraestructura subyacente (servidores, red, disponibilidad del servicio). La organización no necesita comprar ni mantener hardware de VDI ni gestionar la plataforma.",
+    "difficulty": "hard"
+  },
+  {
+    "id": 20450,
+    "categoryId": "azure-management-infrastructure",
+    "text": "¿Cuál de las siguientes afirmaciones resume mejor los tres puntos clave de Azure Virtual Desktop según el módulo de Microsoft Learn?",
+    "options": [
+      "Es un servicio de pago por uso, solo disponible para empresas Fortune 500, con soporte técnico 24/7",
+      "Centraliza la entrega de escritorios y apps con Entra ID, reduce exposición de datos en dispositivos locales y admite sesión única y múltiple",
+      "Es una solución gratuita de código abierto, sin integración de identidad, orientada a pequeñas empresas",
+      "Solo admite sesiones de un único usuario, requiere Windows 11 y no se integra con Active Directory"
+    ],
+    "correctAnswer": "Centraliza la entrega de escritorios y apps con Entra ID, reduce exposición de datos en dispositivos locales y admite sesión única y múltiple",
+    "explaination": "Los tres puntos clave del módulo son: (1) centraliza la entrega de aplicaciones y escritorio en Azure con integración de Microsoft Entra ID para controles de identidad y acceso; (2) ayuda a reducir la exposición de datos en dispositivos locales al mantener aplicaciones y datos en sesiones hospedadas en Azure; y (3) admite experiencias de Windows de sesión única y de varias sesiones según las necesidades.",
+    "difficulty": "medium"
+  }
+]; 
+
+// ─────────────────────────────────────────────
+// azure functions (20450-20480)
+// ─────────────────────────────────────────────
+export const azureFunctionsQuestions: Question[] = [
+  
+];
+
+// ─────────────────────────────────────────────
+// azure service ias (20450-20480)
+// ─────────────────────────────────────────────
+export const azureServiceIAQuestions: Question[] = [
+  
+]

@@ -17,6 +17,7 @@ import {
   AlertCircle,
   Brain,
   CheckCircle2,
+  Eye,
 } from "lucide-react";
 import { useQuizStore } from "@/lib/store/quiz.store";
 import { useSRStore } from "@/lib/store/sr.store";
@@ -229,6 +230,14 @@ export function ExamMenu() {
           <p className="text-slate-500 dark:text-slate-400 mt-1 text-sm">
             Practica y simula el examen de certificación
           </p>
+          <button
+            type="button"
+            onClick={() => router.push("/browse")}
+            className="mt-3 flex items-center justify-center gap-1.5 py-2 px-4 rounded-xl border border-teal-200 dark:border-teal-800/60 bg-teal-50/50 dark:bg-teal-900/20 text-teal-700 dark:text-teal-400 text-xs font-semibold hover:bg-teal-100/60 dark:hover:bg-teal-900/30 transition-colors"
+          >
+            <Eye size={13} />
+            Banco de preguntas
+          </button>
         </div>
 
         {/* Config card */}

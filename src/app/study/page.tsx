@@ -1,9 +1,9 @@
-import { StudyMenu } from "@/components/quiz/StudyMenu";
+import { LearningPath } from "@/components/quiz/LearningPath";
 
 export default function StudyPage() {
   return (
     <main>
-      <StudyMenu />
+      <LearningPath />
     </main>
   );
 }

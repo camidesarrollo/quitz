@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, Eye, ChevronLeft, CheckCircle2, Search, X } from "lucide-react";
-import { getAllQuestions, getQuestionsByCategory, getCategoryCount } from "@/lib/repositories/QuestionRepository";
+import { getAllQuestions } from "@/lib/repositories/QuestionRepository";
+import { useQuizStore } from "@/lib/store/quiz.store";
 import { cn } from "@/lib/utils";
 import { AZ900 } from "@/data/courses";
 import type { Question } from "@/types/quiz";
@@ -15,19 +16,6 @@ const COURSE = AZ900;
 
 type Filter = "all" | string;
 
-const FILTER_OPTIONS: { value: Filter; label: string; count: number }[] = [
-  {
-    value: "all",
-    label: "Todas",
-    count: COURSE.categories.reduce((s, c) => s + getCategoryCount(c.id), 0),
-  },
-  ...COURSE.categories.map((c) => ({
-    value: c.id,
-    label: c.name,
-    count: getCategoryCount(c.id),
-  })),
-];
-
 function isCorrectOption(q: Question, option: string): boolean {
   if (q.correctAnswers && q.correctAnswers.length > 0) {
     return q.correctAnswers.includes(option);
@@ -37,13 +25,43 @@ function isCorrectOption(q: Question, option: string): boolean {
 
 export function BrowseView() {
   const router = useRouter();
+  const { history } = useQuizStore();
   const [filter, setFilter] = useState<Filter>("all");
   const [search, setSearch] = useState("");
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
   const [direction, setDirection] = useState<1 | -1>(1);
 
-  const baseQuestions = filter === "all" ? getAllQuestions() : getQuestionsByCategory(filter);
+  const answeredIds = useMemo(() => {
+    const ids = new Set<number>();
+    for (const session of history) {
+      for (const idxStr of Object.keys(session.answers)) {
+        const q = session.questions[parseInt(idxStr, 10)];
+        if (q) ids.add(q.id);
+      }
+    }
+    return ids;
+  }, [history]);
+
+  const allAnswered = useMemo(
+    () => getAllQuestions().filter((q) => answeredIds.has(q.id)),
+    [answeredIds]
+  );
+
+  const filterOptions = useMemo(
+    () => [
+      { value: "all" as Filter, label: "Todas", count: allAnswered.length },
+      ...COURSE.categories.map((c) => ({
+        value: c.id,
+        label: c.name,
+        count: allAnswered.filter((q) => q.categoryId === c.id).length,
+      })),
+    ],
+    [allAnswered]
+  );
+
+  const baseQuestions =
+    filter === "all" ? allAnswered : allAnswered.filter((q) => q.categoryId === filter);
   const query = search.trim().toLowerCase();
   const questions = query
     ? baseQuestions.filter(
@@ -104,8 +122,8 @@ export function BrowseView() {
       <div className="flex items-center gap-3 mb-6">
         <button
           type="button"
-          onClick={() => router.push("/")}
-          title="Volver al menú"
+          onClick={() => router.push("/exam")}
+          title="Volver al examen"
           className="w-9 h-9 rounded-xl border-2 border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-500 hover:border-slate-300 dark:hover:border-slate-600 transition-colors shrink-0"
         >
           <ChevronLeft size={18} />
@@ -115,69 +133,83 @@ export function BrowseView() {
             Banco de preguntas
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Solo lectura · revelá la respuesta cuando quieras
+            Preguntas ya respondidas · revelá la respuesta cuando quieras
           </p>
         </div>
       </div>
 
-      {/* Category filter pills */}
-      <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
-        {FILTER_OPTIONS.map(({ value, label, count }) => (
-          <button
-            key={value}
-            type="button"
-            onClick={() => handleFilter(value)}
-            className={cn(
-              "shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors border",
-              filter === value
-                ? "bg-teal-600 border-teal-600 text-white"
-                : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600 bg-white dark:bg-slate-900"
-            )}
-          >
-            {label}
-            <span
-              className={cn(
-                "ml-1.5 font-normal",
-                filter === value ? "text-teal-200" : "text-slate-400 dark:text-slate-500"
-              )}
-            >
-              {count}
-            </span>
-          </button>
-        ))}
-      </div>
-
-      {/* Search */}
-      <div className="relative mb-4">
-        <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none" />
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Buscar por texto u opciones…"
-          className="w-full pl-8 pr-8 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-300 dark:focus:ring-teal-700 focus:border-transparent transition-colors"
-        />
-        {search && (
-          <button
-            type="button"
-            onClick={() => handleSearch("")}
-            title="Limpiar búsqueda"
-            className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
-          >
-            <X size={13} />
-          </button>
-        )}
-      </div>
-
-      {total === 0 ? (
+      {answeredIds.size === 0 && (
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 text-center mt-2">
-          <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Sin resultados</p>
+          <Eye size={28} className="text-slate-300 dark:text-slate-700 mx-auto mb-3" />
+          <p className="text-sm font-semibold text-slate-500 dark:text-slate-400 mb-1">
+            Aún no respondiste ninguna pregunta
+          </p>
           <p className="text-xs text-slate-400 dark:text-slate-500">
-            Ninguna pregunta coincide con{" "}
-            <span className="font-semibold">"{search}"</span>
+            Completá al menos una sesión de examen para ver las preguntas acá.
           </p>
         </div>
-      ) : (
+      )}
+
+      {answeredIds.size > 0 && (
+        <>
+          {/* Category filter pills */}
+          <div className="flex gap-2 mb-5 overflow-x-auto pb-1">
+            {filterOptions.map(({ value, label, count }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => handleFilter(value)}
+                className={cn(
+                  "shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold transition-colors border",
+                  filter === value
+                    ? "bg-teal-600 border-teal-600 text-white"
+                    : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300 dark:hover:border-slate-600 bg-white dark:bg-slate-900"
+                )}
+              >
+                {label}
+                <span
+                  className={cn(
+                    "ml-1.5 font-normal",
+                    filter === value ? "text-teal-200" : "text-slate-400 dark:text-slate-500"
+                  )}
+                >
+                  {count}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Search */}
+          <div className="relative mb-4">
+            <Search size={13} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500 pointer-events-none" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => handleSearch(e.target.value)}
+              placeholder="Buscar por texto u opciones…"
+              className="w-full pl-8 pr-8 py-2 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-teal-300 dark:focus:ring-teal-700 focus:border-transparent transition-colors"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => handleSearch("")}
+                title="Limpiar búsqueda"
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors"
+              >
+                <X size={13} />
+              </button>
+            )}
+          </div>
+
+          {total === 0 ? (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 text-center mt-2">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-1">Sin resultados</p>
+              <p className="text-xs text-slate-400 dark:text-slate-500">
+                Ninguna pregunta coincide con{" "}
+                <span className="font-semibold">"{search}"</span>
+              </p>
+            </div>
+          ) : (
         <>
           {/* Progress row */}
           <div className="flex items-center gap-3 mb-4">
@@ -324,6 +356,8 @@ export function BrowseView() {
               </span>
             ))}
           </div>
+          </>
+          )}
         </>
       )}
     </div>

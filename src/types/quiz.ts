@@ -45,9 +45,15 @@ export interface Answer {
 }
 
 export type QuizMode = "random" | "sequential" | "spaced-repetition" | "sniper" | "mental-state";
-export type Difficulty = "easy" | "medium" | "hard";
+export type Difficulty = "very-easy" | "easy" | "medium" | "hard";
 export type MentalState = "hot" | "neutral" | "cold";
 export type QuizStatus = "active" | "completed";
+export const DIFFICULTY_XP: Record<Difficulty, number> = {
+  "very-easy": 250,
+  "easy": 500,
+  "medium": 750,
+  "hard": 1000,
+};
 
 export interface SRCard {
   questionId: number;

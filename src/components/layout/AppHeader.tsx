@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Moon, Sun, Home, GraduationCap, BookOpen, UserCircle, Users } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Moon, Sun, Home, GraduationCap, BookOpen, UserCircle, Users, LogIn, LogOut } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import type { User } from "@supabase/supabase-js";
 
 const NAV_LINKS: {
   href: string;
@@ -46,10 +48,23 @@ const NAV_LINKS: {
 
 export function AppHeader() {
   const [dark, setDark] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     setDark(document.documentElement.classList.contains("dark"));
+  }, []);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setUser(data.user));
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   function toggle() {
@@ -61,6 +76,15 @@ export function AppHeader() {
     } catch {}
   }
 
+  async function handleSignOut() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+    router.refresh();
+  }
+
+  const userInitial = user?.email?.[0].toUpperCase() ?? "";
+
   return (
     <header className="sticky top-0 z-10 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm px-4 h-14 flex items-center justify-between">
       <div className="flex items-center gap-6">
@@ -71,8 +95,8 @@ export function AppHeader() {
           Quitz
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden sm:flex items-center gap-1">
+        {/* Desktop nav — hidden on home page (sidebar handles nav there) */}
+        {user && pathname !== "/" && <nav className="hidden sm:flex items-center gap-1">
           {NAV_LINKS.map(({ href, label, icon: Icon, isActive }) => {
             const active = isActive(pathname);
             return (
@@ -91,17 +115,49 @@ export function AppHeader() {
               </Link>
             );
           })}
-        </nav>
+        </nav>}
       </div>
 
-      <button
-        type="button"
-        onClick={toggle}
-        className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-        aria-label="Cambiar tema"
-      >
-        {dark ? <Sun size={16} /> : <Moon size={16} />}
-      </button>
+      <div className="flex items-center gap-2">
+        {/* Theme toggle */}
+        <button
+          type="button"
+          onClick={toggle}
+          className="w-8 h-8 flex items-center justify-center rounded-lg text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          aria-label="Cambiar tema"
+        >
+          {dark ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
+
+        {/* Auth */}
+        {user ? (
+          <div className="flex items-center gap-2">
+            <Link
+              href="/profile"
+              className="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white text-xs font-bold hover:bg-indigo-700 transition-colors"
+              aria-label="Mi perfil"
+            >
+              {userInitial}
+            </Link>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="hidden sm:flex w-8 h-8 items-center justify-center rounded-lg text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              aria-label="Cerrar sesión"
+            >
+              <LogOut size={15} />
+            </button>
+          </div>
+        ) : (
+          <Link
+            href="/auth/login"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            <LogIn size={14} />
+            Ingresar
+          </Link>
+        )}
+      </div>
     </header>
   );
 }

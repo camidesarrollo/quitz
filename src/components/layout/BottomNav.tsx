@@ -1,8 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, GraduationCap, BookOpen, UserCircle, Users } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS: {
@@ -45,9 +47,21 @@ const NAV_ITEMS: {
 
 export function BottomNav() {
   const pathname = usePathname();
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  // Hidden during active quiz to avoid distraction
-  if (/^\/quiz\/[^/]+$/.test(pathname)) return null;
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => setLoggedIn(!!data.user));
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
+      setLoggedIn(!!session?.user);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // Hidden during active quiz or when not logged in
+  if (/^\/quiz\/[^/]+$/.test(pathname) || !loggedIn) return null;
 
   return (
     <nav className="sm:hidden fixed bottom-0 inset-x-0 z-10 bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800">

@@ -22,6 +22,7 @@ export const TERM_CATEGORIES: TermCategory[] = [
   { id: "security", name: "Seguridad e Identidad", icon: "🔐" },
   { id: "governance", name: "Gobernanza y Administración", icon: "📊" },
   { id: "costs", name: "Costos y SLA", icon: "💰" },
+  { id: "performance", name: "Rendimiento", icon: "⚡" },
 ];
 
 export const AZ900_TERMS: TermCard[] = [
@@ -511,5 +512,11 @@ export const AZ900_TERMS: TermCard[] = [
     term: "Pay-as-you-go",
     definition: "Modelo de precios de Azure donde se factura únicamente por los recursos consumidos, sin compromisos previos de uso.",
     categoryId: "costs",
+  },
+   {
+    id: 2079,
+    term: "Content Delivery Network (CDN)",
+    definition: "Servicio que distribuye contenido web a usuarios finales desde servidores ubicados en ubicaciones geográficas estratégicas para mejorar el rendimiento y la disponibilidad.",
+    categoryId: "performance",
   },
 ];
