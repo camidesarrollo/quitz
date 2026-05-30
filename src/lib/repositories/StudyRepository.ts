@@ -53,15 +53,22 @@ export function getStudyQuestionsByIds(ids: number[]): Question[] {
   return allStudyQuestions.filter((q) => idSet.has(q.id));
 }
 
-export function getChapterExamQuestions(categoryIds: string[], count: number): Question[] {
-  const idSet = new Set(categoryIds);
-  const all = allStudyQuestions.filter((q) => idSet.has(q.categoryId ?? ""));
-  const hard = all.filter((q) => q.difficulty === "hard");
-  const pool = hard.length >= count ? hard : all;
-  const arr = [...pool];
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+export function getChapterExamQuestions(categoryIds: string[], countPerCategory: number): Question[] {
+  const result: Question[] = [];
+  for (const catId of categoryIds) {
+    const pool = allStudyQuestions.filter((q) => q.categoryId === catId);
+    const hard = pool.filter((q) => q.difficulty === "hard");
+    const source = hard.length >= countPerCategory ? hard : pool;
+    const arr = [...source];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    result.push(...arr.slice(0, Math.min(countPerCategory, arr.length)));
   }
-  return arr.slice(0, Math.min(count, arr.length));
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
 }

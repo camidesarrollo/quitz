@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 
 const PASS_THRESHOLD = 90;
 const CHAPTER_EXAM_PASS = 100;
-const EXAM_QUESTION_COUNT = 2;
+const EXAM_QUESTIONS_PER_SECTION = 2;
 
 type SectionStatus = "locked" | "available" | "in-progress" | "passed";
 type ReviewStatus = "locked" | "clear" | "available";
@@ -239,7 +239,7 @@ export function LearningPath() {
   function handleStartChapterExam() {
     if (!selectedExamChapter) return;
     const categoryIds = selectedExamChapter.sections.map((s) => s.id);
-    const questions = getChapterExamQuestions(categoryIds, EXAM_QUESTION_COUNT);
+    const questions = getChapterExamQuestions(categoryIds, EXAM_QUESTIONS_PER_SECTION);
     if (questions.length === 0) return;
     clearSession();
     const config: QuizConfig = {
@@ -490,7 +490,7 @@ export function LearningPath() {
                     examStatus === "locked" && "text-slate-300 dark:text-slate-600"
                   )}
                 >
-                  {examStatus === "available" && `${EXAM_QUESTION_COUNT} preg. · Examen`}
+                  {examStatus === "available" && `${chapter.sections.length * EXAM_QUESTIONS_PER_SECTION} preg. · Examen`}
                   {examStatus === "passed" && "Capítulo aprobado"}
                   {examStatus === "locked" && "Examen final"}
                 </span>
@@ -805,7 +805,7 @@ export function LearningPath() {
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
                       {selectedExamStatus === "passed"
                         ? "Ya aprobaste este examen. Podés volver a intentarlo."
-                        : `${EXAM_QUESTION_COUNT} preguntas del capítulo. Necesitás el 100% para avanzar.`}
+                        : `${selectedExamChapter.sections.length * EXAM_QUESTIONS_PER_SECTION} preguntas del capítulo (${EXAM_QUESTIONS_PER_SECTION} difíciles por sección). Necesitás el 100% para avanzar.`}
                     </p>
                   </div>
                   <button
@@ -822,7 +822,7 @@ export function LearningPath() {
               <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-slate-800 border-t border-slate-100 dark:border-slate-800">
                 <div className="py-4 flex flex-col items-center">
                   <span className="text-lg font-bold text-slate-900 dark:text-slate-50">
-                    {EXAM_QUESTION_COUNT}
+                    {selectedExamChapter.sections.length * EXAM_QUESTIONS_PER_SECTION}
                   </span>
                   <span className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                     Preguntas
