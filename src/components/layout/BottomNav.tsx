@@ -64,7 +64,7 @@ export function BottomNav() {
   if (/^\/quiz\/[^/]+$/.test(pathname) || !loggedIn) return null;
 
   return (
-    <nav className="sm:hidden fixed bottom-0 inset-x-0 z-10 bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800">
+    <nav className="sm:hidden fixed bottom-0 inset-x-0 z-30 bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800">
       <div className="flex items-center h-16">
         {NAV_ITEMS.map(({ href, label, icon: Icon, isActive }) => {
           const active = isActive(pathname);

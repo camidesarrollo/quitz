@@ -86,7 +86,7 @@ export function AppHeader() {
   const userInitial = user?.email?.[0].toUpperCase() ?? "";
 
   return (
-    <header className="sticky top-0 z-10 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm px-4 h-14 flex items-center justify-between">
+    <header className="sticky top-0 z-30 border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm px-4 h-14 flex items-center justify-between">
       <div className="flex items-center gap-6">
         <Link
           href="/"
