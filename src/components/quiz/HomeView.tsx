@@ -106,7 +106,7 @@ export function HomeView() {
     return xp;
   }, [history, session]);
   const nextMilestone = (Math.floor(todayXP / 1000) + 1) * 1000;
-  const dailyBarPct = Math.round((todayXP / nextMilestone) * 100);
+  const dailyBarPct = Math.min(99, Math.floor((todayXP / nextMilestone) * 100));
 
   const activeSession = session?.status === "active" ? session : null;
   const answeredCount = activeSession ? Object.keys(activeSession.answers).length : 0;
